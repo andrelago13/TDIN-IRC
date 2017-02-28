@@ -1,0 +1,8 @@
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\bin\Debug\IRC-Server.exe.config
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\bin\Debug\IRC-Server.exe
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\bin\Debug\IRC-Server.pdb
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\bin\Debug\InternetRelayChat.exe
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\bin\Debug\InternetRelayChat.pdb
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\obj\Debug\IRC-Server.csprojResolveAssemblyReference.cache
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\obj\Debug\IRC-Server.exe
+C:\Users\André\git\TDIN-IRC\InternetRelayChat\IRC-Server\obj\Debug\IRC-Server.pdb
