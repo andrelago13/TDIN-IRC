@@ -17,6 +17,8 @@ namespace IRC_Client
 
             ILogin loginService = (ILogin) Activator.GetObject(typeof(ILogin), "tcp://localhost:35994/IRC-Server/Login");
 
+            Console.WriteLine(loginService.Register("", "", ""));
+
             Console.ReadKey();
         }
     }
