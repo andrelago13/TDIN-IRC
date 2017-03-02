@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,14 @@ namespace IRC_Server
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("hi");
+            // Create database
+            if (!Directory.Exists("res/database.sqlite"))
+            {
+                Directory.CreateDirectory("res");
+                SQLiteConnection.CreateFile("res/database.sqlite");
+
+                //TODO: Create database script
+            }
         }
     }
 }
