@@ -1,0 +1,6 @@
+InternetRelayChat/IRC-Client/bin/Debug/**/*.*
+InternetRelayChat/IRC-Common/bin/Debug/**/*.*
+InternetRelayChat/IRC-Server/bin/Debug/**/*.*
+InternetRelayChat/IRC-Client/obj/Debug/**/*.*
+InternetRelayChat/IRC-Common/obj/Debug/**/*.*
+InternetRelayChat/IRC-Server/obj/Debug/**/*.*
