@@ -1,6 +1,0 @@
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\bin\Debug\InternetRelayChat.exe.config
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\obj\Debug\InternetRelayChat.csprojResolveAssemblyReference.cache
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\bin\Debug\InternetRelayChat.exe
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\bin\Debug\InternetRelayChat.pdb
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\obj\Debug\InternetRelayChat.exe
-C:\Users\André\git\TDIN-IRC\InternetRelayChat\InternetRelayChat\obj\Debug\InternetRelayChat.pdb
