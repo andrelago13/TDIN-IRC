@@ -8,5 +8,9 @@ namespace IRC_Client
 {
     class Client
     {
+        public static void Main(string[] args)
+        {
+
+        }
     }
 }
