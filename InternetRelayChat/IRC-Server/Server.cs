@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,10 @@ namespace IRC_Server
 
                 //TODO: Create database script
             }
+
+            // Configure remote objects
+            string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            RemotingConfiguration.Configure(configFile, false);
         }
     }
 }
