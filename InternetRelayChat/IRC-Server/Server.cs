@@ -25,6 +25,7 @@ namespace IRC_Server
             // Configure remote objects
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
+            Console.ReadKey();
         }
     }
 }
