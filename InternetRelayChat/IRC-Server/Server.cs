@@ -8,21 +8,62 @@ namespace IRC_Server
 {
     class Server : MarshalByRefObject, IServer
     {
+        private SQLiteConnection conn;
+
         public Server()
         {
-            SQLiteConnection conn = InitializeDatabase("data", "database.sqlite");
+            conn = InitializeDatabase("data", "database.sqlite");
         }
 
+        // PUBLIC/API METHODS /////////////////////////////////////////////////
+
+        /*
+         * Returns 0 upon success
+         * Error codes:
+         * (-1) - database error
+         * (1) - invalid username
+         * (2) - invalid real name
+         * (3) - invalid password
+         * (4) - username already exists
+         */
         public int Register(string username, string realName, string password)
         {
-            Random rnd = new Random();
-            return rnd.Next(1, 13);
+            if(username.Length < 1)
+            {
+                return 1;
+            }
+
+            if(realName.Length < 1)
+            {
+                return 2;
+            }
+
+            if(password.Length < 1)
+            {
+                return 3;
+            }
+
+            if(DBController.UserExists(conn, username))
+            {
+                return 4;
+            }
+
+            if(!DBController.CreateUser(conn, username, realName, password))
+            {
+                return -1;
+            }
+
+            return 0;
         }
 
-        bool IServer.Login(string username, string password)
+        public bool Login(string username, string password)
         {
-            return true;
+            bool loggedIn = DBController.PasswordMatch(conn, username, password);
+            //TODO: start heartbeat connection with client
+            return loggedIn;
         }
+
+        // PRIVATE METHODS ////////////////////////////////////////////////////
 
         private SQLiteConnection InitializeDatabase(string dbDir, string dbFile)
         {
@@ -32,7 +73,7 @@ namespace IRC_Server
             // Create database
             if (!File.Exists(fullPath))
             {
-                Console.WriteLine(fullPath);
+                Console.WriteLine("Creating database");
                 Directory.CreateDirectory(dbDir);
                 SQLiteConnection.CreateFile(fullPath);
                 needsInitializing = true;
@@ -47,6 +88,8 @@ namespace IRC_Server
                 ConfigureDatabase(conn);
             }
 
+            // Close the connection so that it is only opened upon client requests
+            conn.Close();
             return conn;
         }
 

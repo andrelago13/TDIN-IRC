@@ -27,7 +27,7 @@ namespace IRC_Server
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
 
-            RemotingConfiguration.RegisterWellKnownServiceType(typeof(Server), "Login", WellKnownObjectMode.Singleton);
+            RemotingConfiguration.RegisterWellKnownServiceType(typeof(Server), "Server", WellKnownObjectMode.Singleton);
         }
     }
 }

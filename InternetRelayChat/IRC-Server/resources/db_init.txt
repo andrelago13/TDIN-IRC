@@ -1,1 +1,1 @@
-﻿create table users (nickname varchar(20), realname varchar(40), password varchar(20))
+﻿CREATE TABLE users (nickname VARCHAR(20) PRIMARY KEY, realname VARCHAR(40), password VARCHAR(20))

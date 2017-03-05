@@ -17,9 +17,10 @@ namespace IRC_Client
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
 
-            IServer loginService = (IServer) Activator.GetObject(typeof(IServer), "tcp://localhost:35994/IRC-Server/Login");
+            IServer loginService = (IServer) Activator.GetObject(typeof(IServer), "tcp://localhost:35994/IRC-Server/Server");
 
-            Console.WriteLine(loginService.Register("", "", ""));
+            Console.WriteLine(loginService.Register("admin", "Administrator", "1234"));
+            Console.WriteLine(loginService.Login("admin", "1234"));
 
             Console.WriteLine("Press any key to end.");
             Console.ReadKey();
