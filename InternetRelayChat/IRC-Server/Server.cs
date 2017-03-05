@@ -22,10 +22,17 @@ namespace IRC_Server
                 //TODO: Create database script
             }
 
+            Console.WriteLine("Server started.");
             // Configure remote objects
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
+
+            RemotingConfiguration.RegisterWellKnownServiceType(
+               typeof(Login), "Login",
+               WellKnownObjectMode.Singleton);
+
             Console.ReadKey();
+            Console.WriteLine("Server ended.");
         }
     }
 }

@@ -12,6 +12,8 @@ namespace IRC_Client
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Client started.");
+
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
 
@@ -19,7 +21,9 @@ namespace IRC_Client
 
             Console.WriteLine(loginService.Register("", "", ""));
 
+            Console.WriteLine("Press any key to end.");
             Console.ReadKey();
+            Console.WriteLine("Client ended.");
         }
     }
 }
