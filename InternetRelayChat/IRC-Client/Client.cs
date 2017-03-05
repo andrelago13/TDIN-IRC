@@ -20,10 +20,11 @@ namespace IRC_Client
             IServer loginService = (IServer) Activator.GetObject(typeof(IServer), "tcp://localhost:35994/IRC-Server/Server");
 
             Console.WriteLine(loginService.Register("admin", "Administrator", "1234"));
-            Console.WriteLine(loginService.Login("admin", "1234"));
+            Console.WriteLine(loginService.Login("admin", "1234", "127.0.0.1", 35994));
 
-            Console.WriteLine("Press any key to end.");
+            Console.WriteLine("Press any key to logout.");
             Console.ReadKey();
+            Console.WriteLine(loginService.Logout("admin", "1234"));
             Console.WriteLine("Client ended.");
         }
     }

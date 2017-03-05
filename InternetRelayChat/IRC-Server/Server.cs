@@ -15,7 +15,9 @@ namespace IRC_Server
             conn = InitializeDatabase("data", "database.sqlite");
         }
 
-        // PUBLIC/API METHODS /////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////// PUBLIC/API METHODS //////////////////////////
+        ///////////////////////////////////////////////////////////////////////
 
         /*
          * Returns 0 upon success
@@ -56,14 +58,39 @@ namespace IRC_Server
             return 0;
         }
 
-        public bool Login(string username, string password)
+        /*
+         * Returns false if password doesn't match or an error occurs
+         */
+        public bool Login(string username, string password, string ip, int port)
         {
-            bool loggedIn = DBController.PasswordMatch(conn, username, password);
+            if(!DBController.PasswordMatch(conn, username, password))
+            {
+                return false;
+            }
+
+            bool sessionCreated = DBController.CreateUpdateSession(conn, username, ip, port);
             //TODO: start heartbeat connection with client
-            return loggedIn;
+            return sessionCreated;
         }
 
-        // PRIVATE METHODS ////////////////////////////////////////////////////
+        /*
+         * Returns false if password doesn't match or an error occurs
+         */
+        public bool Logout(string username, string password)
+        {
+            if (!DBController.PasswordMatch(conn, username, password))
+            {
+                return false;
+            }
+
+            bool sessionEnded = DBController.EndSession(conn, username);
+            //TODO: terminate heartbeat connection with client
+            return sessionEnded;
+        }
+
+        ///////////////////////////////////////////////////////////////////////
+        ///////////////////////// PRIVATE METHODS /////////////////////////////
+        ///////////////////////////////////////////////////////////////////////
 
         private SQLiteConnection InitializeDatabase(string dbDir, string dbFile)
         {
@@ -105,6 +132,7 @@ namespace IRC_Server
                 SQLiteCommand command = new SQLiteCommand(line, conn);
                 command.ExecuteNonQuery();
             }
+            textStreamReader.Close();
         }
 
         private void TerminateDatabase(SQLiteConnection conn)
