@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRC_Common
 {
-    public interface ILogin
+    public interface IServer
     {
         bool Login(string username, string password);
 

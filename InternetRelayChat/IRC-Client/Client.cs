@@ -17,7 +17,7 @@ namespace IRC_Client
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
 
-            ILogin loginService = (ILogin) Activator.GetObject(typeof(ILogin), "tcp://localhost:35994/IRC-Server/Login");
+            IServer loginService = (IServer) Activator.GetObject(typeof(IServer), "tcp://localhost:35994/IRC-Server/Login");
 
             Console.WriteLine(loginService.Register("", "", ""));
 
