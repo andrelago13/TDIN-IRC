@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client
 {
@@ -14,12 +15,13 @@ namespace IRC_Client
         public static void Main(string[] args)
         {
             Client c = new Client();
-            c.run();
+            //c.Run();
+            c.LaunchGUI();
         }
 
         public Client() { }
 
-        public void run()
+        public void Run()
         {
             Console.WriteLine("Client started.");
 
@@ -44,6 +46,13 @@ namespace IRC_Client
             Console.ReadKey();
             Console.WriteLine(loginService.Logout("admin", "1234"));
             Console.WriteLine("Client ended.");
+        }
+
+        public void LaunchGUI()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginForm());
         }
         
         public void HandleSessionUpdate(SessionUpdateArgs info)
