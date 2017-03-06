@@ -41,7 +41,6 @@
             this.userList.Name = "userList";
             this.userList.Size = new System.Drawing.Size(214, 212);
             this.userList.TabIndex = 0;
-            this.userList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.userList_MouseDoubleClick);
             // 
             // welcomeLabel
             // 

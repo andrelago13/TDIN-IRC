@@ -28,11 +28,9 @@ namespace IRC_Client
             string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             RemotingConfiguration.Configure(configFile, false);
 
-            IServer server = (IServer)Activator.GetObject(typeof(IServer), "tcp://localhost:35994/IRC-Server/Server");
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm(server));
+            Application.Run(new LoginForm());
         }
         
         public void HandleSessionUpdate(SessionUpdateArgs info)

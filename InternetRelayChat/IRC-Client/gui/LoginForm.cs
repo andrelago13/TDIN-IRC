@@ -13,16 +13,20 @@ namespace IRC_Client.GUI
 {
     public partial class LoginForm : Form
     {
-        private IServer server;
+        private IServer server = null;
 
-        public LoginForm(IServer server)
+        public LoginForm()
         {
-            this.server = server;
             InitializeComponent();
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            if(server == null)
+            {
+                InitServer();
+            }
+
             try
             {
                 bool login = server.Login(nicknameText.Text, passwordText.Text, "", 0);
@@ -44,16 +48,27 @@ namespace IRC_Client.GUI
             }
             MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
             mf.ShowDialog();
+            Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (server == null)
+            {
+                InitServer();
+            }
+
             RegisterForm rf = new RegisterForm(server);
             rf.ShowDialog();
         }
 
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (server == null)
+            {
+                return;
+            }
+
             try
             {
                 server.Logout(nicknameText.Text, passwordText.Text);
@@ -61,6 +76,11 @@ namespace IRC_Client.GUI
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void InitServer()
+        {
+            server = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + serverAddrText.Text + ":" + serverPortText.Text + "/IRC-Server/Server");
         }
     }
 }

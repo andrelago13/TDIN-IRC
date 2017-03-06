@@ -47,12 +47,6 @@ namespace IRC_Client.GUI
             userList.DataSource = values;
         }
 
-        private void userList_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int val = userList.SelectedIndex;
-            Console.WriteLine(val);
-        }
-
         private void inviteButton_Click(object sender, EventArgs e)
         {
             int val = userList.SelectedIndex;

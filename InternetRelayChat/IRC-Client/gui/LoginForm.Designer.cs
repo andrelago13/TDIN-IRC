@@ -35,11 +35,15 @@
             this.nicknameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.serverAddrText = new System.Windows.Forms.TextBox();
+            this.serverPortText = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(79, 138);
+            this.loginButton.Location = new System.Drawing.Point(79, 221);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 0;
@@ -49,7 +53,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(192, 138);
+            this.button2.Location = new System.Drawing.Point(192, 221);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -95,7 +99,7 @@
             this.statusLabel.AutoSize = true;
             this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.ForeColor = System.Drawing.Color.Red;
-            this.statusLabel.Location = new System.Drawing.Point(137, 113);
+            this.statusLabel.Location = new System.Drawing.Point(137, 196);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(80, 13);
             this.statusLabel.TabIndex = 6;
@@ -103,11 +107,49 @@
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.statusLabel.Visible = false;
             // 
+            // serverAddrText
+            // 
+            this.serverAddrText.Location = new System.Drawing.Point(151, 118);
+            this.serverAddrText.Name = "serverAddrText";
+            this.serverAddrText.Size = new System.Drawing.Size(142, 20);
+            this.serverAddrText.TabIndex = 7;
+            this.serverAddrText.Text = "localhost";
+            // 
+            // serverPortText
+            // 
+            this.serverPortText.Location = new System.Drawing.Point(151, 159);
+            this.serverPortText.Name = "serverPortText";
+            this.serverPortText.Size = new System.Drawing.Size(142, 20);
+            this.serverPortText.TabIndex = 8;
+            this.serverPortText.Text = "35994";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(61, 121);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Server address :";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(61, 162);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Server port :";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 180);
+            this.ClientSize = new System.Drawing.Size(349, 262);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.serverPortText);
+            this.Controls.Add(this.serverAddrText);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.nicknameText);
@@ -132,5 +174,9 @@
         private System.Windows.Forms.TextBox nicknameText;
         private System.Windows.Forms.TextBox passwordText;
         private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.TextBox serverAddrText;
+        private System.Windows.Forms.TextBox serverPortText;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
