@@ -1,4 +1,4 @@
-﻿namespace IRC_Client
+﻿namespace IRC_Client.GUI
 {
     partial class LoginForm
     {
@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.loginButton = new System.Windows.Forms.Button();
-            this.nicknameText = new System.Windows.Forms.TextBox();
-            this.passwordText = new System.Windows.Forms.TextBox();
-            this.registerButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.nicknameText = new System.Windows.Forms.TextBox();
+            this.passwordText = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(60, 125);
+            this.loginButton.Location = new System.Drawing.Point(79, 138);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 0;
@@ -46,62 +46,63 @@
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // nicknameText
+            // button2
             // 
-            this.nicknameText.Location = new System.Drawing.Point(93, 23);
-            this.nicknameText.Name = "nicknameText";
-            this.nicknameText.Size = new System.Drawing.Size(173, 20);
-            this.nicknameText.TabIndex = 1;
-            // 
-            // passwordText
-            // 
-            this.passwordText.Location = new System.Drawing.Point(93, 67);
-            this.passwordText.Name = "passwordText";
-            this.passwordText.PasswordChar = '*';
-            this.passwordText.Size = new System.Drawing.Size(173, 20);
-            this.passwordText.TabIndex = 2;
-            // 
-            // registerButton
-            // 
-            this.registerButton.Location = new System.Drawing.Point(171, 125);
-            this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(75, 23);
-            this.registerButton.TabIndex = 3;
-            this.registerButton.Text = "Register";
-            this.registerButton.UseVisualStyleBackColor = true;
-            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
+            this.button2.Location = new System.Drawing.Point(192, 138);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Register";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 26);
+            this.label1.Location = new System.Drawing.Point(61, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 2;
             this.label1.Text = "Nickname :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 70);
+            this.label2.Location = new System.Drawing.Point(61, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Password :";
+            // 
+            // nicknameText
+            // 
+            this.nicknameText.Location = new System.Drawing.Point(151, 34);
+            this.nicknameText.Name = "nicknameText";
+            this.nicknameText.Size = new System.Drawing.Size(142, 20);
+            this.nicknameText.TabIndex = 4;
+            // 
+            // passwordText
+            // 
+            this.passwordText.Location = new System.Drawing.Point(151, 76);
+            this.passwordText.Name = "passwordText";
+            this.passwordText.PasswordChar = '*';
+            this.passwordText.Size = new System.Drawing.Size(142, 20);
+            this.passwordText.TabIndex = 5;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 171);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.registerButton);
+            this.ClientSize = new System.Drawing.Size(349, 180);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.nicknameText);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.loginButton);
             this.Name = "LoginForm";
-            this.Text = "IRC Login";
+            this.Text = "LoginForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,10 +111,10 @@
         #endregion
 
         private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.TextBox nicknameText;
-        private System.Windows.Forms.TextBox passwordText;
-        private System.Windows.Forms.Button registerButton;
+        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox nicknameText;
+        private System.Windows.Forms.TextBox passwordText;
     }
 }

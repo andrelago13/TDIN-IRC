@@ -13,12 +13,12 @@ namespace IRC_Common
     {
         event SessionUpdateHandler SessionUpdateEvent;
 
-        bool Login(string username, string password, string ip, int port);
+        bool Login(string nickname, string password, string ip, int port);
 
-        int Register(string username, string realName, string password);
+        int Register(string nickname, string realName, string password);
 
-        bool Logout(string username, string password);
+        bool Logout(string nickname, string password);
 
-        List<LoggedUserInfo> LoggedUsers(string username);
+        List<LoggedUserInfo> LoggedUsers(string nickname);
     }
 }

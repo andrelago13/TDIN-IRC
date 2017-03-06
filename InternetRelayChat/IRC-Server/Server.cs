@@ -26,14 +26,14 @@ namespace IRC_Server
          * Returns 0 upon success
          * Error codes:
          * (-1) - database error
-         * (1) - invalid username
+         * (1) - invalid nickname
          * (2) - invalid real name
          * (3) - invalid password
-         * (4) - username already exists
+         * (4) - nickname already exists
          */
-        public int Register(string username, string realName, string password)
+        public int Register(string nickname, string realName, string password)
         {
-            if(username.Length < 1)
+            if(nickname.Length < 1)
             {
                 return 1;
             }
@@ -48,12 +48,12 @@ namespace IRC_Server
                 return 3;
             }
 
-            if(DBController.UserExists(conn, username))
+            if(DBController.UserExists(conn, nickname))
             {
                 return 4;
             }
 
-            if(!DBController.CreateUser(conn, username, realName, password))
+            if(!DBController.CreateUser(conn, nickname, realName, password))
             {
                 return -1;
             }
@@ -64,14 +64,14 @@ namespace IRC_Server
         /*
          * Returns false if password doesn't match or an error occurs
          */
-        public bool Login(string username, string password, string ip, int port)
+        public bool Login(string nickname, string password, string ip, int port)
         {
-            if(!DBController.PasswordMatch(conn, username, password))
+            if(!DBController.PasswordMatch(conn, nickname, password))
             {
                 return false;
             }
 
-            bool sessionCreated = DBController.CreateUpdateSession(conn, username, ip, port);
+            bool sessionCreated = DBController.CreateUpdateSession(conn, nickname, ip, port);
             //TODO: start heartbeat connection with client
             return sessionCreated;
         }
@@ -79,14 +79,14 @@ namespace IRC_Server
         /*
          * Returns false if password doesn't match or an error occurs
          */
-        public bool Logout(string username, string password)
+        public bool Logout(string nickname, string password)
         {
-            if (!DBController.PasswordMatch(conn, username, password))
+            if (!DBController.PasswordMatch(conn, nickname, password))
             {
                 return false;
             }
 
-            bool sessionEnded = DBController.EndSession(conn, username);
+            bool sessionEnded = DBController.EndSession(conn, nickname);
             //TODO: terminate heartbeat connection with client
             return sessionEnded;
         }
