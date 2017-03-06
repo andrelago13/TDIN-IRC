@@ -1,5 +1,6 @@
 ﻿using IRC_Common;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
@@ -9,6 +10,8 @@ namespace IRC_Server
     class Server : MarshalByRefObject, IServer
     {
         private SQLiteConnection conn;
+
+        public event SessionUpdateHandler SessionUpdateEvent;
 
         public Server()
         {
@@ -86,6 +89,11 @@ namespace IRC_Server
             bool sessionEnded = DBController.EndSession(conn, username);
             //TODO: terminate heartbeat connection with client
             return sessionEnded;
+        }
+
+        public List<LoggedUserInfo> LoggedUsers(string nickname)
+        {
+            return DBController.LoggedUsers(conn, nickname);
         }
 
         ///////////////////////////////////////////////////////////////////////

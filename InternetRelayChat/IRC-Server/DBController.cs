@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IRC_Common;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -110,6 +112,35 @@ namespace IRC_Server
             conn.Close();
 
             return result > 0;
+        }
+
+        public static List<LoggedUserInfo> LoggedUsers(SQLiteConnection conn, string askingNickname)
+        {
+            List<LoggedUserInfo> result = new List<LoggedUserInfo>();
+
+            SQLiteCommand command = new SQLiteCommand(null, conn);
+            command.CommandText = "SELECT sessions.nickname, users.realname, sessions.ip, sessions.port " +
+                "FROM sessions INNER JOIN users ON sessions.nickname = users.nickname WHERE NOT sessions.nickname = @nick";
+
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, askingNickname.Length);
+            nickParam.Value = askingNickname;
+
+            command.Parameters.Add(nickParam);
+
+            command.Prepare();
+            conn.Open();
+            using (SQLiteDataReader r = command.ExecuteReader())
+            {
+                while (r.Read())
+                {
+                    result.Add(new LoggedUserInfo(r.GetString(0), r.GetString(1), r.GetString(2), r.GetInt32(3)));
+                }
+
+                r.Close();
+            }
+            conn.Close();
+
+            return result;
         }
     }
 }
