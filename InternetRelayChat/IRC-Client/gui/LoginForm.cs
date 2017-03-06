@@ -23,7 +23,27 @@ namespace IRC_Client.GUI
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(server.Login(nicknameText.Text, passwordText.Text, "", 0));
+            try
+            {
+                bool login = server.Login(nicknameText.Text, passwordText.Text, "", 0);
+
+                if (login)
+                {
+                    statusLabel.Visible = false;
+                }
+                else
+                {
+                    statusLabel.Text = "Invalid login.";
+                    statusLabel.Visible = true;
+                }
+            } catch (Exception ex)
+            {
+                statusLabel.Text = "Unable to reach server.";
+                statusLabel.Visible = true;
+                Console.WriteLine(ex.ToString());
+            }
+            MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+            mf.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -34,7 +54,13 @@ namespace IRC_Client.GUI
 
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            server.Logout(nicknameText.Text, passwordText.Text);
+            try
+            {
+                server.Logout(nicknameText.Text, passwordText.Text);
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

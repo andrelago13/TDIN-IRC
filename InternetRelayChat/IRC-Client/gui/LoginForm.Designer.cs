@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nicknameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // loginButton
@@ -89,11 +90,25 @@
             this.passwordText.Size = new System.Drawing.Size(142, 20);
             this.passwordText.TabIndex = 5;
             // 
+            // statusLabel
+            // 
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.ForeColor = System.Drawing.Color.Red;
+            this.statusLabel.Location = new System.Drawing.Point(137, 113);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(80, 13);
+            this.statusLabel.TabIndex = 6;
+            this.statusLabel.Text = "Invalid login!";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.statusLabel.Visible = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(349, 180);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.nicknameText);
             this.Controls.Add(this.label2);
@@ -116,5 +131,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox nicknameText;
         private System.Windows.Forms.TextBox passwordText;
+        private System.Windows.Forms.Label statusLabel;
     }
 }

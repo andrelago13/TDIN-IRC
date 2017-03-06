@@ -46,6 +46,12 @@
     <Compile Include="GUI\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
