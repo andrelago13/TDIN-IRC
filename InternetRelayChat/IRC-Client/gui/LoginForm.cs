@@ -47,8 +47,9 @@ namespace IRC_Client.GUI
                 Console.WriteLine(ex.ToString());
             }
             MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+            Hide();
             mf.ShowDialog();
-            Close();
+            Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
