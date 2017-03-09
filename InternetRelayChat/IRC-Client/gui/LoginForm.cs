@@ -34,6 +34,10 @@ namespace IRC_Client.GUI
                 if (login)
                 {
                     statusLabel.Visible = false;
+                    MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+                    Hide();
+                    mf.ShowDialog();
+                    Show();
                 }
                 else
                 {
@@ -46,10 +50,6 @@ namespace IRC_Client.GUI
                 statusLabel.Visible = true;
                 Console.WriteLine(ex.ToString());
             }
-            MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
-            Hide();
-            mf.ShowDialog();
-            Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
