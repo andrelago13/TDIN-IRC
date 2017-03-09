@@ -37,9 +37,11 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\Client.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="ClientLauncher.cs" />
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

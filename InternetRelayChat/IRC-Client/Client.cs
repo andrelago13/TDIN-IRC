@@ -1,41 +1,51 @@
-﻿using IRC_Client.GUI;
-using IRC_Common;
+﻿using IRC_Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace IRC_Client
 {
     [Serializable]
     public class Client : MarshalByRefObject, IClient
     {
-        public static void Main(string[] args)
+        private static Client instance;
+
+        public static Client Instance
         {
-            Client c = new Client();
-            c.LaunchGUI();
+            get
+            {
+                if (instance == null)
+                    instance = new Client();
+                return instance;
+            }
         }
 
-        public Client() { }
+        #region Server connection
+        private IServer connection;
 
-        public void LaunchGUI()
+        public string ServerAddress { get; set; }
+
+        public int ServerPort { get; set; }
+
+        public IServer Connection
         {
-            Console.WriteLine("Client started.");
-
-            string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
-            RemotingConfiguration.Configure(configFile, false);
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            get
+            {
+                if(this.connection == null)
+                {
+                    this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
+                }
+                return this.connection;
+            }
         }
-        
+        #endregion
+
         public void HandleSessionUpdate(SessionUpdateArgs info)
         {
 
+        }
+
+        public override object InitializeLifetimeService()
+        {
+            return null;
         }
     }
 }

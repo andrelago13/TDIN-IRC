@@ -28,38 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.loginButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.LoginButton = new System.Windows.Forms.Button();
+            this.RegisterButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.nicknameText = new System.Windows.Forms.TextBox();
             this.passwordText = new System.Windows.Forms.TextBox();
-            this.statusLabel = new System.Windows.Forms.Label();
-            this.serverAddrText = new System.Windows.Forms.TextBox();
-            this.serverPortText = new System.Windows.Forms.TextBox();
+            this.StatusLabel = new System.Windows.Forms.Label();
+            this.ServerAddress = new System.Windows.Forms.TextBox();
+            this.ServerPort = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.clientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // loginButton
+            // LoginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(79, 221);
-            this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(75, 23);
-            this.loginButton.TabIndex = 0;
-            this.loginButton.Text = "Login";
-            this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            this.LoginButton.Location = new System.Drawing.Point(79, 221);
+            this.LoginButton.Name = "LoginButton";
+            this.LoginButton.Size = new System.Drawing.Size(75, 23);
+            this.LoginButton.TabIndex = 0;
+            this.LoginButton.Text = "Login";
+            this.LoginButton.UseVisualStyleBackColor = true;
+            this.LoginButton.Click += new System.EventHandler(this.LoginButtonClick);
             // 
-            // button2
+            // RegisterButton
             // 
-            this.button2.Location = new System.Drawing.Point(192, 221);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Register";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.RegisterButton.Location = new System.Drawing.Point(192, 221);
+            this.RegisterButton.Name = "RegisterButton";
+            this.RegisterButton.Size = new System.Drawing.Size(75, 23);
+            this.RegisterButton.TabIndex = 1;
+            this.RegisterButton.Text = "Register";
+            this.RegisterButton.UseVisualStyleBackColor = true;
+            this.RegisterButton.Click += new System.EventHandler(this.RegisterButtonClick);
             // 
             // label1
             // 
@@ -94,34 +97,38 @@
             this.passwordText.Size = new System.Drawing.Size(142, 20);
             this.passwordText.TabIndex = 5;
             // 
-            // statusLabel
+            // StatusLabel
             // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusLabel.ForeColor = System.Drawing.Color.Red;
-            this.statusLabel.Location = new System.Drawing.Point(137, 196);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(80, 13);
-            this.statusLabel.TabIndex = 6;
-            this.statusLabel.Text = "Invalid login!";
-            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.statusLabel.Visible = false;
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StatusLabel.ForeColor = System.Drawing.Color.Red;
+            this.StatusLabel.Location = new System.Drawing.Point(137, 196);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(80, 13);
+            this.StatusLabel.TabIndex = 6;
+            this.StatusLabel.Text = "Invalid login!";
+            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.StatusLabel.Visible = false;
             // 
-            // serverAddrText
+            // ServerAddress
             // 
-            this.serverAddrText.Location = new System.Drawing.Point(151, 118);
-            this.serverAddrText.Name = "serverAddrText";
-            this.serverAddrText.Size = new System.Drawing.Size(142, 20);
-            this.serverAddrText.TabIndex = 7;
-            this.serverAddrText.Text = "localhost";
+            this.ServerAddress.Location = new System.Drawing.Point(151, 118);
+            this.ServerAddress.Name = "ServerAddress";
+            this.ServerAddress.Size = new System.Drawing.Size(142, 20);
+            this.ServerAddress.TabIndex = 7;
+            this.ServerAddress.Text = "localhost";
+            this.ServerAddress.TextChanged += new System.EventHandler(this.ServerAddressModified);
+            this.ServerAddress.VisibleChanged += new System.EventHandler(this.ServerAddressModified);
             // 
-            // serverPortText
+            // ServerPort
             // 
-            this.serverPortText.Location = new System.Drawing.Point(151, 159);
-            this.serverPortText.Name = "serverPortText";
-            this.serverPortText.Size = new System.Drawing.Size(142, 20);
-            this.serverPortText.TabIndex = 8;
-            this.serverPortText.Text = "35994";
+            this.ServerPort.Location = new System.Drawing.Point(151, 159);
+            this.ServerPort.Name = "ServerPort";
+            this.ServerPort.Size = new System.Drawing.Size(142, 20);
+            this.ServerPort.TabIndex = 8;
+            this.ServerPort.Text = "35994";
+            this.ServerPort.TextChanged += new System.EventHandler(this.ServerPortModified);
+            this.ServerPort.VisibleChanged += new System.EventHandler(this.ServerPortModified);
             // 
             // label3
             // 
@@ -141,6 +148,10 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Server port :";
             // 
+            // clientBindingSource
+            // 
+            this.clientBindingSource.DataSource = typeof(IRC_Client.Client);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,18 +159,19 @@
             this.ClientSize = new System.Drawing.Size(349, 262);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.serverPortText);
-            this.Controls.Add(this.serverAddrText);
-            this.Controls.Add(this.statusLabel);
+            this.Controls.Add(this.ServerPort);
+            this.Controls.Add(this.ServerAddress);
+            this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.nicknameText);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.loginButton);
+            this.Controls.Add(this.RegisterButton);
+            this.Controls.Add(this.LoginButton);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginFormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,16 +179,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Button loginButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button LoginButton;
+        private System.Windows.Forms.Button RegisterButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox nicknameText;
         private System.Windows.Forms.TextBox passwordText;
-        private System.Windows.Forms.Label statusLabel;
-        private System.Windows.Forms.TextBox serverAddrText;
-        private System.Windows.Forms.TextBox serverPortText;
+        private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.TextBox ServerAddress;
+        private System.Windows.Forms.TextBox ServerPort;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.BindingSource clientBindingSource;
     }
 }

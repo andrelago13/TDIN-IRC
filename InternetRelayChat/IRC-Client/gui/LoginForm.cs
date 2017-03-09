@@ -13,75 +13,77 @@ namespace IRC_Client.GUI
 {
     public partial class LoginForm : Form
     {
-        private IServer server = null;
-
         public LoginForm()
         {
             InitializeComponent();
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        #region Input Binding
+        private void ServerPortModified(object sender, EventArgs e)
         {
-            if(server == null)
-            {
-                InitServer();
-            }
+            Client.Instance.ServerPort = int.Parse(ServerPort.Text);
+        }
+
+        private void ServerAddressModified(object sender, EventArgs e)
+        {
+            Client.Instance.ServerAddress = ServerAddress.Text;
+        }
+        #endregion
+
+
+        private void LoginButtonClick(object sender, EventArgs e)
+        {
+            IServer connection = Client.Instance.Connection;
 
             try
             {
-                bool login = server.Login(nicknameText.Text, passwordText.Text, "", 0);
+                bool login = connection.Login(nicknameText.Text, passwordText.Text, "", 0);
 
                 if (login)
                 {
-                    statusLabel.Visible = false;
-                    MainForm mf = new MainForm(server, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+                    StatusLabel.Visible = false;
+                    MainForm mf = new MainForm(connection, new LoggedUserInfo(nicknameText.Text, "", "", 0));
                     Hide();
                     mf.ShowDialog();
                     Show();
                 }
                 else
                 {
-                    statusLabel.Text = "Invalid login.";
-                    statusLabel.Visible = true;
+                    StatusLabel.Text = "Invalid login.";
+                    StatusLabel.Visible = true;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                statusLabel.Text = "Unable to reach server.";
-                statusLabel.Visible = true;
+                StatusLabel.Text = "Unable to reach server.";
+                StatusLabel.Visible = true;
                 Console.WriteLine(ex.ToString());
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RegisterButtonClick(object sender, EventArgs e)
         {
-            if (server == null)
-            {
-                InitServer();
-            }
+            IServer connection = Client.Instance.Connection;
 
-            RegisterForm rf = new RegisterForm(server);
+            RegisterForm rf = new RegisterForm(connection);
             rf.ShowDialog();
         }
 
-        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void LoginFormClosing(object sender, FormClosingEventArgs e)
         {
-            if (server == null)
-            {
+            IServer connection = Client.Instance.Connection;
+            if (connection == null) { 
                 return;
             }
 
             try
             {
-                server.Logout(nicknameText.Text, passwordText.Text);
-            } catch (Exception ex)
+                connection.Logout(nicknameText.Text, passwordText.Text);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-        }
-
-        private void InitServer()
-        {
-            server = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + serverAddrText.Text + ":" + serverPortText.Text + "/IRC-Server/Server");
         }
     }
 }
