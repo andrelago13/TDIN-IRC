@@ -1,4 +1,4 @@
-﻿using IRC_Client.GUI;
+﻿using IRC_Client.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace IRC_Client
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new LoginView());
         }
     }
 }

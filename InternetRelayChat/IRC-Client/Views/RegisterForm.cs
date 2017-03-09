@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IRC_Client.GUI
+namespace IRC_Client.Views
 {
     public partial class RegisterForm : Form
     {

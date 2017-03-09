@@ -9,27 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IRC_Client.GUI
+namespace IRC_Client.Views
 {
-    public partial class LoginForm : Form
+    public partial class LoginView : Form
     {
-        public LoginForm()
+        public LoginView()
         {
             InitializeComponent();
         }
-
-        #region Input Binding
-        private void ServerPortModified(object sender, EventArgs e)
-        {
-            Client.Instance.ServerPort = int.Parse(ServerPort.Text);
-        }
-
-        private void ServerAddressModified(object sender, EventArgs e)
-        {
-            Client.Instance.ServerAddress = ServerAddress.Text;
-        }
-        #endregion
-
 
         private void LoginButtonClick(object sender, EventArgs e)
         {

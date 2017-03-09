@@ -1,4 +1,4 @@
-﻿namespace IRC_Client.GUI
+﻿namespace IRC_Client.Views
 {
     partial class RegisterForm
     {

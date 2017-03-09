@@ -1,6 +1,6 @@
-﻿namespace IRC_Client.GUI
+﻿namespace IRC_Client.Views
 {
-    partial class LoginForm
+    partial class LoginView
     {
         /// <summary>
         /// Required designer variable.
@@ -117,8 +117,6 @@
             this.ServerAddress.Size = new System.Drawing.Size(142, 20);
             this.ServerAddress.TabIndex = 7;
             this.ServerAddress.Text = "localhost";
-            this.ServerAddress.TextChanged += new System.EventHandler(this.ServerAddressModified);
-            this.ServerAddress.VisibleChanged += new System.EventHandler(this.ServerAddressModified);
             // 
             // ServerPort
             // 
@@ -127,8 +125,6 @@
             this.ServerPort.Size = new System.Drawing.Size(142, 20);
             this.ServerPort.TabIndex = 8;
             this.ServerPort.Text = "35994";
-            this.ServerPort.TextChanged += new System.EventHandler(this.ServerPortModified);
-            this.ServerPort.VisibleChanged += new System.EventHandler(this.ServerPortModified);
             // 
             // label3
             // 
