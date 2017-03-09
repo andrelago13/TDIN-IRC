@@ -14,11 +14,11 @@ namespace IRC_Server
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "INSERT INTO users (nickname, realname, password) VALUES (@nick, @name, @pw)";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, nickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = nickname;
-            SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String, realname.Length);
+            SQLiteParameter nameParam = new SQLiteParameter("@name", DbType.String);
             nameParam.Value = realname;
-            SQLiteParameter pwParam = new SQLiteParameter("@pw", DbType.String, password.Length);
+            SQLiteParameter pwParam = new SQLiteParameter("@pw", DbType.String);
             pwParam.Value = password;
 
             command.Parameters.Add(nickParam);
@@ -38,7 +38,7 @@ namespace IRC_Server
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "SELECT COUNT(nickname) FROM users WHERE nickname = @nick";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, nickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = nickname;
 
             command.Parameters.Add(nickParam);
@@ -56,9 +56,9 @@ namespace IRC_Server
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "SELECT COUNT(nickname) FROM users WHERE nickname = @nick AND password = @pw";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, nickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = nickname;
-            SQLiteParameter pwParam = new SQLiteParameter("@pw", DbType.String, nickname.Length);
+            SQLiteParameter pwParam = new SQLiteParameter("@pw", DbType.String);
             pwParam.Value = password;
 
             command.Parameters.Add(nickParam);
@@ -77,9 +77,9 @@ namespace IRC_Server
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "INSERT OR REPLACE INTO sessions (nickname, ip, port) VALUES (@nick, @ip, @port)";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, nickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = nickname;
-            SQLiteParameter ipParam = new SQLiteParameter("@ip", DbType.String, ip.Length);
+            SQLiteParameter ipParam = new SQLiteParameter("@ip", DbType.String);
             ipParam.Value = ip;
             SQLiteParameter portParam = new SQLiteParameter("@port", DbType.Int32);
             portParam.Value = port;
@@ -101,7 +101,7 @@ namespace IRC_Server
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "DELETE FROM sessions WHERE nickname = @nick";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, nickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = nickname;
 
             command.Parameters.Add(nickParam);
@@ -122,7 +122,7 @@ namespace IRC_Server
             command.CommandText = "SELECT sessions.nickname, users.realname, sessions.ip, sessions.port " +
                 "FROM sessions INNER JOIN users ON sessions.nickname = users.nickname WHERE NOT sessions.nickname = @nick";
 
-            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String, askingNickname.Length);
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
             nickParam.Value = askingNickname;
 
             command.Parameters.Add(nickParam);
