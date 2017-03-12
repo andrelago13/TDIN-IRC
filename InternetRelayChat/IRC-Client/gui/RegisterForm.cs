@@ -15,9 +15,9 @@ namespace IRC_Client.GUI
     {
         private IServer server;
 
-        public RegisterForm(IServer server)
+        public RegisterForm()
         {
-            this.server = server;
+            this.server = Client.Instance.Connection;
             InitializeComponent();
         }
 

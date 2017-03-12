@@ -18,10 +18,10 @@ namespace IRC_Client.GUI
 
         private List<LoggedUserInfo> users;
 
-        public MainForm(IServer server, LoggedUserInfo userInfo)
+        public MainForm()
         {
-            this.server = server;
-            this.userInfo = userInfo;
+            this.server = Client.Instance.Connection;
+            this.userInfo = Client.Instance.LoggedUser;
             InitializeComponent();
         }
 

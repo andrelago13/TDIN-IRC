@@ -18,6 +18,17 @@ namespace IRC_Client
             }
         }
 
+        private LoggedUserInfo myUser;
+        private EventSubscriber sessionSubscriber;
+
+        public LoggedUserInfo LoggedUser
+        {
+            get
+            {
+                return myUser;
+            }
+        }
+
         #region Server connection
         private IServer connection;
 
@@ -32,6 +43,7 @@ namespace IRC_Client
                 if(this.connection == null)
                 {
                     this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
+                    sessionSubscriber = new EventSubscriber(this, EventSubscriber.EventType.SESSION_UPDATE);
                 }
                 return this.connection;
             }
@@ -40,12 +52,34 @@ namespace IRC_Client
 
         public void HandleSessionUpdate(SessionUpdateArgs info)
         {
-
+            Console.WriteLine("Session: " + info.Username);
         }
 
         public override object InitializeLifetimeService()
         {
             return null;
+        }
+
+        public bool Login(string nick, string password)
+        {
+            //TODO: assign ip and port of connector
+            bool result = connection.Login(nick, password, "", 0);
+
+            if(result)
+            {
+                myUser = new LoggedUserInfo(nick, null, null, 0);
+            }
+
+            return result;
+        }
+
+        public bool MaybeLogout(string password)
+        {
+            if(connection != null && myUser != null)
+            {
+                return connection.Logout(myUser.Nickname, password);
+            }
+            return false;
         }
     }
 }

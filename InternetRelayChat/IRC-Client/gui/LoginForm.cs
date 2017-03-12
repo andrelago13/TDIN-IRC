@@ -37,12 +37,12 @@ namespace IRC_Client.GUI
 
             try
             {
-                bool login = connection.Login(nicknameText.Text, passwordText.Text, "", 0);
+                bool login = Client.Instance.Login(nicknameText.Text, passwordText.Text);
 
                 if (login)
                 {
                     StatusLabel.Visible = false;
-                    MainForm mf = new MainForm(connection, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+                    MainForm mf = new MainForm();
                     Hide();
                     mf.ShowDialog();
                     Show();
@@ -63,22 +63,19 @@ namespace IRC_Client.GUI
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {
-            IServer connection = Client.Instance.Connection;
-
-            RegisterForm rf = new RegisterForm(connection);
+            RegisterForm rf = new RegisterForm();
             rf.ShowDialog();
         }
 
         private void LoginFormClosing(object sender, FormClosingEventArgs e)
         {
-            IServer connection = Client.Instance.Connection;
-            if (connection == null) { 
+            if (Client.Instance.Connection == null) { 
                 return;
             }
 
             try
             {
-                connection.Logout(nicknameText.Text, passwordText.Text);
+                Client.Instance.MaybeLogout(passwordText.Text);
             }
             catch (Exception ex)
             {
