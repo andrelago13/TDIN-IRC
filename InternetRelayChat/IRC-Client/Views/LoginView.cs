@@ -1,5 +1,7 @@
 ﻿using IRC_Client.ViewModels;
 using IRC_Common;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +14,17 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    public partial class LoginView : Form
+    public partial class LoginView : MaterialForm
     {
         public LoginView()
         {
             this.InitializeComponent();
             this.LoginViewBindingSource.Add(LoginViewModel.Instance);
+
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
         private void LoginButtonClick(object sender, EventArgs e)
@@ -50,12 +57,6 @@ namespace IRC_Client.Views
             }
         }
 
-        private void RegisterButtonClick(object sender, EventArgs e)
-        {
-            RegisterForm rf = new RegisterForm();
-            rf.ShowDialog();
-        }
-
         private void LoginFormClosing(object sender, FormClosingEventArgs e)
         {
             if (Client.Instance.Connection == null) { 
@@ -70,6 +71,12 @@ namespace IRC_Client.Views
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void RegisterButtonClick(object sender, EventArgs e)
+        {
+            RegisterForm rf = new RegisterForm();
+            rf.ShowDialog();
         }
     }
 }

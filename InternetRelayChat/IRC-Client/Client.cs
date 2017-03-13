@@ -42,7 +42,7 @@ namespace IRC_Client
             {
                 if(this.connection == null)
                 {
-                    this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
+                    //this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
                     sessionSubscriber = new SessionsEventSubscriber(this);
                 }
                 return this.connection;
