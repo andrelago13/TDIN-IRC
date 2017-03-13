@@ -10,7 +10,7 @@ namespace IRC_Client.ViewModels
 {
     class LoginViewModel : INotifyPropertyChanged
     {
-        private Login _Model;
+        private Login _Model = new Login();
 
         public string Nickname
         {

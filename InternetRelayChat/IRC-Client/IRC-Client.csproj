@@ -38,6 +38,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Properties\DataSources\Client.datasource" />
+    <None Include="Properties\DataSources\IRC_Client.ViewModels.LoginViewModel.datasource" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />

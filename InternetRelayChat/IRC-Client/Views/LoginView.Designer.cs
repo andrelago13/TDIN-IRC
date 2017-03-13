@@ -41,7 +41,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.clientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.loginViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // LoginButton
@@ -148,7 +150,11 @@
             // 
             this.clientBindingSource.DataSource = typeof(IRC_Client.Client);
             // 
-            // LoginForm
+            // loginViewModelBindingSource
+            // 
+            this.loginViewModelBindingSource.DataSource = typeof(IRC_Client.ViewModels.LoginViewModel);
+            // 
+            // LoginView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,10 +170,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RegisterButton);
             this.Controls.Add(this.LoginButton);
-            this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Name = "LoginView";
+            this.Text = "Login";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginFormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loginViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,5 +194,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.BindingSource clientBindingSource;
+        private System.Windows.Forms.BindingSource loginViewModelBindingSource;
     }
 }

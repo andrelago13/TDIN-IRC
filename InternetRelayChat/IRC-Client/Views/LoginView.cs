@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.ViewModels;
+using IRC_Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,16 @@ namespace IRC_Client.Views
         public LoginView()
         {
             InitializeComponent();
+            this.loginViewModelBindingSource.DataSource = new LoginViewModel();
+            this.InitializeDataBindings();
+        }
+
+        private void InitializeDataBindings()
+        {
+            this.nicknameText.DataBindings.Add("Text", this.loginViewModelBindingSource, "Nickname", true);
+            this.passwordText.DataBindings.Add("Text", this.loginViewModelBindingSource, "Password", true);
+            this.ServerAddress.DataBindings.Add("Text", this.loginViewModelBindingSource, "ServerAddress", true);
+            this.ServerPort.DataBindings.Add("Text", this.loginViewModelBindingSource, "ServerPort", true);
         }
 
         private void LoginButtonClick(object sender, EventArgs e)

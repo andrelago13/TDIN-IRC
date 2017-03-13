@@ -12,8 +12,8 @@ namespace IRC_Client.Models
 
         public string Password { get; set; }
 
-        public string ServerAddress { get; set; }
+        public string ServerAddress { get; set; } = "localhost";
 
-        public int ServerPort { get; set; }
+        public int ServerPort { get; set; } = 35994;
     }
 }
