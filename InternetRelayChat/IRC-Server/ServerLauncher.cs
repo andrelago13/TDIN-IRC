@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,11 +25,10 @@ namespace IRC_Server
 
         private static void SetupServer()
         {
-            // Configure remote objects
-            string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
-            RemotingConfiguration.Configure(configFile, false);
+            ChannelServices.RegisterChannel(new TcpChannel(35994), false);
 
-            RemotingServices.Marshal(new Server(), "Server");
+            RemotingConfiguration.RegisterWellKnownServiceType(new Server().GetType(),
+                "IRC-Server/Server", WellKnownObjectMode.Singleton);
         }
     }
 }

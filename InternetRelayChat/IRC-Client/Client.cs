@@ -20,7 +20,6 @@ namespace IRC_Client
         }
 
         private LoggedUserInfo myUser;
-        private SessionsEventSubscriber sessionSubscriber;
 
         public LoggedUserInfo LoggedUser
         {
@@ -44,7 +43,6 @@ namespace IRC_Client
                 if(this.connection == null)
                 {
                     connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + LoginViewModel.Instance.ServerAddress + ":" + LoginViewModel.Instance.ServerPort + "/IRC-Server/Server");
-                    sessionSubscriber = new SessionsEventSubscriber(this);
                 }
                 return this.connection;
             }
@@ -64,7 +62,6 @@ namespace IRC_Client
             if(result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
-                Connection.SessionUpdateEvent += sessionSubscriber.Handler;
             }
 
             return result;
@@ -78,7 +75,6 @@ namespace IRC_Client
                 if(result)
                 {
                     myUser = null;
-                    connection.SessionUpdateEvent -= sessionSubscriber.Handler;
                 }
                 return result;
             }

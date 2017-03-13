@@ -64,7 +64,14 @@ namespace IRC_Client.Views
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Client.Instance.MaybeLogout(LoginViewModel.Instance.Password);
+            try
+            {
+                Client.Instance.MaybeLogout(LoginViewModel.Instance.Password);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

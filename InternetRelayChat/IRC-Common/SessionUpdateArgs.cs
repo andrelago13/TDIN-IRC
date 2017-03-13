@@ -19,6 +19,13 @@ namespace IRC_Common
             Username = user;
             IP = ip;
             Port = port;
+            LoggedIn = true;
+        }
+
+        public SessionUpdateArgs(string user)
+        {
+            Username = user;
+            LoggedIn = false;
         }
     }
 }

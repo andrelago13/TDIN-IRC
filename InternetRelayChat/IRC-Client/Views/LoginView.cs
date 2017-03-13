@@ -22,8 +22,8 @@ namespace IRC_Client.Views
 
         private void LoginButtonClick(object sender, EventArgs e)
         {            
-            try
-            {
+            /*try
+            {*/
                 bool login = Client.Instance.Login(NicknameInput.Text, PasswordInput.Text);
 
                 if (login)
@@ -39,13 +39,13 @@ namespace IRC_Client.Views
                     StatusLabel.Text = "Invalid login.";
                     StatusLabel.Visible = true;
                 }
-            }
+            /*}
             catch (Exception ex)
             {
                 StatusLabel.Text = "Unable to reach server.";
                 StatusLabel.Visible = true;
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
         }
 
         private void RegisterButtonClick(object sender, EventArgs e)
