@@ -16,17 +16,8 @@ namespace IRC_Client.Views
     {
         public LoginView()
         {
-            InitializeComponent();
-            this.loginViewModelBindingSource.DataSource = new LoginViewModel();
-            this.InitializeDataBindings();
-        }
-
-        private void InitializeDataBindings()
-        {
-            this.nicknameText.DataBindings.Add("Text", this.loginViewModelBindingSource, "Nickname", true);
-            this.passwordText.DataBindings.Add("Text", this.loginViewModelBindingSource, "Password", true);
-            this.ServerAddress.DataBindings.Add("Text", this.loginViewModelBindingSource, "ServerAddress", true);
-            this.ServerPort.DataBindings.Add("Text", this.loginViewModelBindingSource, "ServerPort", true);
+            this.InitializeComponent();
+            this.LoginViewBindingSource.Add(LoginViewModel.Instance);
         }
 
         private void LoginButtonClick(object sender, EventArgs e)
@@ -35,12 +26,12 @@ namespace IRC_Client.Views
 
             try
             {
-                bool login = connection.Login(nicknameText.Text, passwordText.Text, "", 0);
+                bool login = connection.Login(NicknameInput.Text, PasswordInput.Text, "", 0);
 
                 if (login)
                 {
                     StatusLabel.Visible = false;
-                    MainForm mf = new MainForm(connection, new LoggedUserInfo(nicknameText.Text, "", "", 0));
+                    MainForm mf = new MainForm(connection, new LoggedUserInfo(NicknameInput.Text, "", "", 0));
                     Hide();
                     mf.ShowDialog();
                     Show();
@@ -76,7 +67,7 @@ namespace IRC_Client.Views
 
             try
             {
-                connection.Logout(nicknameText.Text, passwordText.Text);
+                connection.Logout(NicknameInput.Text, PasswordInput.Text);
             }
             catch (Exception ex)
             {

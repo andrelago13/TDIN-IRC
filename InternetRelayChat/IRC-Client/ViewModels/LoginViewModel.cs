@@ -4,25 +4,46 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IRC_Client.ViewModels
 {
     class LoginViewModel : INotifyPropertyChanged
     {
-        private Login _Model = new Login();
+        private static LoginViewModel instance;
+
+        public static LoginViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new LoginViewModel();
+                return instance;
+            }
+        }
+
+        private Login _model;
+
+        private LoginViewModel()
+        {
+            _model = new Login();
+        }
 
         public string Nickname
         {
             get
             {
-                return _Model.Nickname;
+                return _model.Nickname;
             }
 
             set
             {
-                _Model.Nickname = value;
-                this.NotifyPropertyChanged("Nickname");
+                if(_model.Nickname != value)
+                {
+                    _model.Nickname = value;
+                    this.NotifyPropertyChanged(nameof(Nickname));
+                }
             }
         }
 
@@ -30,13 +51,13 @@ namespace IRC_Client.ViewModels
         {
             get
             {
-                return _Model.Password;
+                return _model.Password;
             }
 
             set
             {
-                _Model.Password = value;
-                this.NotifyPropertyChanged("Password");
+                _model.Password = value;
+                this.NotifyPropertyChanged(nameof(Password));
             }
         }
 
@@ -44,13 +65,13 @@ namespace IRC_Client.ViewModels
         {
             get
             {
-                return _Model.ServerAddress;
+                return _model.ServerAddress;
             }
 
             set
             {
-                _Model.ServerAddress = value;
-                this.NotifyPropertyChanged("ServerAddress");
+                _model.ServerAddress = value;
+                this.NotifyPropertyChanged(nameof(ServerAddress));
             }
         }
 
@@ -58,17 +79,17 @@ namespace IRC_Client.ViewModels
         {
             get
             {
-                return _Model.ServerPort;
+                return _model.ServerPort;
             }
 
             set
             {
-                _Model.ServerPort = value;
-                this.NotifyPropertyChanged("ServerPort");
+                _model.ServerPort = value;
+                this.NotifyPropertyChanged(nameof(ServerPort));
             }
         }
 
-        //Implementing INotifyPropertyChanged
+        #region Property Change
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -78,5 +99,6 @@ namespace IRC_Client.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+        #endregion
     }
 }
