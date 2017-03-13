@@ -60,5 +60,10 @@ namespace IRC_Client.GUI
             values.Add(info.Username + " [" + "+" + "]");
             userList.DataSource = values;
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Client.Instance.MaybeLogout("");
+        }
     }
 }

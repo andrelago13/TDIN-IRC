@@ -142,5 +142,20 @@ namespace IRC_Server
 
             return result;
         }
+
+        public static void TruncateSessions(SQLiteConnection conn)
+        {
+            SQLiteCommand command1 = new SQLiteCommand(null, conn);
+            command1.CommandText = "DELETE FROM sessions";
+            SQLiteCommand command2 = new SQLiteCommand(null, conn);
+            command2.CommandText = "VACUUM";
+
+            command1.Prepare();
+            command2.Prepare();
+            conn.Open();
+            command1.ExecuteNonQuery();
+            command2.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }

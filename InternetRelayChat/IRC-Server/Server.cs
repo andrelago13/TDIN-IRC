@@ -129,6 +129,7 @@ namespace IRC_Server
 
             // Close the connection so that it is only opened upon client requests
             conn.Close();
+            DBController.TruncateSessions(conn);
             return conn;
         }
 
