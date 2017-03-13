@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.ViewModels;
+using IRC_Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,35 +10,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IRC_Client.GUI
+namespace IRC_Client.Views
 {
-    public partial class LoginForm : Form
+    public partial class LoginView : Form
     {
-        public LoginForm()
+        public LoginView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            this.LoginViewBindingSource.Add(LoginViewModel.Instance);
         }
-
-        #region Input Binding
-        private void ServerPortModified(object sender, EventArgs e)
-        {
-            Client.Instance.ServerPort = int.Parse(ServerPort.Text);
-        }
-
-        private void ServerAddressModified(object sender, EventArgs e)
-        {
-            Client.Instance.ServerAddress = ServerAddress.Text;
-        }
-        #endregion
-
 
         private void LoginButtonClick(object sender, EventArgs e)
         {
             IServer connection = Client.Instance.Connection;
-
-            /*try
-            {*/
-                bool login = Client.Instance.Login(nicknameText.Text, passwordText.Text);
+            
+            try
+            {
+                bool login = connection.Login(NicknameInput.Text, PasswordInput.Text, "", 0);
 
                 if (login)
                 {
@@ -52,13 +41,13 @@ namespace IRC_Client.GUI
                     StatusLabel.Text = "Invalid login.";
                     StatusLabel.Visible = true;
                 }
-           /* }
+            }
             catch (Exception ex)
             {
                 StatusLabel.Text = "Unable to reach server.";
                 StatusLabel.Visible = true;
                 Console.WriteLine(ex.ToString());
-            }*/
+            }
         }
 
         private void RegisterButtonClick(object sender, EventArgs e)
@@ -75,7 +64,7 @@ namespace IRC_Client.GUI
 
             try
             {
-                Client.Instance.MaybeLogout(passwordText.Text);
+                Client.Instance.MaybeLogout("");
             }
             catch (Exception ex)
             {
