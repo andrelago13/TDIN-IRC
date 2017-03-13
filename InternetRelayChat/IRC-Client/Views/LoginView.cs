@@ -21,12 +21,10 @@ namespace IRC_Client.Views
         }
 
         private void LoginButtonClick(object sender, EventArgs e)
-        {
-            IServer connection = Client.Instance.Connection;
-            
+        {            
             try
             {
-                bool login = connection.Login(NicknameInput.Text, PasswordInput.Text, "", 0);
+                bool login = Client.Instance.Login(NicknameInput.Text, PasswordInput.Text);
 
                 if (login)
                 {
@@ -64,7 +62,7 @@ namespace IRC_Client.Views
 
             try
             {
-                Client.Instance.MaybeLogout("");
+                Client.Instance.MaybeLogout(LoginViewModel.Instance.Password);
             }
             catch (Exception ex)
             {

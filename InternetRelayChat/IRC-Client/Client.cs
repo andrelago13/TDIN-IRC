@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.ViewModels;
+using IRC_Common;
 using System;
 
 namespace IRC_Client
@@ -42,7 +43,7 @@ namespace IRC_Client
             {
                 if(this.connection == null)
                 {
-                    this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
+                    connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + LoginViewModel.Instance.ServerAddress + ":" + LoginViewModel.Instance.ServerPort + "/IRC-Server/Server");
                     sessionSubscriber = new SessionsEventSubscriber(this);
                 }
                 return this.connection;
@@ -58,12 +59,12 @@ namespace IRC_Client
         public bool Login(string nick, string password)
         {
             //TODO: assign ip and port of connector
-            bool result = connection.Login(nick, password, "", 0);
+            bool result = Connection.Login(nick, password, "", 0);
 
             if(result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
-                connection.SessionUpdateEvent += sessionSubscriber.Handler;
+                Connection.SessionUpdateEvent += sessionSubscriber.Handler;
             }
 
             return result;

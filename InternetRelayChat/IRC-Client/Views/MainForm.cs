@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.ViewModels;
+using IRC_Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,7 +64,7 @@ namespace IRC_Client.Views
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Client.Instance.MaybeLogout("");
+            Client.Instance.MaybeLogout(LoginViewModel.Instance.Password);
         }
     }
 }
