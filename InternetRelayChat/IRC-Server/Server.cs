@@ -72,7 +72,11 @@ namespace IRC_Server
             }
 
             bool sessionCreated = DBController.CreateUpdateSession(conn, nickname, ip, port);
-            //TODO: start heartbeat connection with client
+            if(sessionCreated)
+            {
+                //TODO: start heartbeat connection with client
+                SessionUpdateEvent?.Invoke(new SessionUpdateArgs(nickname, ip, port));
+            }
             return sessionCreated;
         }
 

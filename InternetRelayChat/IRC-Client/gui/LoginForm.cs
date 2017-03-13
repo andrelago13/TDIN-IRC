@@ -35,8 +35,8 @@ namespace IRC_Client.GUI
         {
             IServer connection = Client.Instance.Connection;
 
-            try
-            {
+            /*try
+            {*/
                 bool login = Client.Instance.Login(nicknameText.Text, passwordText.Text);
 
                 if (login)
@@ -52,13 +52,13 @@ namespace IRC_Client.GUI
                     StatusLabel.Text = "Invalid login.";
                     StatusLabel.Visible = true;
                 }
-            }
+           /* }
             catch (Exception ex)
             {
                 StatusLabel.Text = "Unable to reach server.";
                 StatusLabel.Visible = true;
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
         }
 
         private void RegisterButtonClick(object sender, EventArgs e)

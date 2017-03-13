@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace IRC_Common
 {
-    public interface IClient
+    public abstract class IClient : MarshalByRefObject
     {
-        void HandleSessionUpdate(SessionUpdateArgs info);
+        public event SessionUpdateHandler sessionsEvent;
+
+        public void HandleSession(SessionUpdateArgs info)
+        {
+            if(sessionsEvent != null)
+            {
+                sessionsEvent(info);
+            }
+        }
     }
 }

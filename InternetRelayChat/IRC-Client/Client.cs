@@ -4,7 +4,7 @@ using System;
 namespace IRC_Client
 {
     [Serializable]
-    public class Client : MarshalByRefObject, IClient
+    public class Client : IClient
     {
         private static Client instance;
 
@@ -19,7 +19,7 @@ namespace IRC_Client
         }
 
         private LoggedUserInfo myUser;
-        private EventSubscriber sessionSubscriber;
+        private SessionsEventSubscriber sessionSubscriber;
 
         public LoggedUserInfo LoggedUser
         {
@@ -43,17 +43,12 @@ namespace IRC_Client
                 if(this.connection == null)
                 {
                     this.connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + this.ServerAddress + ":" + this.ServerPort + "/IRC-Server/Server");
-                    sessionSubscriber = new EventSubscriber(this, EventSubscriber.EventType.SESSION_UPDATE);
+                    sessionSubscriber = new SessionsEventSubscriber(this);
                 }
                 return this.connection;
             }
         }
         #endregion
-
-        public void HandleSessionUpdate(SessionUpdateArgs info)
-        {
-            Console.WriteLine("Session: " + info.Username);
-        }
 
         public override object InitializeLifetimeService()
         {
@@ -68,6 +63,7 @@ namespace IRC_Client
             if(result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
+                connection.SessionUpdateEvent += sessionSubscriber.Handler;
             }
 
             return result;
@@ -77,7 +73,13 @@ namespace IRC_Client
         {
             if(connection != null && myUser != null)
             {
-                return connection.Logout(myUser.Nickname, password);
+                bool result = connection.Logout(myUser.Nickname, password);
+                if(result)
+                {
+                    myUser = null;
+                    connection.SessionUpdateEvent -= sessionSubscriber.Handler;
+                }
+                return result;
             }
             return false;
         }

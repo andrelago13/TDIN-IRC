@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRC_Common
 {
+    [Serializable]
     public class SessionUpdateArgs
     {
         public string Username;

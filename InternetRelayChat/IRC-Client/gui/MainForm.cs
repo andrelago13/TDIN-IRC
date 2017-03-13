@@ -23,6 +23,7 @@ namespace IRC_Client.GUI
             this.server = Client.Instance.Connection;
             this.userInfo = Client.Instance.LoggedUser;
             InitializeComponent();
+            Client.Instance.sessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -51,6 +52,13 @@ namespace IRC_Client.GUI
         {
             int val = userList.SelectedIndex;
             Console.WriteLine(val);
+        }
+
+        private void HandleSession(SessionUpdateArgs info)
+        {
+            List<string> values = new List<string>();
+            values.Add(info.Username + " [" + "+" + "]");
+            userList.DataSource = values;
         }
     }
 }
