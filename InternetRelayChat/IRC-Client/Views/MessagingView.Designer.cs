@@ -1,6 +1,6 @@
 ﻿namespace IRC_Client.Views
 {
-    partial class MainForm
+    partial class MessagingView
     {
         /// <summary>
         /// Required designer variable.

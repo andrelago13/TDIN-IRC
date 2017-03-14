@@ -4,16 +4,16 @@ using System;
 namespace IRC_Client
 {
     [Serializable]
-    public class Client : IClient
+    public class ClientBk : IClient
     {
-        private static Client instance;
+        private static ClientBk instance;
 
-        public static Client Instance
+        public static ClientBk Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new Client();
+                    instance = new ClientBk();
                 return instance;
             }
         }

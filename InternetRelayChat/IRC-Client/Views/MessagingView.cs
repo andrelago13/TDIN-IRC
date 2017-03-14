@@ -11,19 +11,19 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    public partial class MainForm : Form
+    public partial class MessagingView : Form
     {
         private IServer server;
         private LoggedUserInfo userInfo;
 
         private List<LoggedUserInfo> users;
 
-        public MainForm()
+        public MessagingView()
         {
-            this.server = Client.Instance.Connection;
-            this.userInfo = Client.Instance.LoggedUser;
+            this.server = ClientBk.Instance.Connection;
+            this.userInfo = ClientBk.Instance.LoggedUser;
             InitializeComponent();
-            Client.Instance.sessionsEvent += new SessionUpdateHandler(HandleSession);
+            ClientBk.Instance.sessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -63,7 +63,7 @@ namespace IRC_Client.Views
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Client.Instance.MaybeLogout("");
+            ClientBk.Instance.MaybeLogout("");
         }
     }
 }

@@ -14,12 +14,12 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    public partial class LoginView : MaterialForm
+    public partial class MainView : MaterialForm
     {
-        public LoginView()
+        public MainView()
         {
             this.InitializeComponent();
-            this.LoginViewBindingSource.Add(LoginViewModel.Instance);
+            this.LoginViewBindingSource.Add(MainViewModel.Instance);
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -29,7 +29,7 @@ namespace IRC_Client.Views
 
         private void LoginButtonClick(object sender, EventArgs e)
         {
-            IServer connection = Client.Instance.Connection;
+            IServer connection = ClientBk.Instance.Connection;
             
             try
             {
@@ -37,35 +37,32 @@ namespace IRC_Client.Views
 
                 if (login)
                 {
-                    StatusLabel.Visible = false;
-                    MainForm mf = new MainForm();
+                    MessagingView mf = new MessagingView();
                     Hide();
                     mf.ShowDialog();
                     Show();
                 }
                 else
                 {
-                    StatusLabel.Text = "Invalid login.";
-                    StatusLabel.Visible = true;
+                    MainViewModel.Instance.Status = "Invalid login credentials.";
                 }
             }
             catch (Exception ex)
             {
-                StatusLabel.Text = "Unable to reach server.";
-                StatusLabel.Visible = true;
+                MainViewModel.Instance.Status = "Failed to login. Unable to reach server.";
                 Console.WriteLine(ex.ToString());
             }
         }
 
         private void LoginFormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Client.Instance.Connection == null) { 
+            if (ClientBk.Instance.Connection == null) { 
                 return;
             }
 
             try
             {
-                Client.Instance.MaybeLogout("");
+                ClientBk.Instance.MaybeLogout("");
             }
             catch (Exception ex)
             {
@@ -75,7 +72,7 @@ namespace IRC_Client.Views
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {
-            IServer connection = Client.Instance.Connection;
+            IServer connection = ClientBk.Instance.Connection;
 
             try
             {
@@ -91,12 +88,11 @@ namespace IRC_Client.Views
                 }
                 string reason;
                 Utils.ErrorCodes.TryGetValue(result, out reason);
-                StatusLabel.Text = reason;
+                MainViewModel.Instance.Status = reason;
             }
             catch (Exception ex)
             {
-                StatusLabel.Text = "Unable to reach server.";
-                StatusLabel.Visible = true;
+                MainViewModel.Instance.Status = "Failed to register. Unable to reach server.";
                 Console.WriteLine(ex.ToString());
             }
         }

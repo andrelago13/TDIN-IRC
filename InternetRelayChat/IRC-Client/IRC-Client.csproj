@@ -41,22 +41,23 @@
     <None Include="Properties\DataSources\IRC_Client.ViewModels.LoginViewModel.datasource" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
+    <Compile Include="ClientBk.cs" />
     <Compile Include="ClientLauncher.cs" />
-    <Compile Include="Views\LoginView.cs">
+    <Compile Include="Models\Connection.cs" />
+    <Compile Include="Views\MainView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\LoginView.Designer.cs">
-      <DependentUpon>LoginView.cs</DependentUpon>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainForm.cs">
+    <Compile Include="Views\MessagingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Views\MessagingView.Designer.cs">
+      <DependentUpon>MessagingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Login.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\Client.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -77,11 +78,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\LoginView.resx">
-      <DependentUpon>LoginView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\MessagingView.resx">
+      <DependentUpon>MessagingView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

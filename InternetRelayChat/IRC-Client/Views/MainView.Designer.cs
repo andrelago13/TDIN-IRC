@@ -1,6 +1,6 @@
 ﻿namespace IRC_Client.Views
 {
-    partial class LoginView
+    partial class MainView
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,7 @@
             this.LoginTab = new System.Windows.Forms.TabPage();
             this.LoginButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ServerAddressInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.LoginViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ServerPortInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.ServerPortLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ServerAddressLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -46,11 +47,10 @@
             this.PasswordInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TabMenuSelector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.LoginViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TabMenu.SuspendLayout();
             this.LoginTab.SuspendLayout();
-            this.RegisterTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).BeginInit();
+            this.RegisterTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabMenu
@@ -112,6 +112,10 @@
             this.ServerAddressInput.Size = new System.Drawing.Size(305, 23);
             this.ServerAddressInput.TabIndex = 15;
             this.ServerAddressInput.UseSystemPasswordChar = false;
+            // 
+            // LoginViewBindingSource
+            // 
+            this.LoginViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
             // 
             // ServerPortInput
             // 
@@ -286,31 +290,27 @@
             // 
             this.StatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.StatusLabel.AutoSize = true;
+            this.StatusLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.LoginViewBindingSource, "Status", true));
             this.StatusLabel.Font = new System.Drawing.Font("Roboto", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusLabel.ForeColor = System.Drawing.Color.Red;
+            this.StatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.StatusLabel.Location = new System.Drawing.Point(5, 505);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(88, 19);
             this.StatusLabel.TabIndex = 24;
             this.StatusLabel.Text = "StatusLabel";
-            this.StatusLabel.Visible = false;
             // 
             // TabMenuSelector
             // 
             this.TabMenuSelector.BaseTabControl = this.TabMenu;
             this.TabMenuSelector.Depth = 0;
-            this.TabMenuSelector.Location = new System.Drawing.Point(-14, 64);
+            this.TabMenuSelector.Location = new System.Drawing.Point(-13, 64);
             this.TabMenuSelector.MouseState = MaterialSkin.MouseState.HOVER;
             this.TabMenuSelector.Name = "TabMenuSelector";
             this.TabMenuSelector.Size = new System.Drawing.Size(625, 36);
             this.TabMenuSelector.TabIndex = 26;
             this.TabMenuSelector.Text = "TabMenuSelector";
             // 
-            // LoginViewBindingSource
-            // 
-            this.LoginViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.LoginViewModel);
-            // 
-            // LoginView
+            // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -323,7 +323,7 @@
             this.Controls.Add(this.NicknameInput);
             this.Controls.Add(this.PasswordInput);
             this.MaximizeBox = false;
-            this.Name = "LoginView";
+            this.Name = "MainView";
             this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Relay Chat";
@@ -332,9 +332,9 @@
             this.TabMenu.ResumeLayout(false);
             this.LoginTab.ResumeLayout(false);
             this.LoginTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).EndInit();
             this.RegisterTab.ResumeLayout(false);
             this.RegisterTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
