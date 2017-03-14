@@ -1,4 +1,5 @@
 ﻿using IRC_Common;
+using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    public partial class MessagingView : Form
+    public partial class MessagingView : MaterialForm
     {
         private IServer server;
         private LoggedUserInfo userInfo;

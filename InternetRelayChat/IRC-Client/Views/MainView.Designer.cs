@@ -33,7 +33,6 @@
             this.LoginTab = new System.Windows.Forms.TabPage();
             this.LoginButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ServerAddressInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.LoginViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ServerPortInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.ServerPortLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ServerAddressLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -47,10 +46,11 @@
             this.PasswordInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TabMenuSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.LoginViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TabMenu.SuspendLayout();
             this.LoginTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).BeginInit();
             this.RegisterTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // TabMenu
@@ -112,10 +112,6 @@
             this.ServerAddressInput.Size = new System.Drawing.Size(305, 23);
             this.ServerAddressInput.TabIndex = 15;
             this.ServerAddressInput.UseSystemPasswordChar = false;
-            // 
-            // LoginViewBindingSource
-            // 
-            this.LoginViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
             // 
             // ServerPortInput
             // 
@@ -207,7 +203,7 @@
             // RealNameInput
             // 
             this.RealNameInput.AccessibleName = "";
-            this.RealNameInput.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.LoginViewBindingSource, "Nickname", true));
+            this.RealNameInput.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.LoginViewBindingSource, "RealName", true));
             this.RealNameInput.Depth = 0;
             this.RealNameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RealNameInput.Hint = "Your real name";
@@ -278,7 +274,7 @@
             this.PasswordInput.Location = new System.Drawing.Point(226, 185);
             this.PasswordInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.PasswordInput.Name = "PasswordInput";
-            this.PasswordInput.PasswordChar = '\0';
+            this.PasswordInput.PasswordChar = '*';
             this.PasswordInput.SelectedText = "";
             this.PasswordInput.SelectionLength = 0;
             this.PasswordInput.SelectionStart = 0;
@@ -310,6 +306,10 @@
             this.TabMenuSelector.TabIndex = 26;
             this.TabMenuSelector.Text = "TabMenuSelector";
             // 
+            // LoginViewBindingSource
+            // 
+            this.LoginViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,9 +332,9 @@
             this.TabMenu.ResumeLayout(false);
             this.LoginTab.ResumeLayout(false);
             this.LoginTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).EndInit();
             this.RegisterTab.ResumeLayout(false);
             this.RegisterTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LoginViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
