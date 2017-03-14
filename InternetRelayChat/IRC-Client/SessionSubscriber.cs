@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.Models;
+using IRC_Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,16 @@ namespace IRC_Client
     [Serializable]
     public class SessionSubscriber : ISessionSubscriber
     {
-        private ClientBk client;
+        public Client Client { get; set; }
 
-        public ClientBk MyClient
+        public SessionSubscriber(Client Client)
         {
-            get
-            {
-                return client;
-            }
-            
-            set
-            {
-                client = value;
-            }
-        }
-
-        public SessionSubscriber(ClientBk c)
-        {
-            client = c;
+            this.Client = Client;
         }
 
         protected override void InternalHandler(SessionUpdateArgs info)
         {
-            client.HandleSession(info);
+            this.Client.HandleSession(info);
         }
     }
 }

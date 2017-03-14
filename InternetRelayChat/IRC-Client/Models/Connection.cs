@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IRC_Client.Models
 {
-    class Connection
+    public class Connection
     {
         public string Address { get; set; } = "localhost";
 
