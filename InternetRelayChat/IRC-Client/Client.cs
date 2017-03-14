@@ -8,6 +8,8 @@ namespace IRC_Client
     [Serializable]
     public class Client : IClient
     {
+        #region singleton
+
         private static Client instance;
 
         public static Client Instance
@@ -20,17 +22,17 @@ namespace IRC_Client
             }
         }
 
-        private LoggedUserInfo myUser;
+        #endregion
 
-        public LoggedUserInfo LoggedUser
-        {
-            get
-            {
-                return myUser;
-            }
-        }
+        #region private_fields
+
+        private LoggedUserInfo myUser;
+        private SessionSubscriber sessionSubscriber;
+
+        #endregion
 
         #region Server connection
+
         private IServer connection;
 
         public string ServerAddress { get; set; }
@@ -41,18 +43,26 @@ namespace IRC_Client
         {
             get
             {
-                if(this.connection == null)
+                if (this.connection == null)
                 {
                     connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + LoginViewModel.Instance.ServerAddress + ":" + LoginViewModel.Instance.ServerPort + "/IRC-Server/Server");
                 }
                 return this.connection;
             }
         }
-        #endregion
 
         public override object InitializeLifetimeService()
         {
             return null;
+        }
+
+        #endregion
+
+        #region public_methods
+
+        public Client()
+        {
+            sessionSubscriber = new SessionSubscriber(this);
         }
 
         public bool Login(string nick, string password)
@@ -60,15 +70,14 @@ namespace IRC_Client
             //TODO: assign ip and port of connector
             bool result = Connection.Login(nick, password, "", 0);
 
-            if(result)
+            if (result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
 
                 RemotingConfiguration.RegisterWellKnownServiceType(typeof(SessionSubscriber),
-                "ServerEvents", WellKnownObjectMode.Singleton);
+                "IRC-Client/ServerEvents", WellKnownObjectMode.Singleton);
 
-                SessionSubscriber sink = new SessionSubscriber();
-                Connection.SessionUpdateEvent += new SessionUpdateHandler(sink.Handle);
+                Connection.SessionUpdateEvent += sessionSubscriber.Handle;
             }
 
             return result;
@@ -76,10 +85,10 @@ namespace IRC_Client
 
         public bool MaybeLogout(string password)
         {
-            if(connection != null && myUser != null)
+            if (connection != null && myUser != null)
             {
                 bool result = connection.Logout(myUser.Nickname, password);
-                if(result)
+                if (result)
                 {
                     myUser = null;
                 }
@@ -87,5 +96,15 @@ namespace IRC_Client
             }
             return false;
         }
+
+        public LoggedUserInfo LoggedUser
+        {
+            get
+            {
+                return myUser;
+            }
+        }
+
+        #endregion
     }
 }

@@ -90,7 +90,7 @@ namespace IRC_Server
             if(sessionCreated)
             {
                 //TODO: start heartbeat connection with client
-                //MyHandler(nickname);
+                MyHandler?.Invoke(nickname);
             }
             return sessionCreated;
         }
