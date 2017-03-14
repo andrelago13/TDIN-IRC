@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Client.cs" />
     <Compile Include="ClientLauncher.cs" />
+    <Compile Include="SessionSubscriber.cs" />
     <Compile Include="Views\LoginView.cs">
       <SubType>Form</SubType>
     </Compile>

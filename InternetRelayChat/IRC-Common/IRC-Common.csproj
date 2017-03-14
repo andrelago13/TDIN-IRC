@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="IClient.cs" />
     <Compile Include="IServer.cs" />
+    <Compile Include="ISessionSubscriber.cs" />
     <Compile Include="SessionUpdateArgs.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

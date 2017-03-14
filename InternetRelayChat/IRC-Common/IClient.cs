@@ -8,14 +8,6 @@ namespace IRC_Common
 {
     public abstract class IClient : MarshalByRefObject
     {
-        public event SessionUpdateHandler sessionsEvent;
-
-        public void HandleSession(SessionUpdateArgs info)
-        {
-            if(sessionsEvent != null)
-            {
-                sessionsEvent(info);
-            }
-        }
+        
     }
 }

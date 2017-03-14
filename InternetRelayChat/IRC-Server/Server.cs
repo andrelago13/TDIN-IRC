@@ -7,11 +7,26 @@ using System.Reflection;
 
 namespace IRC_Server
 {
-    class Server : MarshalByRefObject, IServer
+    class Server : IServer
     {
         private SQLiteConnection conn;
 
-        public event SessionUpdateHandler SessionUpdateEvent;
+        public event SessionUpdateHandler MyHandler;
+
+        public override event SessionUpdateHandler SessionUpdateEvent
+        {
+            add
+            {
+                Console.WriteLine("in event SessionUpdateEvent + add");
+                MyHandler = value;
+            }
+
+            remove
+            {
+                Console.WriteLine("in event SessionUpdateEvent + remove");
+                MyHandler = value;
+            }
+        }
 
         public Server()
         {
@@ -31,7 +46,7 @@ namespace IRC_Server
          * (3) - invalid password
          * (4) - nickname already exists
          */
-        public int Register(string nickname, string realName, string password)
+        public override int Register(string nickname, string realName, string password)
         {
             if(nickname.Length < 1)
             {
@@ -64,7 +79,7 @@ namespace IRC_Server
         /*
          * Returns false if password doesn't match or an error occurs
          */
-        public bool Login(string nickname, string password, string ip, int port)
+        public override bool Login(string nickname, string password, string ip, int port)
         {
             if(!DBController.PasswordMatch(conn, nickname, password))
             {
@@ -75,7 +90,7 @@ namespace IRC_Server
             if(sessionCreated)
             {
                 //TODO: start heartbeat connection with client
-                SessionUpdateEvent?.Invoke(new SessionUpdateArgs(nickname, ip, port));
+                //MyHandler(nickname);
             }
             return sessionCreated;
         }
@@ -83,7 +98,7 @@ namespace IRC_Server
         /*
          * Returns false if password doesn't match or an error occurs
          */
-        public bool Logout(string nickname, string password)
+        public override bool Logout(string nickname, string password)
         {
             if (!DBController.PasswordMatch(conn, nickname, password))
             {
@@ -95,7 +110,7 @@ namespace IRC_Server
             return sessionEnded;
         }
 
-        public List<LoggedUserInfo> LoggedUsers(string nickname)
+        public override List<LoggedUserInfo> LoggedUsers(string nickname)
         {
             return DBController.LoggedUsers(conn, nickname);
         }

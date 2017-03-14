@@ -24,7 +24,6 @@ namespace IRC_Client.Views
             this.server = Client.Instance.Connection;
             this.userInfo = Client.Instance.LoggedUser;
             InitializeComponent();
-            Client.Instance.sessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
         private void MainForm_Load(object sender, EventArgs e)

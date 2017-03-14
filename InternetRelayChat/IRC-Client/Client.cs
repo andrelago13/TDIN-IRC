@@ -1,6 +1,7 @@
 ﻿using IRC_Client.ViewModels;
 using IRC_Common;
 using System;
+using System.Runtime.Remoting;
 
 namespace IRC_Client
 {
@@ -62,6 +63,12 @@ namespace IRC_Client
             if(result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
+
+                RemotingConfiguration.RegisterWellKnownServiceType(typeof(SessionSubscriber),
+                "ServerEvents", WellKnownObjectMode.Singleton);
+
+                SessionSubscriber sink = new SessionSubscriber();
+                Connection.SessionUpdateEvent += new SessionUpdateHandler(sink.Handle);
             }
 
             return result;
