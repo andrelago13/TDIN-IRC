@@ -9,11 +9,11 @@ namespace IRC_Common
     [Serializable]
     public abstract class ISessionSubscriber : MarshalByRefObject
     {
-        public void Handle(string str)
+        public void Handle(SessionUpdateArgs info)
         {
-            InternalHandler(str);
+            InternalHandler(info);
         }
 
-        protected abstract void InternalHandler(string str);
+        protected abstract void InternalHandler(SessionUpdateArgs info);
     }
 }

@@ -52,21 +52,7 @@ namespace IRC_Client.Views
             }
         }
 
-        private void LoginFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (ClientBk.Instance.Connection == null) { 
-                return;
-            }
-
-            try
-            {
-                ClientBk.Instance.MaybeLogout("");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
+        private void LoginFormClosing(object sender, FormClosingEventArgs e) { }
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {

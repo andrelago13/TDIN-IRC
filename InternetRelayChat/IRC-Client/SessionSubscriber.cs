@@ -30,9 +30,9 @@ namespace IRC_Client
             client = c;
         }
 
-        protected override void InternalHandler(string str)
+        protected override void InternalHandler(SessionUpdateArgs info)
         {
-            Console.WriteLine("Your message in callback 2");
+            client.HandleSession(info);
         }
     }
 }

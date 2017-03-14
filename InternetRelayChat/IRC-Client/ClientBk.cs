@@ -60,6 +60,8 @@ namespace IRC_Client
         #endregion
 
         #region public_methods
+        
+        public event SessionUpdateHandler SessionsEvent;
 
         public ClientBk()
         {
@@ -74,21 +76,17 @@ namespace IRC_Client
             if (result)
             {
                 myUser = new LoggedUserInfo(nick, null, null, 0);
-
-                RemotingConfiguration.RegisterWellKnownServiceType(typeof(SessionSubscriber),
-                "IRC-Client/ServerEvents", WellKnownObjectMode.Singleton);
-
                 Connection.SessionUpdateEvent += sessionSubscriber.Handle;
             }
 
             return result;
         }
 
-        public bool MaybeLogout(string password)
+        public bool MaybeLogout()
         {
             if (connection != null && myUser != null)
             {
-                bool result = connection.Logout(myUser.Nickname, password);
+                bool result = connection.Logout(myUser.Nickname, Models.Client.Instance.Password);
                 if (result)
                 {
                     myUser = null;
@@ -103,6 +101,14 @@ namespace IRC_Client
             get
             {
                 return myUser;
+            }
+        }
+
+        public void HandleSession(SessionUpdateArgs info)
+        {
+            if(SessionsEvent != null)
+            {
+                SessionsEvent(info);
             }
         }
 

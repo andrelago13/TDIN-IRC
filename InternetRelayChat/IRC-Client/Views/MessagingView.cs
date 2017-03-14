@@ -31,6 +31,7 @@ namespace IRC_Client.Views
         {
             welcomeLabel.Text = "Logged in as: " + userInfo.Nickname;
             updateList();
+            ClientBk.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -57,16 +58,27 @@ namespace IRC_Client.Views
 
         private void HandleSession(SessionUpdateArgs info)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)delegate {
+                    HandleSession(info);
+                });
+            }
             List<string> values = new List<string>();
             values.Add(info.Username + " [" + "+" + "]");
             userList.DataSource = values;
+        }
+
+        private void update()
+        {
+            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
-                ClientBk.Instance.MaybeLogout(Models.Client.Instance.Password);
+                ClientBk.Instance.MaybeLogout();
             }
             catch (Exception ex)
             {
