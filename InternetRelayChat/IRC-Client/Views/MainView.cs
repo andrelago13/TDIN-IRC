@@ -28,12 +28,10 @@ namespace IRC_Client.Views
         }
 
         private void LoginButtonClick(object sender, EventArgs e)
-        {
-            IServer connection = ClientBk.Instance.Connection;
-            
+        {            
             try
             {
-                bool login = connection.Login(NicknameInput.Text, PasswordInput.Text, "", 0);
+                bool login = ClientBk.Instance.Login(NicknameInput.Text, PasswordInput.Text);
 
                 if (login)
                 {

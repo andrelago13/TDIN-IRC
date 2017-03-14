@@ -66,7 +66,7 @@ namespace IRC_Client.Views
         {
             try
             {
-                ClientBk.Instance.MaybeLogout(LoginViewModel.Instance.Password);
+                ClientBk.Instance.MaybeLogout(Models.Client.Instance.Password);
             }
             catch (Exception ex)
             {

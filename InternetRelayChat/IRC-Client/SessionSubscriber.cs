@@ -10,9 +10,9 @@ namespace IRC_Client
     [Serializable]
     public class SessionSubscriber : ISessionSubscriber
     {
-        private Client client;
+        private ClientBk client;
 
-        public Client MyClient
+        public ClientBk MyClient
         {
             get
             {
@@ -25,7 +25,7 @@ namespace IRC_Client
             }
         }
 
-        public SessionSubscriber(Client c)
+        public SessionSubscriber(ClientBk c)
         {
             client = c;
         }

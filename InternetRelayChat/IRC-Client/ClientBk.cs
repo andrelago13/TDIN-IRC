@@ -45,7 +45,8 @@ namespace IRC_Client
             {
                 if (this.connection == null)
                 {
-                    connection = (IServer)Activator.GetObject(typeof(IServer), "tcp://" + LoginViewModel.Instance.ServerAddress + ":" + LoginViewModel.Instance.ServerPort + "/IRC-Server/Server");
+                    connection = (IServer)Activator.GetObject(typeof(IServer),
+                        "tcp://" + ViewModels.MainViewModel.Instance.ServerAddress + ":" + ViewModels.MainViewModel.Instance.ServerPort + "/IRC-Server/Server");
                 }
                 return this.connection;
             }
@@ -60,7 +61,7 @@ namespace IRC_Client
 
         #region public_methods
 
-        public Client()
+        public ClientBk()
         {
             sessionSubscriber = new SessionSubscriber(this);
         }
