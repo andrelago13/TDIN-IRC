@@ -75,8 +75,30 @@ namespace IRC_Client.Views
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {
-            RegisterForm rf = new RegisterForm();
-            rf.ShowDialog();
+            IServer connection = Client.Instance.Connection;
+
+            try
+            {
+                int result = connection.Register(NicknameInput.Text, RealNameInput.Text, PasswordInput.Text);
+                switch (result)
+                {
+                    case 0:
+                        StatusLabel.ForeColor = Color.Green;
+                        break;
+                    default:
+                        StatusLabel.ForeColor = Color.Red;
+                        break;
+                }
+                string reason;
+                Utils.ErrorCodes.TryGetValue(result, out reason);
+                StatusLabel.Text = reason;
+            }
+            catch (Exception ex)
+            {
+                StatusLabel.Text = "Unable to reach server.";
+                StatusLabel.Visible = true;
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }
