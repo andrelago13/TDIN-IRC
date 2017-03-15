@@ -20,7 +20,7 @@ namespace IRC_Server
         {
             Console.WriteLine("Server started.");
             SetupServer();
-            Console.Write("Press any key to terminate... ");
+            Console.WriteLine("Press any key to terminate... ");
             Console.ReadKey();
             Console.WriteLine("Server ended.");
         }

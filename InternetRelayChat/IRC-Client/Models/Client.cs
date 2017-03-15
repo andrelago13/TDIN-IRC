@@ -25,7 +25,7 @@ namespace IRC_Client.Models
         }
         #endregion
 
-        private Client()
+        private Client() : base(null)
         {
             this.ServerConnection = new ServerConnection();
             this.SessionEvent = new SessionSubscriber(this);
@@ -58,10 +58,15 @@ namespace IRC_Client.Models
             IServer connection = ServerConnection.Connection;
             if (connection == null)
                 return false;
+            int port = Utils.GetFreeTcpPort();
+            string ip = Utils.GetIp();
 
-            bool result = connection.Login(nick, password, "", 0);
+            bool result = connection.Login(nick, password, ip, port);
             if (result)
             {
+                this.Nickname = nick;
+                this.Address = ip;
+                this.Port = port;
                 connection.SessionUpdateEvent += SessionEvent.Handle;
             }
 
