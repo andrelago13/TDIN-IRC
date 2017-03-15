@@ -39,10 +39,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IClient.cs" />
-    <Compile Include="IServer.cs" />
-    <Compile Include="ISessionSubscriber.cs" />
-    <Compile Include="SessionUpdateArgs.cs" />
+    <Compile Include="Interfaces\IClient.cs" />
+    <Compile Include="Interfaces\IServer.cs" />
+    <Compile Include="Interfaces\ISessionSubscriber.cs" />
+    <Compile Include="Models\LoggedClient.cs" />
+    <Compile Include="Models\SessionUpdateArgs.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

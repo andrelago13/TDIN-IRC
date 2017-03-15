@@ -1,4 +1,5 @@
 ﻿using IRC_Common;
+using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -110,7 +111,7 @@ namespace IRC_Server
             return sessionEnded;
         }
 
-        public override List<LoggedUserInfo> LoggedUsers(string nickname)
+        public override List<LoggedClient> LoggedUsers(string nickname)
         {
             return DBController.LoggedUsers(conn, nickname);
         }

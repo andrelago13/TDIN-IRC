@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRC_Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,6 @@ namespace IRC_Common
 
         public abstract bool Logout(string nickname, string password);
 
-        public abstract List<LoggedUserInfo> LoggedUsers(string nickname);
+        public abstract List<LoggedClient> LoggedUsers(string nickname);
     }
 }

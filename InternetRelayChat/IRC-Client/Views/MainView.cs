@@ -1,4 +1,5 @@
-﻿using IRC_Client.ViewModels;
+﻿using IRC_Client.Models;
+using IRC_Client.ViewModels;
 using IRC_Common;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -19,7 +20,7 @@ namespace IRC_Client.Views
         public MainView()
         {
             this.InitializeComponent();
-            this.LoginViewBindingSource.Add(MainViewModel.Instance);
+            this.MainViewBindingSource.Add(MainViewModel.Instance);
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -31,7 +32,7 @@ namespace IRC_Client.Views
         {            
             try
             {
-                bool login = ClientBk.Instance.Login(NicknameInput.Text, PasswordInput.Text);
+                bool login = Client.Instance.Login(NicknameInput.Text, PasswordInput.Text);
 
                 if (login)
                 {
@@ -56,7 +57,7 @@ namespace IRC_Client.Views
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {
-            IServer connection = ClientBk.Instance.Connection;
+            IServer connection = Client.Instance.ServerConnection.Connection;
 
             try
             {

@@ -27,18 +27,14 @@ namespace IRC_Client.Models
 
         private Client()
         {
-            this.ServerConnection = new Connection();
-            this.SessionEvent = new SessionSubscriber(Client.Instance);
+            this.ServerConnection = new ServerConnection();
+            this.SessionEvent = new SessionSubscriber(this);
         }
 
         #region Accessors
-        public string Nickname { get; set; }
-
         public string Password { get; set; }
 
-        public string RealName { get; set; }
-
-        public Connection ServerConnection { get; set; }
+        public ServerConnection ServerConnection { get; set; }
         #endregion
 
         #region Session Subscriber
@@ -53,7 +49,36 @@ namespace IRC_Client.Models
                 SessionsEvent(info);
             }
         }
+        #endregion
 
+        #region Authentication Methods
+        public bool Login(string nick, string password)
+        {
+            //TODO: assign ip and port of connector
+            IServer connection = ServerConnection.Connection;
+            if (connection == null)
+                return false;
+
+            bool result = connection.Login(nick, password, "", 0);
+            if (result)
+            {
+                connection.SessionUpdateEvent += SessionEvent.Handle;
+            }
+
+            return result;
+        }
+
+        public bool MaybeLogout()
+        {
+            if (ServerConnection == null)
+                return false;
+
+            IServer connection = ServerConnection.Connection;
+            if (connection == null)
+                return false;
+
+            return connection.Logout(this.Nickname, this.Password);
+        }
         #endregion
     }
 }

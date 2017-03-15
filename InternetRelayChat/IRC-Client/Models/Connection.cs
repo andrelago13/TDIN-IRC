@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace IRC_Client.Models
 {
-    public class Connection
+    public abstract class Connection
     {
+        #region Accessors
         public string Address { get; set; } = "localhost";
 
         public string Port { get; set; } = "35994";
 
         public string Status { get; set; }
+        #endregion
     }
 }

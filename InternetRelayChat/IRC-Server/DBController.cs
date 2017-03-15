@@ -1,4 +1,5 @@
 ﻿using IRC_Common;
+using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -114,9 +115,9 @@ namespace IRC_Server
             return result > 0;
         }
 
-        public static List<LoggedUserInfo> LoggedUsers(SQLiteConnection conn, string askingNickname)
+        public static List<LoggedClient> LoggedUsers(SQLiteConnection conn, string askingNickname)
         {
-            List<LoggedUserInfo> result = new List<LoggedUserInfo>();
+            List<LoggedClient> result = new List<LoggedClient>();
 
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "SELECT sessions.nickname, users.realname, sessions.ip, sessions.port " +
@@ -133,7 +134,7 @@ namespace IRC_Server
             {
                 while (r.Read())
                 {
-                    result.Add(new LoggedUserInfo(r.GetString(0), r.GetString(1), r.GetString(2), r.GetInt32(3)));
+                    result.Add(new LoggedClient(r.GetString(0), r.GetString(1), r.GetString(2), r.GetInt32(3)));
                 }
 
                 r.Close();

@@ -11,7 +11,7 @@ namespace IRC_Client
     [Serializable]
     public class SessionSubscriber : ISessionSubscriber
     {
-        public Client Client { get; set; }
+        public Client Client { get; }
 
         public SessionSubscriber(Client Client)
         {

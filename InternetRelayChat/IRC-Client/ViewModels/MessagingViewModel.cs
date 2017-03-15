@@ -1,4 +1,5 @@
 ﻿using IRC_Client.Models;
+using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,27 +10,27 @@ using System.Threading.Tasks;
 
 namespace IRC_Client.ViewModels
 {
-    class MainViewModel : INotifyPropertyChanged
+    class MessagingViewModel : INotifyPropertyChanged
     {
-        private static MainViewModel instance;
+        #region Singleton
+        private static MessagingViewModel instance;
 
-        public static MainViewModel Instance
+        public static MessagingViewModel Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new MainViewModel();
+                    instance = new MessagingViewModel();
                 return instance;
             }
         }
+        #endregion
 
         private Client Client;
-        private Connection ServerConnection;
 
-        private MainViewModel()
+        private MessagingViewModel()
         {
             this.Client = Client.Instance;
-            this.ServerConnection = this.Client.ServerConnection;
         }
 
         public string Nickname
@@ -83,56 +84,30 @@ namespace IRC_Client.ViewModels
             }
         }
 
-        public string ServerAddress
-        {
+        private List<LoggedClient> loggedUsers;
+
+        public List<LoggedClient> LoggedUsers {
             get
             {
-                return this.ServerConnection.Address;
+                return this.loggedUsers;
             }
 
             set
             {
-                if (this.ServerConnection.Address != value)
+                if (this.loggedUsers != value)
                 {
-                    this.ServerConnection.Address = value;
-                    this.NotifyPropertyChanged(nameof(ServerAddress));
+                    this.loggedUsers = value;
+                    this.NotifyPropertyChanged(nameof(LoggedUsers));
                 }
             }
         }
 
-        public string ServerPort
+        #region Public Methods
+        public void UpdateOnlineUsers()
         {
-            get
-            {
-                return this.ServerConnection.Port;
-            }
-
-            set
-            {
-                if (this.ServerConnection.Port != value)
-                {
-                    this.ServerConnection.Port = value;
-                    this.NotifyPropertyChanged(nameof(ServerPort));
-                }
-            }
+            this.LoggedUsers = this.Client.ServerConnection.Connection.LoggedUsers(this.Nickname);
         }
-
-        public string Status
-        {
-            get
-            {
-                return this.ServerConnection.Status;
-            }
-
-            set
-            {
-                if (this.ServerConnection.Status != value)
-                {
-                    this.ServerConnection.Status = value;
-                    this.NotifyPropertyChanged(nameof(Status));
-                }
-            }
-        }
+        #endregion
 
         #region Property Change
         public event PropertyChangedEventHandler PropertyChanged;

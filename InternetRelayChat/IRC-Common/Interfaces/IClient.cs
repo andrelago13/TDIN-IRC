@@ -8,6 +8,8 @@ namespace IRC_Common
 {
     public abstract class IClient : MarshalByRefObject
     {
-        
+        public string Nickname { get; set; }
+
+        public string RealName { get; set; }
     }
 }

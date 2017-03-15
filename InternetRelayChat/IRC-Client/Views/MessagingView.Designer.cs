@@ -28,38 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.userList = new System.Windows.Forms.ListBox();
-            this.welcomeLabel = new System.Windows.Forms.Label();
-            this.inviteButton = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.UserList = new System.Windows.Forms.ListBox();
+            this.WelcomeLabel = new System.Windows.Forms.Label();
+            this.InviteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
+            this.LoggedUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // userList
+            // UserList
             // 
-            this.userList.FormattingEnabled = true;
-            this.userList.Location = new System.Drawing.Point(13, 30);
-            this.userList.Name = "userList";
-            this.userList.Size = new System.Drawing.Size(214, 212);
-            this.userList.TabIndex = 0;
+            this.UserList.DataSource = this.LoggedUsersBindingSource;
+            this.UserList.FormattingEnabled = true;
+            this.UserList.Location = new System.Drawing.Point(13, 30);
+            this.UserList.Name = "UserList";
+            this.UserList.Size = new System.Drawing.Size(214, 212);
+            this.UserList.TabIndex = 0;
             // 
-            // welcomeLabel
+            // WelcomeLabel
             // 
-            this.welcomeLabel.AutoSize = true;
-            this.welcomeLabel.Location = new System.Drawing.Point(22, 9);
-            this.welcomeLabel.Name = "welcomeLabel";
-            this.welcomeLabel.Size = new System.Drawing.Size(35, 13);
-            this.welcomeLabel.TabIndex = 1;
-            this.welcomeLabel.Text = "label1";
+            this.WelcomeLabel.AutoSize = true;
+            this.WelcomeLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.MessagingViewBindingSource, "Nickname", true));
+            this.WelcomeLabel.Location = new System.Drawing.Point(22, 9);
+            this.WelcomeLabel.Name = "WelcomeLabel";
+            this.WelcomeLabel.Size = new System.Drawing.Size(35, 13);
+            this.WelcomeLabel.TabIndex = 1;
+            this.WelcomeLabel.Text = "label1";
             // 
-            // inviteButton
+            // InviteButton
             // 
-            this.inviteButton.Location = new System.Drawing.Point(247, 30);
-            this.inviteButton.Name = "inviteButton";
-            this.inviteButton.Size = new System.Drawing.Size(130, 23);
-            this.inviteButton.TabIndex = 2;
-            this.inviteButton.Text = "Invite to Chat";
-            this.inviteButton.UseVisualStyleBackColor = true;
-            this.inviteButton.Click += new System.EventHandler(this.inviteButton_Click);
+            this.InviteButton.Location = new System.Drawing.Point(247, 30);
+            this.InviteButton.Name = "InviteButton";
+            this.InviteButton.Size = new System.Drawing.Size(130, 23);
+            this.InviteButton.TabIndex = 2;
+            this.InviteButton.Text = "Invite to Chat";
+            this.InviteButton.UseVisualStyleBackColor = true;
+            this.InviteButton.MouseCaptureChanged += new System.EventHandler(this.InviteButtonClick);
             // 
             // refreshButton
             // 
@@ -69,21 +76,32 @@
             this.refreshButton.TabIndex = 3;
             this.refreshButton.Text = "Refresh List";
             this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.refreshButton.MouseCaptureChanged += new System.EventHandler(this.RefreshButtonClick);
             // 
-            // MainForm
+            // LoggedUsersBindingSource
+            // 
+            this.LoggedUsersBindingSource.DataMember = "LoggedUsers";
+            this.LoggedUsersBindingSource.DataSource = this.MessagingViewBindingSource;
+            // 
+            // MessagingViewBindingSource
+            // 
+            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
+            // 
+            // MessagingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(389, 261);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.inviteButton);
-            this.Controls.Add(this.welcomeLabel);
-            this.Controls.Add(this.userList);
-            this.Name = "MainForm";
+            this.Controls.Add(this.InviteButton);
+            this.Controls.Add(this.WelcomeLabel);
+            this.Controls.Add(this.UserList);
+            this.Name = "MessagingView";
             this.Text = "MainForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagingViewClosing);
+            this.Load += new System.EventHandler(this.MessagingViewLoad);
+            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,9 +109,11 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox userList;
-        private System.Windows.Forms.Label welcomeLabel;
-        private System.Windows.Forms.Button inviteButton;
+        private System.Windows.Forms.ListBox UserList;
+        private System.Windows.Forms.Label WelcomeLabel;
+        private System.Windows.Forms.Button InviteButton;
         private System.Windows.Forms.Button refreshButton;
+        private System.Windows.Forms.BindingSource MessagingViewBindingSource;
+        private System.Windows.Forms.BindingSource LoggedUsersBindingSource;
     }
 }
