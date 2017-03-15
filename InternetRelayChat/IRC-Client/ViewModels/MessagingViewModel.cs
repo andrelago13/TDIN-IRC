@@ -33,6 +33,14 @@ namespace IRC_Client.ViewModels
             this.Client = Client.Instance;
         }
 
+        public string WelcomeText
+        {
+            get
+            {
+                return "Welcome, " + this.Client.Nickname;
+            }
+        }
+
         public string Nickname
         {
             get
@@ -46,6 +54,7 @@ namespace IRC_Client.ViewModels
                 {
                     this.Client.Nickname = value;
                     this.NotifyPropertyChanged(nameof(Nickname));
+                    this.NotifyPropertyChanged(nameof(WelcomeText));
                 }
             }
         }
@@ -84,7 +93,7 @@ namespace IRC_Client.ViewModels
             }
         }
 
-        private List<LoggedClient> loggedUsers;
+        private List<LoggedClient> loggedUsers = new List<LoggedClient>();
 
         public List<LoggedClient> LoggedUsers {
             get

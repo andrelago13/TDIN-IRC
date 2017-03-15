@@ -22,7 +22,6 @@ namespace IRC_Client.Views
         {
             this.InitializeComponent();
             this.MessagingViewBindingSource.Add(MessagingViewModel.Instance);
-            this.LoggedUsersBindingSource.Add(MessagingViewModel.Instance);
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);

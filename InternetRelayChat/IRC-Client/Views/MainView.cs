@@ -48,7 +48,7 @@ namespace IRC_Client.Views
             }
             catch (Exception ex)
             {
-                MainViewModel.Instance.Status = "Failed to login. Unable to reach server.";
+                MainViewModel.Instance.Status = ex.Message;
                 Console.WriteLine(ex.ToString());
             }
         }
