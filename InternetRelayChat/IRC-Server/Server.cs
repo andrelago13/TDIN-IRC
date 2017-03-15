@@ -13,18 +13,17 @@ namespace IRC_Server
         private SQLiteConnection conn;
 
         public event SessionUpdateHandler MyHandler;
-
         public override event SessionUpdateHandler SessionUpdateEvent
         {
             add
             {
-                Console.WriteLine("in event SessionUpdateEvent + add");
+                Console.WriteLine("SessionUpdateEvent subscriber added");
                 MyHandler = value;
             }
 
             remove
             {
-                Console.WriteLine("in event SessionUpdateEvent + remove");
+                Console.WriteLine("SessionUpdateEvent subscriber removed");
                 MyHandler = value;
             }
         }
@@ -38,6 +37,8 @@ namespace IRC_Server
         ///////////////////////// PUBLIC/API METHODS //////////////////////////
         ///////////////////////////////////////////////////////////////////////
 
+        #region api
+
         /*
          * Returns 0 upon success
          * Error codes:
@@ -49,27 +50,27 @@ namespace IRC_Server
          */
         public override int Register(string nickname, string realName, string password)
         {
-            if(nickname.Length < 1)
+            if (nickname.Length < 1)
             {
                 return 1;
             }
 
-            if(realName.Length < 1)
+            if (realName.Length < 1)
             {
                 return 2;
             }
 
-            if(password.Length < 1)
+            if (password.Length < 1)
             {
                 return 3;
             }
 
-            if(DBController.UserExists(conn, nickname))
+            if (DBController.UserExists(conn, nickname))
             {
                 return 4;
             }
 
-            if(!DBController.CreateUser(conn, nickname, realName, password))
+            if (!DBController.CreateUser(conn, nickname, realName, password))
             {
                 return -1;
             }
@@ -82,13 +83,13 @@ namespace IRC_Server
          */
         public override bool Login(string nickname, string password, string ip, int port)
         {
-            if(!DBController.PasswordMatch(conn, nickname, password))
+            if (!DBController.PasswordMatch(conn, nickname, password))
             {
                 return false;
             }
 
             bool sessionCreated = DBController.CreateUpdateSession(conn, nickname, ip, port);
-            if(sessionCreated)
+            if (sessionCreated)
             {
                 //TODO: start heartbeat connection with client
                 MyHandler?.Invoke(new SessionUpdateArgs(nickname, ip, port));
@@ -116,9 +117,9 @@ namespace IRC_Server
             return DBController.LoggedUsers(conn, nickname);
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        ///////////////////////// PRIVATE METHODS /////////////////////////////
-        ///////////////////////////////////////////////////////////////////////
+        #endregion
+
+        #region database
 
         private SQLiteConnection InitializeDatabase(string dbDir, string dbFile)
         {
@@ -169,5 +170,7 @@ namespace IRC_Server
             conn.Close();
             conn.Dispose();
         }
+
+        #endregion
     }
 }
