@@ -30,22 +30,34 @@
         {
             this.components = new System.ComponentModel.Container();
             this.UserList = new System.Windows.Forms.ListBox();
+            this.LoggedUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.InviteButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.WelcomeLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ChatBox = new System.Windows.Forms.Panel();
             this.ChatUserLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // UserList
             // 
+            this.UserList.DataSource = this.LoggedUsersBindingSource;
             this.UserList.FormattingEnabled = true;
             this.UserList.Location = new System.Drawing.Point(6, 111);
             this.UserList.Name = "UserList";
             this.UserList.Size = new System.Drawing.Size(274, 485);
             this.UserList.TabIndex = 0;
+            // 
+            // LoggedUsersBindingSource
+            // 
+            this.LoggedUsersBindingSource.DataMember = "LoggedUsers";
+            this.LoggedUsersBindingSource.DataSource = this.MessagingViewBindingSource;
+            // 
+            // MessagingViewBindingSource
+            // 
+            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
             // 
             // InviteButton
             // 
@@ -107,10 +119,6 @@
             this.ChatUserLabel.TabIndex = 8;
             this.ChatUserLabel.Text = "Chatting with";
             // 
-            // MessagingViewBindingSource
-            // 
-            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
-            // 
             // MessagingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,6 +134,7 @@
             this.Text = "Relay Chat";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagingViewClosing);
             this.Load += new System.EventHandler(this.MessagingViewLoad);
+            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -141,5 +150,6 @@
         private MaterialSkin.Controls.MaterialLabel WelcomeLabel;
         private System.Windows.Forms.Panel ChatBox;
         private MaterialSkin.Controls.MaterialLabel ChatUserLabel;
+        private System.Windows.Forms.BindingSource LoggedUsersBindingSource;
     }
 }

@@ -32,6 +32,7 @@ namespace IRC_Client.Views
         private void MessagingViewLoad(object sender, EventArgs e)
         {
             MessagingViewModel.Instance.UpdateOnlineUsers();
+            UserList.DataSource = MessagingViewModel.Instance.LoggedUsers;
             Client.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
@@ -70,6 +71,7 @@ namespace IRC_Client.Views
         private void RefreshButtonClick(object sender, EventArgs e)
         {
             MessagingViewModel.Instance.UpdateOnlineUsers();
+            UserList.DataSource = MessagingViewModel.Instance.LoggedUsers;
         }
     }
 }
