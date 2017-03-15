@@ -23,7 +23,7 @@ namespace IRC_Client.Views
             this.InitializeComponent();
             this.MessagingViewBindingSource.Add(MessagingViewModel.Instance);
 
-            var materialSkinManager = MaterialSkinManager.Instance;
+            MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
@@ -31,8 +31,7 @@ namespace IRC_Client.Views
 
         private void MessagingViewLoad(object sender, EventArgs e)
         {
-            MessagingViewModel.Instance.UpdateOnlineUsers();
-            UserList.DataSource = MessagingViewModel.Instance.LoggedUsers;
+            RefreshUsers();
             Client.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
@@ -64,14 +63,24 @@ namespace IRC_Client.Views
 
         private void InviteButtonClick(object sender, EventArgs e)
         {
-            int val = UserList.SelectedIndex;
+            int val = UserList.SelectedIndices[0];
             Console.WriteLine(val);
         }
 
         private void RefreshButtonClick(object sender, EventArgs e)
         {
+            RefreshUsers();
+        }
+
+        private void RefreshUsers()
+        {
             MessagingViewModel.Instance.UpdateOnlineUsers();
-            UserList.DataSource = MessagingViewModel.Instance.LoggedUsers;
+            UserList.Items.Clear();
+            foreach (LoggedClient client in MessagingViewModel.Instance.LoggedUsers)
+            {
+                ListViewItem item = new ListViewItem(client.RealName + " [" + client.Nickname + "]");
+                UserList.Items.Add(item);
+            }
         }
     }
 }

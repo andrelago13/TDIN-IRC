@@ -29,44 +29,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.UserList = new System.Windows.Forms.ListBox();
-            this.LoggedUsersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.InviteButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.WelcomeLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.ChatBox = new System.Windows.Forms.Panel();
             this.ChatUserLabel = new MaterialSkin.Controls.MaterialLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).BeginInit();
+            this.UserList = new MaterialSkin.Controls.MaterialListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // UserList
-            // 
-            this.UserList.DataSource = this.LoggedUsersBindingSource;
-            this.UserList.FormattingEnabled = true;
-            this.UserList.Location = new System.Drawing.Point(6, 111);
-            this.UserList.Name = "UserList";
-            this.UserList.Size = new System.Drawing.Size(274, 485);
-            this.UserList.TabIndex = 0;
-            // 
-            // LoggedUsersBindingSource
-            // 
-            this.LoggedUsersBindingSource.DataMember = "LoggedUsers";
-            this.LoggedUsersBindingSource.DataSource = this.MessagingViewBindingSource;
-            // 
-            // MessagingViewBindingSource
-            // 
-            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
-            // 
             // InviteButton
             // 
+            this.InviteButton.AutoSize = true;
+            this.InviteButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.InviteButton.Depth = 0;
+            this.InviteButton.Icon = null;
             this.InviteButton.Location = new System.Drawing.Point(6, 602);
             this.InviteButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.InviteButton.Name = "InviteButton";
             this.InviteButton.Primary = true;
-            this.InviteButton.Size = new System.Drawing.Size(134, 45);
+            this.InviteButton.Size = new System.Drawing.Size(124, 36);
             this.InviteButton.TabIndex = 4;
             this.InviteButton.Text = "Invite to Chat";
             this.InviteButton.UseVisualStyleBackColor = true;
@@ -74,12 +57,15 @@
             // 
             // RefreshButton
             // 
+            this.RefreshButton.AutoSize = true;
+            this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
+            this.RefreshButton.Icon = null;
             this.RefreshButton.Location = new System.Drawing.Point(146, 602);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Primary = true;
-            this.RefreshButton.Size = new System.Drawing.Size(134, 45);
+            this.RefreshButton.Size = new System.Drawing.Size(111, 36);
             this.RefreshButton.TabIndex = 5;
             this.RefreshButton.Text = "Refresh List";
             this.RefreshButton.UseVisualStyleBackColor = true;
@@ -99,13 +85,6 @@
             this.WelcomeLabel.TabIndex = 6;
             this.WelcomeLabel.Text = "Welcome";
             // 
-            // ChatBox
-            // 
-            this.ChatBox.Location = new System.Drawing.Point(295, 111);
-            this.ChatBox.Name = "ChatBox";
-            this.ChatBox.Size = new System.Drawing.Size(466, 533);
-            this.ChatBox.TabIndex = 7;
-            // 
             // ChatUserLabel
             // 
             this.ChatUserLabel.AutoSize = true;
@@ -119,22 +98,52 @@
             this.ChatUserLabel.TabIndex = 8;
             this.ChatUserLabel.Text = "Chatting with";
             // 
+            // UserList
+            // 
+            this.UserList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.UserList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.UserList.Depth = 0;
+            this.UserList.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.UserList.FullRowSelect = true;
+            this.UserList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.UserList.HideSelection = false;
+            this.UserList.LabelWrap = false;
+            this.UserList.Location = new System.Drawing.Point(6, 111);
+            this.UserList.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.UserList.MouseState = MaterialSkin.MouseState.OUT;
+            this.UserList.MultiSelect = false;
+            this.UserList.Name = "UserList";
+            this.UserList.OwnerDraw = true;
+            this.UserList.Size = new System.Drawing.Size(251, 485);
+            this.UserList.Sorting = System.Windows.Forms.SortOrder.Descending;
+            this.UserList.TabIndex = 9;
+            this.UserList.UseCompatibleStateImageBehavior = false;
+            this.UserList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Online Users";
+            this.columnHeader1.Width = 251;
+            // 
+            // MessagingViewBindingSource
+            // 
+            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
+            // 
             // MessagingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(773, 656);
+            this.Controls.Add(this.UserList);
             this.Controls.Add(this.ChatUserLabel);
-            this.Controls.Add(this.ChatBox);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.InviteButton);
-            this.Controls.Add(this.UserList);
             this.Name = "MessagingView";
             this.Text = "Relay Chat";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagingViewClosing);
             this.Load += new System.EventHandler(this.MessagingViewLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.LoggedUsersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -142,14 +151,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox UserList;
         private System.Windows.Forms.BindingSource MessagingViewBindingSource;
         private MaterialSkin.Controls.MaterialRaisedButton InviteButton;
         private MaterialSkin.Controls.MaterialRaisedButton RefreshButton;
         private MaterialSkin.Controls.MaterialLabel WelcomeLabel;
-        private System.Windows.Forms.Panel ChatBox;
         private MaterialSkin.Controls.MaterialLabel ChatUserLabel;
-        private System.Windows.Forms.BindingSource LoggedUsersBindingSource;
+        private MaterialSkin.Controls.MaterialListView UserList;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

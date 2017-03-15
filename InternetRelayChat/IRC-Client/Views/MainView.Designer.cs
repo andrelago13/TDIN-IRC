@@ -33,7 +33,6 @@
             this.LoginTab = new System.Windows.Forms.TabPage();
             this.LoginButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ServerAddressInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.MainViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ServerPortInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.ServerPortLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ServerAddressLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -47,10 +46,11 @@
             this.PasswordInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TabMenuSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.MainViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TabMenu.SuspendLayout();
             this.LoginTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).BeginInit();
             this.RegisterTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // TabMenu
@@ -112,10 +112,6 @@
             this.ServerAddressInput.Size = new System.Drawing.Size(305, 23);
             this.ServerAddressInput.TabIndex = 15;
             this.ServerAddressInput.UseSystemPasswordChar = false;
-            // 
-            // MainViewBindingSource
-            // 
-            this.MainViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
             // 
             // ServerPortInput
             // 
@@ -310,6 +306,10 @@
             this.TabMenuSelector.TabIndex = 26;
             this.TabMenuSelector.Text = "TabMenuSelector";
             // 
+            // MainViewBindingSource
+            // 
+            this.MainViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,9 +332,9 @@
             this.TabMenu.ResumeLayout(false);
             this.LoginTab.ResumeLayout(false);
             this.LoginTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).EndInit();
             this.RegisterTab.ResumeLayout(false);
             this.RegisterTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

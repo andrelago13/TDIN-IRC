@@ -21,10 +21,5 @@ namespace IRC_Common.Models
             this.Address = address;
             this.Port = port;
         }
-
-        public override string ToString()
-        {
-            return this.RealName + " [" + this.Nickname + "]";
-        }
     }
 }
