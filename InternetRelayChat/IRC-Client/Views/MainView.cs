@@ -28,9 +28,11 @@ namespace IRC_Client.Views
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        private void LoginButtonClick(object sender, EventArgs e)
+        private async void LoginButtonClick(object sender, EventArgs e)
         {
-            bool validLogin = MainViewModel.Instance.Login();
+            LoginButton.Enabled = false;
+
+            bool validLogin = await Task.Run<bool>(() => MainViewModel.Instance.Login());
             if(validLogin)
             {
                 MessagingView mf = new MessagingView();
@@ -40,31 +42,10 @@ namespace IRC_Client.Views
             }
         }
 
-        private void RegisterButtonClick(object sender, EventArgs e)
+        private async void RegisterButtonClick(object sender, EventArgs e)
         {
-            IServer connection = Client.Instance.ServerConnection.Connection;
-
-            try
-            {
-                int result = connection.Register(NicknameInput.Text, RealNameInput.Text, PasswordInput.Text);
-                switch (result)
-                {
-                    case 0:
-                        StatusLabel.ForeColor = Color.Green;
-                        break;
-                    default:
-                        StatusLabel.ForeColor = Color.Red;
-                        break;
-                }
-                string reason;
-                Utils.ErrorCodes.TryGetValue(result, out reason);
-                MainViewModel.Instance.Status = reason;
-            }
-            catch (Exception ex)
-            {
-                MainViewModel.Instance.Status = "Failed to register. Unable to reach server.";
-                Console.WriteLine(ex.ToString());
-            }
+            RegisterButton.Enabled = false;
+            await Task.Run<bool>(() => MainViewModel.Instance.Register());
         }
     }
 }

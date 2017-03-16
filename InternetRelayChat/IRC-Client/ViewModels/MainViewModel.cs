@@ -1,5 +1,6 @@
 ﻿using IRC_Client.Models;
 using IRC_Client.Views;
+using IRC_Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -142,18 +143,38 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Property Change
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                Delegate[] eventHandlers = PropertyChanged.GetInvocationList();
+
+                foreach (Delegate d in eventHandlers)
+                {
+                    // Check whether the target of the delegate implements 
+                    // ISynchronizeInvoke (Winforms controls do), and see
+                    // if a context-switch is required.
+                    ISynchronizeInvoke target = d.Target as ISynchronizeInvoke;
+
+                    if (target != null && target.InvokeRequired)
+                    {
+                        target.Invoke(d, new object[] { this, new PropertyChangedEventArgs(info) });
+                    }
+                    else
+                    {
+                        d.DynamicInvoke(new PropertyChangedEventArgs(info));
+                    }
+                }
             }
         }
+        
         #endregion
 
         #region Public Methods
+
         public bool Login()
         {
             try
@@ -173,6 +194,30 @@ namespace IRC_Client.ViewModels
                 return false;
             }
         }
+
+        public bool Register()
+        {
+            IServer connection = Client.Instance.ServerConnection.Connection;
+
+            try
+            {
+                int result = connection.Register(this.Nickname, this.RealName, this.Password);
+
+                // Set the reason
+                string reason;
+                Utils.ErrorCodes.TryGetValue(result, out reason);
+                this.Status = reason;
+
+                return result == 0;
+            }
+            catch (Exception ex)
+            {
+                this.Status = ex.Message;
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        
         #endregion
     }
 }
