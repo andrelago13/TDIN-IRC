@@ -1,4 +1,5 @@
-﻿using IRC_Client.Models;
+﻿using IRC_Client.Comunication;
+using IRC_Client.Models;
 using IRC_Client.ViewModels;
 using IRC_Common;
 using IRC_Common.Models;
@@ -67,11 +68,11 @@ namespace IRC_Client.Views
 
         private void InviteButtonClick(object sender, EventArgs e)
         {
+            if (UserList.SelectedIndices.Count == 0)
+                return;
+
             int val = UserList.SelectedIndices[0];
-            /*Console.WriteLine(val);
-            LoggedClient c = MessagingViewModel.Instance.LoggedUsers[val];
-            PeerCommunicator pc = (PeerCommunicator)Activator.GetObject(typeof(PeerCommunicator), "tcp://" + c.Address + ":" + c.Port + "/IRC-Client/PeerCommunicator");
-            bool result = pc.RequestChat(null);*/
+            MessagingViewModel.Instance.InviteClient(MessagingViewModel.Instance.LoggedUsers[val]);
         }
 
         private void RefreshButtonClick(object sender, EventArgs e)

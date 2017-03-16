@@ -1,17 +1,13 @@
-﻿using IRC_Common;
+﻿using IRC_Client.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IRC_Client.Models
+namespace IRC_Client.Comunication
 {
     public delegate void HandleMessage(Client sender, string message);
 
     public class PeerCommunicator : MarshalByRefObject
     {
-        private Client MyClient { get; set; }
+        public Client MyClient { get; }
 
         public PeerCommunicator(Client client)
         {
@@ -27,10 +23,5 @@ namespace IRC_Client.Models
         {
             MyClient.ReceiveMessage(sender, message);
         }
-    }
-
-    public interface InviteListener
-    {
-        bool HandleInvite(Client client);
     }
 }

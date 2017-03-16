@@ -1,4 +1,5 @@
-﻿using IRC_Common;
+﻿using IRC_Client.Comunication;
+using IRC_Common;
 using IRC_Common.Models;
 using System;
 using System.Collections;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace IRC_Client.Models
 {
-    public class Client : IClient, InviteListener
+    public class Client : IClient
     {
         #region Singleton
         private static Client instance;
@@ -67,16 +68,19 @@ namespace IRC_Client.Models
 
         private PeerCommunicator MyPeerCommunicator;
         public event HandleMessage MessageEvent;
-        public InviteListener InviteHandler { get; set; }
+
+        public bool InviteClient(string address, int port)
+        {
+            PeerCommunicatorContainer pc = (PeerCommunicatorContainer)Activator.GetObject(
+                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicatorContainer");
+            return pc.GetCommunicator().RequestChat(this);
+        }
 
         public bool HandleInvite(Client requestingClient)
         {
-            if (InviteHandler == null)
-            {
-                return false;
-            }
-
-            return InviteHandler.HandleInvite(requestingClient);
+            Thread.Sleep(5000);
+            return false;
+            //return InviteHandler.HandleInvite(requestingClient);
         }
 
         public void ReceiveMessage(Client sender, string message)
@@ -88,15 +92,9 @@ namespace IRC_Client.Models
         {
             MyPeerCommunicator = new PeerCommunicator(this);
 
-            /*BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
-            provider.TypeFilterLevel = TypeFilterLevel.Full;
-            IDictionary props = new Hashtable();
-            props["port"] = Port;
-            TcpChannel chan = new TcpChannel(props, null, provider);
-
-            ChannelServices.RegisterChannel(chan, false);*/
-
-            RemotingConfiguration.RegisterWellKnownServiceType(MyPeerCommunicator.GetType(), "IRC-Client/PeerCommunicator", WellKnownObjectMode.Singleton);
+            PeerCommunicatorContainer.Communicator = MyPeerCommunicator;
+            RemotingConfiguration.RegisterWellKnownServiceType(new PeerCommunicatorContainer().GetType(),
+                "IRC-Client/PeerCommunicatorContainer", WellKnownObjectMode.Singleton);
         }
 
         #endregion
@@ -105,7 +103,6 @@ namespace IRC_Client.Models
 
         public bool Login(string nick, string password)
         {
-            //TODO: assign ip and port of connector
             IServer connection = ServerConnection.Connection;
             if (connection == null)
                 return false;
