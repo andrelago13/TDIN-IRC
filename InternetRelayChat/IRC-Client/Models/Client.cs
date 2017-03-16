@@ -13,6 +13,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client.Models
 {
@@ -78,9 +79,10 @@ namespace IRC_Client.Models
 
         public bool HandleInvite(Client requestingClient)
         {
-            Thread.Sleep(5000);
-            return false;
-            //return InviteHandler.HandleInvite(requestingClient);
+            var confirmResult = MessageBox.Show(requestingClient.RealName + " (" + requestingClient.Nickname +
+                ") invited you to chat. Do you want accept his invite?", "Chat invite",
+                                     MessageBoxButtons.YesNo);
+            return confirmResult == DialogResult.Yes;
         }
 
         public void ReceiveMessage(Client sender, string message)
