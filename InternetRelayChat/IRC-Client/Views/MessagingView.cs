@@ -1,4 +1,5 @@
-﻿using IRC_Client.Models;
+﻿using IRC_Client.Comunication;
+using IRC_Client.Models;
 using IRC_Client.ViewModels;
 using IRC_Common;
 using IRC_Common.Models;
@@ -35,13 +36,17 @@ namespace IRC_Client.Views
             Client.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
-        private void HandleSession(SessionUpdateArgs info)
+        private void HandleSession(LoggedClient info)
         {
             if (this.InvokeRequired)
             {
                 this.Invoke((MethodInvoker)delegate {
                     HandleSession(info);
                 });
+            }
+            if(info.IsLogged)
+            {
+                MessagingViewModel.Instance.LoggedUsers.Add(new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port));
             }
             //TODO user the user list existing in the view model
             /*List<string> values = new List<string>();
@@ -63,8 +68,11 @@ namespace IRC_Client.Views
 
         private void InviteButtonClick(object sender, EventArgs e)
         {
+            if (UserList.SelectedIndices.Count == 0)
+                return;
+
             int val = UserList.SelectedIndices[0];
-            Console.WriteLine(val);
+            MessagingViewModel.Instance.InviteClient(MessagingViewModel.Instance.LoggedUsers[val]);
         }
 
         private void RefreshButtonClick(object sender, EventArgs e)

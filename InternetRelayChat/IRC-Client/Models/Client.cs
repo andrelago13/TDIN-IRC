@@ -1,11 +1,19 @@
-﻿using IRC_Common;
+﻿using IRC_Client.Comunication;
+using IRC_Common;
+using IRC_Common.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client.Models
 {
@@ -30,7 +38,7 @@ namespace IRC_Client.Models
         private Client() : base(null)
         {
             this.ServerConnection = new ServerConnection();
-            this.SessionEvent = new SessionSubscriber(this);
+            this.SessionSessionEvent = new SessionSubscriber(this);
         }
 
         #endregion
@@ -43,11 +51,11 @@ namespace IRC_Client.Models
 
         #region Session Subscriber
 
-        private SessionSubscriber SessionEvent;
+        private SessionSubscriber SessionSessionEvent;
 
         public event SessionUpdateHandler SessionsEvent;
 
-        public void HandleSession(SessionUpdateArgs info)
+        public void HandleSession(LoggedClient info)
         {
             if (SessionsEvent != null)
             {
@@ -59,27 +67,56 @@ namespace IRC_Client.Models
 
         #region PeerToPeer
 
-        // private PeerToPeer 
+        private PeerCommunicator MyPeerCommunicator;
+        public event HandleMessage MessageEvent;
+
+        public bool InviteClient(string address, int port)
+        {
+            PeerCommunicatorContainer pc = (PeerCommunicatorContainer)Activator.GetObject(
+                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicatorContainer");
+            return pc.GetCommunicator().RequestChat(this);
+        }
+
+        public bool HandleInvite(Client requestingClient)
+        {
+            var confirmResult = MessageBox.Show(requestingClient.RealName + " (" + requestingClient.Nickname +
+                ") invited you to chat. Do you want accept his invite?", "Chat invite",
+                                     MessageBoxButtons.YesNo);
+            return confirmResult == DialogResult.Yes;
+        }
+
+        public void ReceiveMessage(Client sender, string message)
+        {
+            //TODO
+        }
+
+        private void SetupPeerCommunicator()
+        {
+            MyPeerCommunicator = new PeerCommunicator(this);
+
+            PeerCommunicatorContainer.Communicator = MyPeerCommunicator;
+            RemotingConfiguration.RegisterWellKnownServiceType(new PeerCommunicatorContainer().GetType(),
+                "IRC-Client/PeerCommunicatorContainer", WellKnownObjectMode.Singleton);
+        }
 
         #endregion
 
         #region Authentication Methods
+
         public bool Login(string nick, string password)
         {
-            //TODO: assign ip and port of connector
             IServer connection = ServerConnection.Connection;
             if (connection == null)
                 return false;
-            int port = Utils.GetFreeTcpPort();
-            string ip = Utils.GetIp();
+            string ip = Utils.GetLocalIp();
 
-            bool result = connection.Login(nick, password, ip, port);
+            bool result = connection.Login(nick, password, ip, Port);
             if (result)
             {
                 this.Nickname = nick;
                 this.Address = ip;
-                this.Port = port;
-                connection.SessionUpdateEvent += SessionEvent.Handle;
+                connection.SessionUpdateEvent += SessionSessionEvent.Handle;
+                SetupPeerCommunicator();
             }
 
             return result;
@@ -96,6 +133,7 @@ namespace IRC_Client.Models
 
             return connection.Logout(this.Nickname, this.Password);
         }
+
         #endregion
     }
 }

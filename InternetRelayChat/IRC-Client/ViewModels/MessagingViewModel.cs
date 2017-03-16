@@ -119,6 +119,11 @@ namespace IRC_Client.ViewModels
         {
             this.LoggedUsers = this.Client.ServerConnection.Connection.LoggedUsers(this.Nickname);
         }
+
+        public async void InviteClient(LoggedClient client)
+        {
+            bool res = await Task.Run(() => Client.Instance.InviteClient(client.Address, client.Port));
+        }
         #endregion
 
         #region Property Change

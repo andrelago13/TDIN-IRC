@@ -1,4 +1,5 @@
-﻿using IRC_Client.Views;
+﻿using IRC_Client.Models;
+using IRC_Client.Views;
 using IRC_Common;
 using System;
 using System.Collections;
@@ -28,7 +29,9 @@ namespace IRC_Client
             BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
             provider.TypeFilterLevel = TypeFilterLevel.Full;
             IDictionary props = new Hashtable();
-            props["port"] = 0;
+            int port = Utils.GetFreeTcpPort();
+            Client.Instance.Port = port;
+            props["port"] = port;
             TcpChannel chan = new TcpChannel(props, null, provider);
             ChannelServices.RegisterChannel(chan, false);
             

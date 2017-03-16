@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRC_Common.Models
 {
+    [Serializable]
     public class LoggedClient : IClient
     {
         public LoggedClient(string nickname) : base(nickname) { }
