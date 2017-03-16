@@ -140,6 +140,11 @@ namespace IRC_Client.Models
             return pc.GetCommunicator();
         }
 
+        public void EndCommunication(string nickname)
+        {
+            peers.Remove(nickname);
+        }
+
         #endregion
 
         #region Authentication Methods
