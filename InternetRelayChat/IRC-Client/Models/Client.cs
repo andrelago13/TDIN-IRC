@@ -71,11 +71,15 @@ namespace IRC_Client.Models
         public event HandleMessage MessageEvent;
         private Dictionary<string, PeerCommunicator> peers = new Dictionary<string, PeerCommunicator>();
 
-        public bool InviteClient(string address, int port)
+        public bool InviteClient(string nickname, string address, int port)
         {
-            PeerCommunicatorContainer pc = (PeerCommunicatorContainer)Activator.GetObject(
-                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicatorContainer");
-            return pc.GetCommunicator().RequestChat(this);
+            PeerCommunicator pc = GetClientCommunicator(address, port);
+            bool result = pc.RequestChat(this);
+            if(result)
+            {
+                peers.Add(nickname, pc);
+            }
+            return result;
         }
 
         public bool HandleInvite(Client requestingClient)
@@ -83,7 +87,13 @@ namespace IRC_Client.Models
             var confirmResult = MessageBox.Show(requestingClient.RealName + " (" + requestingClient.Nickname +
                 ") invited you to chat. Do you want accept his invite?", "Chat invite",
                                      MessageBoxButtons.YesNo);
-            return confirmResult == DialogResult.Yes;
+            if(confirmResult == DialogResult.Yes)
+            {
+                peers.Add(requestingClient.Nickname, GetClientCommunicator(requestingClient));
+                return true;
+            }
+
+            return false;
         }
 
         public void ReceiveMessage(Client sender, string message)
@@ -111,10 +121,23 @@ namespace IRC_Client.Models
                 comm.SendMessage(this, message);
             } catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
 
             return true;
+        }
+
+        private PeerCommunicator GetClientCommunicator(Client client)
+        {
+            return GetClientCommunicator(client.Address, client.Port);
+        }
+
+        private PeerCommunicator GetClientCommunicator(string address, int port)
+        {
+            PeerCommunicatorContainer pc = (PeerCommunicatorContainer)Activator.GetObject(
+                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicatorContainer");
+            return pc.GetCommunicator();
         }
 
         #endregion

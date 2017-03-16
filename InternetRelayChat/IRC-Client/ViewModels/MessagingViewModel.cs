@@ -122,7 +122,7 @@ namespace IRC_Client.ViewModels
 
         public async void InviteClient(LoggedClient client)
         {
-            bool res = await Task.Run(() => Client.Instance.InviteClient(client.Address, client.Port));
+            bool res = await Task.Run(() => Client.Instance.InviteClient(client.Nickname, client.Address, client.Port));
         }
         #endregion
 
