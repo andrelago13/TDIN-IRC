@@ -29,31 +29,16 @@ namespace IRC_Client.Views
         }
 
         private void LoginButtonClick(object sender, EventArgs e)
-        {            
-            try
+        {
+            bool validLogin = MainViewModel.Instance.Login();
+            if(validLogin)
             {
-                bool login = Client.Instance.Login(NicknameInput.Text, PasswordInput.Text);
-
-                if (login)
-                {
-                    MessagingView mf = new MessagingView();
-                    Hide();
-                    mf.ShowDialog();
-                    Show();
-                }
-                else
-                {
-                    MainViewModel.Instance.Status = "Invalid login credentials.";
-                }
-            }
-            catch (Exception ex)
-            {
-                MainViewModel.Instance.Status = ex.Message;
-                Console.WriteLine(ex.ToString());
+                MessagingView mf = new MessagingView();
+                Hide();
+                mf.ShowDialog();
+                Show();
             }
         }
-
-        private void LoginFormClosing(object sender, FormClosingEventArgs e) { }
 
         private void RegisterButtonClick(object sender, EventArgs e)
         {

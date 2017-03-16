@@ -33,6 +33,7 @@ namespace IRC_Client.ViewModels
             this.Client = Client.Instance;
         }
 
+        #region Accessors
         public string WelcomeText
         {
             get
@@ -110,6 +111,8 @@ namespace IRC_Client.ViewModels
                 }
             }
         }
+
+        #endregion
 
         #region Public Methods
         public void UpdateOnlineUsers()

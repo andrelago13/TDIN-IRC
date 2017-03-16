@@ -1,4 +1,5 @@
 ﻿using IRC_Client.Models;
+using IRC_Client.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace IRC_Client.ViewModels
 {
     class MainViewModel : INotifyPropertyChanged
     {
+        #region Singleton
         private static MainViewModel instance;
 
         public static MainViewModel Instance
@@ -23,14 +25,17 @@ namespace IRC_Client.ViewModels
             }
         }
 
-        private Client Client;
-        private Connection ServerConnection;
-
         private MainViewModel()
         {
             this.Client = Client.Instance;
             this.ServerConnection = this.Client.ServerConnection;
         }
+        #endregion
+
+        private Client Client;
+        private Connection ServerConnection;
+
+        #region Accessors
 
         public string Nickname
         {
@@ -134,6 +139,8 @@ namespace IRC_Client.ViewModels
             }
         }
 
+        #endregion
+
         #region Property Change
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -142,6 +149,28 @@ namespace IRC_Client.ViewModels
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        #endregion
+
+        #region Public Methods
+        public bool Login()
+        {
+            try
+            {
+                bool validLogin = this.Client.Login(this.Nickname, this.Password);
+                if (!validLogin)
+                {
+                    this.Status = "Invalid login credentials.";
+                }
+
+                return validLogin;
+            }
+            catch (Exception ex)
+            {
+                this.Status = ex.Message;
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
         #endregion

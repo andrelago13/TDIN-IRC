@@ -33,6 +33,7 @@
             this.LoginTab = new System.Windows.Forms.TabPage();
             this.LoginButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ServerAddressInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.MainViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ServerPortInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.ServerPortLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ServerAddressLabel = new MaterialSkin.Controls.MaterialLabel();
@@ -46,11 +47,10 @@
             this.PasswordInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.TabMenuSelector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.MainViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.TabMenu.SuspendLayout();
             this.LoginTab.SuspendLayout();
-            this.RegisterTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).BeginInit();
+            this.RegisterTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabMenu
@@ -83,17 +83,19 @@
             // 
             // LoginButton
             // 
+            this.LoginButton.AutoSize = true;
             this.LoginButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.LoginButton.Depth = 0;
+            this.LoginButton.Icon = null;
             this.LoginButton.Location = new System.Drawing.Point(232, 152);
             this.LoginButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Primary = true;
-            this.LoginButton.Size = new System.Drawing.Size(132, 46);
+            this.LoginButton.Size = new System.Drawing.Size(61, 36);
             this.LoginButton.TabIndex = 22;
             this.LoginButton.Text = "Login";
             this.LoginButton.UseVisualStyleBackColor = true;
-            this.LoginButton.Click += new System.EventHandler(this.LoginButtonClick);
+            this.LoginButton.MouseCaptureChanged += new System.EventHandler(this.LoginButtonClick);
             // 
             // ServerAddressInput
             // 
@@ -103,6 +105,7 @@
             this.ServerAddressInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServerAddressInput.Hint = "Server address to connect";
             this.ServerAddressInput.Location = new System.Drawing.Point(217, 20);
+            this.ServerAddressInput.MaxLength = 32767;
             this.ServerAddressInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.ServerAddressInput.Name = "ServerAddressInput";
             this.ServerAddressInput.PasswordChar = '\0';
@@ -111,7 +114,12 @@
             this.ServerAddressInput.SelectionStart = 0;
             this.ServerAddressInput.Size = new System.Drawing.Size(305, 23);
             this.ServerAddressInput.TabIndex = 15;
+            this.ServerAddressInput.TabStop = false;
             this.ServerAddressInput.UseSystemPasswordChar = false;
+            // 
+            // MainViewBindingSource
+            // 
+            this.MainViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
             // 
             // ServerPortInput
             // 
@@ -121,6 +129,7 @@
             this.ServerPortInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServerPortInput.Hint = "Server port to conect";
             this.ServerPortInput.Location = new System.Drawing.Point(217, 65);
+            this.ServerPortInput.MaxLength = 32767;
             this.ServerPortInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.ServerPortInput.Name = "ServerPortInput";
             this.ServerPortInput.PasswordChar = '\0';
@@ -129,6 +138,7 @@
             this.ServerPortInput.SelectionStart = 0;
             this.ServerPortInput.Size = new System.Drawing.Size(305, 23);
             this.ServerPortInput.TabIndex = 17;
+            this.ServerPortInput.TabStop = false;
             this.ServerPortInput.UseSystemPasswordChar = false;
             // 
             // ServerPortLabel
@@ -188,13 +198,15 @@
             // 
             // RegisterButton
             // 
+            this.RegisterButton.AutoSize = true;
             this.RegisterButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RegisterButton.Depth = 0;
+            this.RegisterButton.Icon = null;
             this.RegisterButton.Location = new System.Drawing.Point(232, 152);
             this.RegisterButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RegisterButton.Name = "RegisterButton";
             this.RegisterButton.Primary = true;
-            this.RegisterButton.Size = new System.Drawing.Size(132, 46);
+            this.RegisterButton.Size = new System.Drawing.Size(83, 36);
             this.RegisterButton.TabIndex = 25;
             this.RegisterButton.Text = "Register";
             this.RegisterButton.UseVisualStyleBackColor = true;
@@ -208,6 +220,7 @@
             this.RealNameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RealNameInput.Hint = "Your real name";
             this.RealNameInput.Location = new System.Drawing.Point(217, 20);
+            this.RealNameInput.MaxLength = 32767;
             this.RealNameInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.RealNameInput.Name = "RealNameInput";
             this.RealNameInput.PasswordChar = '\0';
@@ -216,6 +229,7 @@
             this.RealNameInput.SelectionStart = 0;
             this.RealNameInput.Size = new System.Drawing.Size(305, 23);
             this.RealNameInput.TabIndex = 27;
+            this.RealNameInput.TabStop = false;
             this.RealNameInput.UseSystemPasswordChar = false;
             // 
             // NicknameLabel
@@ -254,6 +268,7 @@
             this.NicknameInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NicknameInput.Hint = "Your nickname";
             this.NicknameInput.Location = new System.Drawing.Point(226, 139);
+            this.NicknameInput.MaxLength = 32767;
             this.NicknameInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.NicknameInput.Name = "NicknameInput";
             this.NicknameInput.PasswordChar = '\0';
@@ -262,6 +277,7 @@
             this.NicknameInput.SelectionStart = 0;
             this.NicknameInput.Size = new System.Drawing.Size(305, 23);
             this.NicknameInput.TabIndex = 11;
+            this.NicknameInput.TabStop = false;
             this.NicknameInput.UseSystemPasswordChar = false;
             // 
             // PasswordInput
@@ -272,6 +288,7 @@
             this.PasswordInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PasswordInput.Hint = "Your password";
             this.PasswordInput.Location = new System.Drawing.Point(226, 185);
+            this.PasswordInput.MaxLength = 32767;
             this.PasswordInput.MouseState = MaterialSkin.MouseState.HOVER;
             this.PasswordInput.Name = "PasswordInput";
             this.PasswordInput.PasswordChar = '*';
@@ -280,6 +297,7 @@
             this.PasswordInput.SelectionStart = 0;
             this.PasswordInput.Size = new System.Drawing.Size(305, 23);
             this.PasswordInput.TabIndex = 13;
+            this.PasswordInput.TabStop = false;
             this.PasswordInput.UseSystemPasswordChar = false;
             // 
             // StatusLabel
@@ -306,10 +324,6 @@
             this.TabMenuSelector.TabIndex = 26;
             this.TabMenuSelector.Text = "TabMenuSelector";
             // 
-            // MainViewBindingSource
-            // 
-            this.MainViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MainViewModel);
-            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,14 +341,12 @@
             this.Sizable = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Relay Chat";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginFormClosing);
-            this.MouseCaptureChanged += new System.EventHandler(this.LoginButtonClick);
             this.TabMenu.ResumeLayout(false);
             this.LoginTab.ResumeLayout(false);
             this.LoginTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).EndInit();
             this.RegisterTab.ResumeLayout(false);
             this.RegisterTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MainViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

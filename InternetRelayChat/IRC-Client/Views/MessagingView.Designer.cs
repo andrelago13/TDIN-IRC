@@ -32,9 +32,8 @@
             this.InviteButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.RefreshButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.WelcomeLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.ChatUserLabel = new MaterialSkin.Controls.MaterialLabel();
             this.UserList = new MaterialSkin.Controls.MaterialListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.OnlineHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +60,7 @@
             this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.RefreshButton.Depth = 0;
             this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(146, 602);
+            this.RefreshButton.Location = new System.Drawing.Point(156, 602);
             this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.RefreshButton.Name = "RefreshButton";
             this.RefreshButton.Primary = true;
@@ -85,24 +84,13 @@
             this.WelcomeLabel.TabIndex = 6;
             this.WelcomeLabel.Text = "Welcome";
             // 
-            // ChatUserLabel
-            // 
-            this.ChatUserLabel.AutoSize = true;
-            this.ChatUserLabel.Depth = 0;
-            this.ChatUserLabel.Font = new System.Drawing.Font("Roboto", 11F);
-            this.ChatUserLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ChatUserLabel.Location = new System.Drawing.Point(291, 78);
-            this.ChatUserLabel.MouseState = MaterialSkin.MouseState.HOVER;
-            this.ChatUserLabel.Name = "ChatUserLabel";
-            this.ChatUserLabel.Size = new System.Drawing.Size(97, 19);
-            this.ChatUserLabel.TabIndex = 8;
-            this.ChatUserLabel.Text = "Chatting with";
-            // 
             // UserList
             // 
+            this.UserList.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.UserList.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
             this.UserList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.UserList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.OnlineHeader});
             this.UserList.Depth = 0;
             this.UserList.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.UserList.FullRowSelect = true;
@@ -115,16 +103,16 @@
             this.UserList.MultiSelect = false;
             this.UserList.Name = "UserList";
             this.UserList.OwnerDraw = true;
-            this.UserList.Size = new System.Drawing.Size(251, 485);
+            this.UserList.Size = new System.Drawing.Size(261, 485);
             this.UserList.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.UserList.TabIndex = 9;
             this.UserList.UseCompatibleStateImageBehavior = false;
             this.UserList.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
+            // OnlineHeader
             // 
-            this.columnHeader1.Text = "Online Users";
-            this.columnHeader1.Width = 251;
+            this.OnlineHeader.Text = "Online Users";
+            this.OnlineHeader.Width = 251;
             // 
             // MessagingViewBindingSource
             // 
@@ -134,9 +122,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 656);
+            this.ClientSize = new System.Drawing.Size(273, 656);
             this.Controls.Add(this.UserList);
-            this.Controls.Add(this.ChatUserLabel);
             this.Controls.Add(this.WelcomeLabel);
             this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.InviteButton);
@@ -155,8 +142,7 @@
         private MaterialSkin.Controls.MaterialRaisedButton InviteButton;
         private MaterialSkin.Controls.MaterialRaisedButton RefreshButton;
         private MaterialSkin.Controls.MaterialLabel WelcomeLabel;
-        private MaterialSkin.Controls.MaterialLabel ChatUserLabel;
         private MaterialSkin.Controls.MaterialListView UserList;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader OnlineHeader;
     }
 }
