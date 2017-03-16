@@ -25,11 +25,15 @@ namespace IRC_Client.Models
         }
         #endregion
 
+        #region Private Methods
+
         private Client() : base(null)
         {
             this.ServerConnection = new ServerConnection();
             this.SessionEvent = new SessionSubscriber(this);
         }
+
+        #endregion
 
         #region Accessors
         public string Password { get; set; }
@@ -38,6 +42,7 @@ namespace IRC_Client.Models
         #endregion
 
         #region Session Subscriber
+
         private SessionSubscriber SessionEvent;
 
         public event SessionUpdateHandler SessionsEvent;
@@ -49,6 +54,13 @@ namespace IRC_Client.Models
                 SessionsEvent(info);
             }
         }
+
+        #endregion
+
+        #region PeerToPeer
+
+        // private PeerToPeer 
+
         #endregion
 
         #region Authentication Methods
