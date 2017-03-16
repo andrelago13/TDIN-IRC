@@ -21,9 +21,9 @@ namespace IRC_Common
             { 4, "Username already exists" }
         };
 
-        public static string GetIp()
+        public static string GetLocalIp()
         {
-            /*IPHostEntry host;
+            IPHostEntry host;
             string localIP = "?";
             host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (IPAddress ip in host.AddressList)
@@ -33,8 +33,8 @@ namespace IRC_Common
                     localIP = ip.ToString();
                 }
             }
-            return localIP;*/
-            return new WebClient().DownloadString("http://icanhazip.com").Trim();
+            return localIP;
+            //return new WebClient().DownloadString("http://icanhazip.com").Trim();
         }
 
         public static int GetFreeTcpPort()

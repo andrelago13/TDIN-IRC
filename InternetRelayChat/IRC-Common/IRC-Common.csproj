@@ -44,7 +44,6 @@
     <Compile Include="Interfaces\IServer.cs" />
     <Compile Include="Interfaces\ISessionSubscriber.cs" />
     <Compile Include="Models\LoggedClient.cs" />
-    <Compile Include="Models\SessionUpdateArgs.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

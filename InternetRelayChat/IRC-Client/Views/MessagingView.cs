@@ -35,13 +35,17 @@ namespace IRC_Client.Views
             Client.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
-        private void HandleSession(SessionUpdateArgs info)
+        private void HandleSession(LoggedClient info)
         {
             if (this.InvokeRequired)
             {
                 this.Invoke((MethodInvoker)delegate {
                     HandleSession(info);
                 });
+            }
+            if(info.IsLogged)
+            {
+                MessagingViewModel.Instance.LoggedUsers.Add(new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port));
             }
             //TODO user the user list existing in the view model
             /*List<string> values = new List<string>();
@@ -64,7 +68,10 @@ namespace IRC_Client.Views
         private void InviteButtonClick(object sender, EventArgs e)
         {
             int val = UserList.SelectedIndices[0];
-            Console.WriteLine(val);
+            /*Console.WriteLine(val);
+            LoggedClient c = MessagingViewModel.Instance.LoggedUsers[val];
+            PeerCommunicator pc = (PeerCommunicator)Activator.GetObject(typeof(PeerCommunicator), "tcp://" + c.Address + ":" + c.Port + "/IRC-Client/PeerCommunicator");
+            bool result = pc.RequestChat(null);*/
         }
 
         private void RefreshButtonClick(object sender, EventArgs e)

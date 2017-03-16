@@ -1,5 +1,6 @@
 ﻿using IRC_Client.Models;
 using IRC_Common;
+using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace IRC_Client
             this.Client = Client;
         }
 
-        protected override void InternalHandler(SessionUpdateArgs info)
+        protected override void InternalHandler(LoggedClient info)
         {
             this.Client.HandleSession(info);
         }

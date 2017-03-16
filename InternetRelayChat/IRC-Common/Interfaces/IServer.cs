@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IRC_Common
 {
     [Serializable]
-    public delegate void SessionUpdateHandler(SessionUpdateArgs info);
+    public delegate void SessionUpdateHandler(LoggedClient info);
 
     public abstract class IServer : MarshalByRefObject
     {

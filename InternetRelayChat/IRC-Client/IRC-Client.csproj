@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ClientLauncher.cs" />
     <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\PeerCommunicator.cs" />
     <Compile Include="Models\ServerConnection.cs" />
     <Compile Include="Models\SessionSubscriber.cs" />
     <Compile Include="ViewModels\MessagingViewModel.cs" />
