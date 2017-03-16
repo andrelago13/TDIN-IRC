@@ -69,6 +69,7 @@ namespace IRC_Client.Models
 
         private PeerCommunicator MyPeerCommunicator;
         public event HandleMessage MessageEvent;
+        private Dictionary<string, PeerCommunicator> peers = new Dictionary<string, PeerCommunicator>();
 
         public bool InviteClient(string address, int port)
         {
@@ -87,7 +88,7 @@ namespace IRC_Client.Models
 
         public void ReceiveMessage(Client sender, string message)
         {
-            //TODO
+            MessageEvent?.Invoke(sender, message);
         }
 
         private void SetupPeerCommunicator()
@@ -97,6 +98,23 @@ namespace IRC_Client.Models
             PeerCommunicatorContainer.Communicator = MyPeerCommunicator;
             RemotingConfiguration.RegisterWellKnownServiceType(new PeerCommunicatorContainer().GetType(),
                 "IRC-Client/PeerCommunicatorContainer", WellKnownObjectMode.Singleton);
+        }
+
+        private bool SendMessage(string nickname, string message)
+        {
+            PeerCommunicator comm = null;
+            if (!peers.TryGetValue(nickname, out comm))
+                return false;
+
+            try
+            {
+                comm.SendMessage(this, message);
+            } catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
