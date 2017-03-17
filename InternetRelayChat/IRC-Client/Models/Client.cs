@@ -44,9 +44,13 @@ namespace IRC_Client.Models
         #endregion
 
         #region Accessors
+
         public string Password { get; set; }
 
         public ServerConnection ServerConnection { get; set; }
+
+        public Dictionary<string, LoggedClient> LoggedClients { get; }
+
         #endregion
 
         #region Session Subscriber
@@ -69,27 +73,30 @@ namespace IRC_Client.Models
 
         private PeerCommunicator MyPeerCommunicator;
         public event HandleMessage MessageEvent;
+        public event HandleChat NewChatEvent;
         private Dictionary<string, PeerCommunicator> peers = new Dictionary<string, PeerCommunicator>();
 
-        public bool InviteClient(string nickname, string address, int port)
+        public bool InviteClient(LoggedClient client)
         {
-            PeerCommunicator pc = GetClientCommunicator(address, port);
+            PeerCommunicator pc = GetClientCommunicator(client.Address, client.Port);
             bool result = pc.RequestChat(this);
             if(result)
             {
-                peers.Add(nickname, pc);
+                peers.Add(client.Nickname, pc);
+                NewChatEvent?.Invoke(client);
             }
             return result;
         }
 
         public bool HandleInvite(Client requestingClient)
         {
-            var confirmResult = MessageBox.Show(requestingClient.RealName + " (" + requestingClient.Nickname +
-                ") invited you to chat. Do you want accept his invite?", "Chat invite",
+            var confirmResult = MessageBox.Show(requestingClient.RealName + " [" + requestingClient.Nickname +
+                "] invited you to chat. Do you want accept his invite?", "Chat invite",
                                      MessageBoxButtons.YesNo);
             if(confirmResult == DialogResult.Yes)
             {
                 peers.Add(requestingClient.Nickname, GetClientCommunicator(requestingClient));
+                NewChatEvent?.Invoke(requestingClient);
                 return true;
             }
 

@@ -1,9 +1,12 @@
 ﻿using IRC_Client.Models;
+using IRC_Common;
+using IRC_Common.Models;
 using System;
 
 namespace IRC_Client.Comunication
 {
     public delegate void HandleMessage(Client sender, string message);
+    public delegate void HandleChat(IClient sender);
 
     public class PeerCommunicator : MarshalByRefObject
     {

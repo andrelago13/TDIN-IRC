@@ -49,7 +49,23 @@
     <Compile Include="Communication\PeerCommunicatorContainer.cs" />
     <Compile Include="Models\ServerConnection.cs" />
     <Compile Include="Models\SessionSubscriber.cs" />
+    <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\MessagingViewModel.cs" />
+    <Compile Include="Views\ChatTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ChatUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ChatUserControl.Designer.cs">
+      <DependentUpon>ChatUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChatView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ChatView.Designer.cs">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +101,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Views\ChatUserControl.resx">
+      <DependentUpon>ChatUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ChatView.resx">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
