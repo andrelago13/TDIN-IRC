@@ -117,6 +117,11 @@ namespace IRC_Server
             return DBController.LoggedUsers(conn, nickname);
         }
 
+        public override string GetUserRealName(string nickname)
+        {
+            return DBController.GetUserRealName(conn, nickname);
+        }
+
         #endregion
 
         #region database

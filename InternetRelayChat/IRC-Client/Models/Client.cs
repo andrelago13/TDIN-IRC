@@ -41,6 +41,12 @@ namespace IRC_Client.Models
             this.SessionSessionEvent = new SessionSubscriber(this);
         }
 
+        private async void GetName()
+        {
+            string res = await Task.Run(() => ServerConnection.Connection.GetUserRealName(Nickname));
+            this.RealName = res;
+        }
+
         #endregion
 
         #region Accessors
@@ -168,6 +174,7 @@ namespace IRC_Client.Models
             {
                 this.Nickname = nick;
                 this.Address = ip;
+                GetName();
                 connection.SessionUpdateEvent += SessionSessionEvent.Handle;
                 SetupPeerCommunicator();
             }

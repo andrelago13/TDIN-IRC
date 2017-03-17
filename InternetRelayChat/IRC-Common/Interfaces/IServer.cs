@@ -21,5 +21,7 @@ namespace IRC_Common
         public abstract bool Logout(string nickname, string password);
 
         public abstract List<LoggedClient> LoggedUsers(string nickname);
+
+        public abstract string GetUserRealName(string nickname);
     }
 }
