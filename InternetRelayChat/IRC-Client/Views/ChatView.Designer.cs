@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.MessageInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.SendButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ChatTabsControl = new System.Windows.Forms.TabControl();
-            this.ChatViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.ChatViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // MessageInput
@@ -90,7 +87,6 @@
             this.Controls.Add(this.MessageInput);
             this.Name = "ChatView";
             this.Text = "Active Chats";
-            ((System.ComponentModel.ISupportInitialize)(this.ChatViewBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -100,6 +96,5 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField MessageInput;
         private MaterialSkin.Controls.MaterialRaisedButton SendButton;
         private System.Windows.Forms.TabControl ChatTabsControl;
-        private System.Windows.Forms.BindingSource ChatViewBindingSource;
     }
 }

@@ -1,4 +1,6 @@
-﻿using IRC_Common.Models;
+﻿using IRC_Client.Comunication;
+using IRC_Common;
+using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +12,19 @@ namespace IRC_Client.Views
 {
     class ChatTabPage : TabPage
     {
-        private LoggedClient user;
+        private IClient user;
+        private PeerCommunicator pc;
 
-        public ChatTabPage(LoggedClient user)
+        public ChatTabPage(IClient user, PeerCommunicator pc)
         {
             this.user = user;
+            this.pc = pc;
             Initialize();
         }
 
         private void Initialize()
         {
-            Controls.Add(new ChatUserControl(user) { Dock = DockStyle.Fill });
+            Controls.Add(new ChatUserControl(user, pc) { Dock = DockStyle.Fill });
             Text = user?.RealName;
         }
     }

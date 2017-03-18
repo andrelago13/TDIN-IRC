@@ -35,9 +35,8 @@ namespace IRC_Client.Views
             bool validLogin = await Task.Run<bool>(() => MainViewModel.Instance.Login());
             if(validLogin)
             {
-                MessagingView mf = new MessagingView();
                 Hide();
-                mf.ShowDialog();
+                MessagingView.Instance.ShowDialog();
                 Show();
             }
         }

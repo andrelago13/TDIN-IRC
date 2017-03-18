@@ -1,4 +1,5 @@
 ﻿using IRC_Client.Comunication;
+using IRC_Client.Views;
 using IRC_Common;
 using IRC_Common.Models;
 using System;
@@ -84,6 +85,9 @@ namespace IRC_Client.Models
 
         public bool InviteClient(LoggedClient client)
         {
+            if (client == null)
+                return false;
+
             PeerCommunicator pc = GetClientCommunicator(client.Address, client.Port);
             bool result = pc.RequestChat(this);
             if(result)
@@ -99,7 +103,7 @@ namespace IRC_Client.Models
             var confirmResult = MessageBox.Show(requestingClient.RealName + " [" + requestingClient.Nickname +
                 "] invited you to chat. Do you want accept his invite?", "Chat invite",
                                      MessageBoxButtons.YesNo);
-            if(confirmResult == DialogResult.Yes)
+            if (confirmResult == DialogResult.Yes)
             {
                 peers.Add(requestingClient.Nickname, GetClientCommunicator(requestingClient));
                 NewChatEvent?.Invoke(requestingClient);
@@ -141,7 +145,7 @@ namespace IRC_Client.Models
             return true;
         }
 
-        private PeerCommunicator GetClientCommunicator(Client client)
+        public PeerCommunicator GetClientCommunicator(IClient client)
         {
             return GetClientCommunicator(client.Address, client.Port);
         }

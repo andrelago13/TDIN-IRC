@@ -1,4 +1,6 @@
 ﻿using IRC_Client.Models;
+using IRC_Client.Views;
+using IRC_Common;
 using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client.ViewModels
 {
@@ -31,9 +34,11 @@ namespace IRC_Client.ViewModels
         private MessagingViewModel()
         {
             this.Client = Client.Instance;
+            this.Client.NewChatEvent += HandleChat;
         }
 
         #region Accessors
+
         public string WelcomeText
         {
             get
@@ -51,7 +56,7 @@ namespace IRC_Client.ViewModels
 
             set
             {
-                if(this.Client.Nickname != value)
+                if (this.Client.Nickname != value)
                 {
                     this.Client.Nickname = value;
                     this.NotifyPropertyChanged(nameof(Nickname));
@@ -96,7 +101,8 @@ namespace IRC_Client.ViewModels
 
         private List<LoggedClient> loggedUsers = new List<LoggedClient>();
 
-        public List<LoggedClient> LoggedUsers {
+        public List<LoggedClient> LoggedUsers
+        {
             get
             {
                 return this.loggedUsers;
@@ -136,6 +142,18 @@ namespace IRC_Client.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+        #endregion
+
+        #region Peer to Peer
+
+        public void HandleChat(IClient sender)
+        {
+            MessagingView.Instance.Invoke(new MethodInvoker(delegate ()
+            {
+                ChatView.Instance.StartChat(sender);
+            }));
+        }
+
         #endregion
     }
 }
