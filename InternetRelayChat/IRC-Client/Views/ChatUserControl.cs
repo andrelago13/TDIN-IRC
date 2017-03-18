@@ -15,6 +15,10 @@ namespace IRC_Client.Views
 {
     public partial class ChatUserControl : UserControl
     {
+        private static Color myUserColor = Color.Blue;
+        private static Color peerColor = Color.Green;
+        private static Color neutralColor = Color.Black;
+
         private IClient user;
         private PeerCommunicator pc;
 
@@ -23,7 +27,9 @@ namespace IRC_Client.Views
             InitializeComponent();
             this.user = user;
             this.pc = pc;
-            chatText.Text = "====> Chatting with " + user.RealName + " [" + user.Nickname + "] <====" + System.Environment.NewLine;
+            AddCenterText("====> Chatting with " + user.RealName + " [", neutralColor);
+            AddCenterText(user.Nickname, peerColor);
+            AddCenterText("] <====" + System.Environment.NewLine, neutralColor);
         }
 
         public void SendMessage(string message)
@@ -37,7 +43,7 @@ namespace IRC_Client.Views
             }
             else
             {
-                chatText.Text += "(YOU) => " + message + System.Environment.NewLine;
+                AddRightText(message + System.Environment.NewLine, myUserColor);
             }
         }
 
@@ -51,8 +57,35 @@ namespace IRC_Client.Views
                 }));
             } else
             {
-                chatText.Text += "[" + user.Nickname + "] => " + message + System.Environment.NewLine;
+                AddLeftText("[" + user.Nickname + "] => " + message + System.Environment.NewLine, peerColor);
             }
+        }
+
+        private void AddCenterText(string text, Color color)
+        {
+            AddText(text, color, HorizontalAlignment.Center);
+        }
+
+        private void AddRightText(string text, Color color)
+        {
+            AddText(text, color, HorizontalAlignment.Right);
+        }
+
+        private void AddLeftText(string text, Color color)
+        {
+            AddText(text, color, HorizontalAlignment.Left);
+        }
+
+        private void AddText(string text, Color color, HorizontalAlignment alignment)
+        {
+            // http://stackoverflow.com/questions/1926264/color-different-parts-of-a-richtextbox-string
+            chatText.SelectionStart = chatText.TextLength;
+            chatText.SelectionLength = 0;
+
+            chatText.SelectionColor = color;
+            chatText.SelectionAlignment = alignment;
+            chatText.AppendText(text);
+            chatText.SelectionColor = chatText.ForeColor;
         }
     }
 }

@@ -28,33 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chatText = new System.Windows.Forms.TextBox();
+            this.chatText = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // chatText
             // 
             this.chatText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chatText.Location = new System.Drawing.Point(0, 0);
-            this.chatText.Multiline = true;
             this.chatText.Name = "chatText";
-            this.chatText.ReadOnly = true;
             this.chatText.Size = new System.Drawing.Size(365, 282);
             this.chatText.TabIndex = 0;
+            this.chatText.Text = "";
             // 
-            // ChatTab
+            // ChatUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.chatText);
-            this.Name = "ChatTab";
+            this.Name = "ChatUserControl";
             this.Size = new System.Drawing.Size(365, 282);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox chatText;
+        private System.Windows.Forms.RichTextBox chatText;
     }
 }

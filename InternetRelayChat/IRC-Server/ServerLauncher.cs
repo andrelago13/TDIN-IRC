@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IRC_Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -18,7 +19,6 @@ namespace IRC_Server
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Server started.");
             SetupServer();
             Console.WriteLine("Press any key to terminate... ");
             Console.ReadKey();
@@ -30,13 +30,16 @@ namespace IRC_Server
             BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
             provider.TypeFilterLevel = TypeFilterLevel.Full;
             IDictionary props = new Hashtable();
-            props["port"] = 35994;
+            int port = 35994;
+            props["port"] = port;
             TcpChannel chan = new TcpChannel(props, null, provider);
 
             ChannelServices.RegisterChannel(chan, false);
 
             RemotingConfiguration.RegisterWellKnownServiceType(new Server().GetType(),
                 "IRC-Server/Server", WellKnownObjectMode.Singleton);
+
+            Console.WriteLine("Server started on " + Utils.GetLocalIp() + ":" + port);
         }
     }
 }
