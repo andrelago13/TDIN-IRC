@@ -28,14 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MessageInput = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.ChatViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.SendButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.ChatTabsControl = new System.Windows.Forms.TabControl();
+            ((System.ComponentModel.ISupportInitialize)(this.ChatViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // MessageInput
             // 
             this.MessageInput.AccessibleName = "";
+            this.MessageInput.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ChatViewModelBindingSource, "MessageText", true));
             this.MessageInput.Depth = 0;
             this.MessageInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MessageInput.Hint = "Write your message here";
@@ -51,6 +55,10 @@
             this.MessageInput.TabIndex = 16;
             this.MessageInput.TabStop = false;
             this.MessageInput.UseSystemPasswordChar = false;
+            // 
+            // ChatViewModelBindingSource
+            // 
+            this.ChatViewModelBindingSource.DataSource = typeof(IRC_Client.ViewModels.ChatViewModel);
             // 
             // SendButton
             // 
@@ -76,6 +84,7 @@
             this.ChatTabsControl.SelectedIndex = 0;
             this.ChatTabsControl.Size = new System.Drawing.Size(427, 286);
             this.ChatTabsControl.TabIndex = 25;
+            this.ChatTabsControl.SelectedIndexChanged += new System.EventHandler(this.ChatTabsControl_SelectedIndexChanged);
             // 
             // ChatView
             // 
@@ -87,6 +96,8 @@
             this.Controls.Add(this.MessageInput);
             this.Name = "ChatView";
             this.Text = "Active Chats";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatView_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.ChatViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,5 +107,6 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField MessageInput;
         private MaterialSkin.Controls.MaterialRaisedButton SendButton;
         private System.Windows.Forms.TabControl ChatTabsControl;
+        private System.Windows.Forms.BindingSource ChatViewModelBindingSource;
     }
 }

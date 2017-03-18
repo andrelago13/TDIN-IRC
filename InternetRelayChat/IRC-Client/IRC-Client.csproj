@@ -39,6 +39,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\IRC_Client.ViewModels.ChatViewModel.datasource" />
     <None Include="Properties\DataSources\IRC_Client.ViewModels.LoginViewModel.datasource" />
     <None Include="Properties\DataSources\IRC_Client.ViewModels.MessagingViewModel.datasource" />
   </ItemGroup>
@@ -49,6 +50,7 @@
     <Compile Include="Communication\PeerCommunicatorContainer.cs" />
     <Compile Include="Models\ServerConnection.cs" />
     <Compile Include="Models\SessionSubscriber.cs" />
+    <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\MessagingViewModel.cs" />
     <Compile Include="Views\ChatTabPage.cs">
       <SubType>Component</SubType>

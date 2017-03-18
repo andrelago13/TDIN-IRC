@@ -50,13 +50,16 @@ namespace IRC_Client.Views
         private ChatView()
         {
             InitializeComponent();
+            ChatViewModelBindingSource.Add(ChatViewModel.Instance);
+            ChatViewModel.Instance.View = this;
+            ChatViewModel.Instance.Pages = ChatTabsControl.TabPages;
 
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
 
-            Client.Instance.MessageEvent += HandleMessage;
+            ChatViewModel.Instance.Start();
         }
 
         #endregion
@@ -79,13 +82,6 @@ namespace IRC_Client.Views
             instance.Show();
         }
 
-        public void StartChat(IClient client)
-        {
-            PeerCommunicator pc = Client.Instance.GetClientCommunicator(client);
-            AddChat(client, pc);
-            Show();
-        }
-
         public void AddChat(IClient client, PeerCommunicator pc)
         {
             ChatTabPage t = new ChatTabPage(client, pc);
@@ -94,29 +90,28 @@ namespace IRC_Client.Views
 
         public void Terminate()
         {
-            // TODO
             Dispose();
         }
 
         #endregion
 
+        #region Events
+
         private void SendButton_Click(object sender, EventArgs e)
         {
-            string text = MessageInput.Text;
-            if (text == null || text.Length == 0)
-                return;
-
-            ((ChatTabPage) ChatTabsControl.TabPages[ChatTabsControl.SelectedIndex]).SendMessage(text);
+            ChatViewModel.Instance.SendMessage();
         }
 
-        public void HandleMessage(Client sender, string message)
+        private void ChatView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            TabPageCollection pages = ChatTabsControl.TabPages;
-            foreach(TabPage page in pages)
-            {
-                if (((ChatTabPage)page).HandleMessage(sender, message))
-                    return;
-            }
+            ChatViewModel.Instance.Finish();
         }
+
+        private void ChatTabsControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChatViewModel.Instance.ActivePage = ChatTabsControl.SelectedIndex;
+        }
+
+        #endregion
     }
 }

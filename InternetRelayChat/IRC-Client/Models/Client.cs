@@ -194,6 +194,8 @@ namespace IRC_Client.Models
             IServer connection = ServerConnection.Connection;
             if (connection == null)
                 return false;
+            
+            connection.SessionUpdateEvent -= SessionSessionEvent.Handle;
 
             return connection.Logout(this.Nickname, this.Password);
         }

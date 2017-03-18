@@ -16,6 +16,7 @@ namespace IRC_Client.ViewModels
     class MessagingViewModel : INotifyPropertyChanged
     {
         #region Singleton
+
         private static MessagingViewModel instance;
 
         public static MessagingViewModel Instance
@@ -27,7 +28,6 @@ namespace IRC_Client.ViewModels
                 return instance;
             }
         }
-        #endregion
 
         private Client Client;
 
@@ -36,6 +36,8 @@ namespace IRC_Client.ViewModels
             this.Client = Client.Instance;
             this.Client.NewChatEvent += HandleChat;
         }
+
+        #endregion
 
         #region Accessors
 
@@ -121,6 +123,7 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Public Methods
+
         public void UpdateOnlineUsers()
         {
             this.LoggedUsers = this.Client.ServerConnection.Connection.LoggedUsers(this.Nickname);
@@ -130,9 +133,11 @@ namespace IRC_Client.ViewModels
         {
             bool res = await Task.Run(() => Client.Instance.InviteClient(client));
         }
+
         #endregion
 
         #region Property Change
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -142,6 +147,7 @@ namespace IRC_Client.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
         #endregion
 
         #region Peer to Peer
@@ -150,7 +156,7 @@ namespace IRC_Client.ViewModels
         {
             MessagingView.Instance.Invoke(new MethodInvoker(delegate ()
             {
-                ChatView.Instance.StartChat(sender);
+                ChatViewModel.Instance.StartChat(sender);
             }));
         }
 
