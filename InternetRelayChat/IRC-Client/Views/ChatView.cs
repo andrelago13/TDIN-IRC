@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.TabControl;
 
 namespace IRC_Client.Views
 {
@@ -53,6 +54,7 @@ namespace IRC_Client.Views
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            Client.Instance.MessageEvent += HandleMessage;
         }
 
         #endregion
@@ -98,7 +100,21 @@ namespace IRC_Client.Views
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            // TODO
+            string text = MessageInput.Text;
+            if (text == null || text.Length == 0)
+                return;
+
+            ((ChatTabPage) ChatTabsControl.TabPages[ChatTabsControl.SelectedIndex]).SendMessage(text);
+        }
+
+        public void HandleMessage(Client sender, string message)
+        {
+            TabPageCollection pages = ChatTabsControl.TabPages;
+            foreach(TabPage page in pages)
+            {
+                if (((ChatTabPage)page).HandleMessage(sender, message))
+                    return;
+            }
         }
     }
 }

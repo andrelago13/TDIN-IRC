@@ -1,4 +1,5 @@
 ﻿using IRC_Client.Comunication;
+using IRC_Client.Models;
 using IRC_Common;
 using IRC_Common.Models;
 using System;
@@ -14,6 +15,7 @@ namespace IRC_Client.Views
     {
         private IClient user;
         private PeerCommunicator pc;
+        private ChatUserControl control;
 
         public ChatTabPage(IClient user, PeerCommunicator pc)
         {
@@ -24,8 +26,25 @@ namespace IRC_Client.Views
 
         private void Initialize()
         {
-            Controls.Add(new ChatUserControl(user, pc) { Dock = DockStyle.Fill });
+            control = new ChatUserControl(user, pc) { Dock = DockStyle.Fill };
+            Controls.Add(control);
             Text = user?.RealName;
+        }
+
+        public void SendMessage(string message)
+        {
+            pc.SendMessage(Client.Instance, message);
+            control.SendMessage(message);
+        }
+
+        public bool HandleMessage(Client sender, string message)
+        {
+            if(sender.Nickname != user.Nickname)
+                return false;
+
+            control.ReceiveMessage(message);
+
+            return true;
         }
     }
 }
