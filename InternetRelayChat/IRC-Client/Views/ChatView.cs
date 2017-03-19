@@ -104,6 +104,18 @@ namespace IRC_Client.Views
             ChatViewModel.Instance.ActivePage = ChatTabsControl.SelectedIndex;
         }
 
+        private void MessageInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ChatViewModel.Instance.SendMessage();
+            }
+            else
+            {
+                ChatViewModel.Instance.MessageText = MessageInput.Text;
+            }
+        }
+
         #endregion
     }
 }

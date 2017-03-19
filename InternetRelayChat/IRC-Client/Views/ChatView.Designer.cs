@@ -55,6 +55,7 @@
             this.MessageInput.TabIndex = 16;
             this.MessageInput.TabStop = false;
             this.MessageInput.UseSystemPasswordChar = false;
+            this.MessageInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageInput_KeyDown);
             // 
             // ChatViewModelBindingSource
             // 
