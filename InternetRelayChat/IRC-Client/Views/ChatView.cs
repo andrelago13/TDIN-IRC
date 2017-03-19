@@ -39,14 +39,6 @@ namespace IRC_Client.Views
             }
         }
 
-        public static bool Exists
-        {
-            get
-            {
-                return instance != null;
-            }
-        }
-
         private ChatView()
         {
             InitializeComponent();
@@ -66,11 +58,11 @@ namespace IRC_Client.Views
 
         #region Public methods
 
-        public bool IsActive
+        public static bool Exists
         {
             get
             {
-                return instance == null;
+                return instance != null;
             }
         }
 

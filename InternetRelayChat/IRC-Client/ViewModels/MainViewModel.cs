@@ -152,24 +152,7 @@ namespace IRC_Client.ViewModels
         {
             if (PropertyChanged != null)
             {
-                Delegate[] eventHandlers = PropertyChanged.GetInvocationList();
-
-                foreach (Delegate d in eventHandlers)
-                {
-                    // Check whether the target of the delegate implements 
-                    // ISynchronizeInvoke (Winforms controls do), and see
-                    // if a context-switch is required.
-                    ISynchronizeInvoke target = d.Target as ISynchronizeInvoke;
-
-                    if (target != null && target.InvokeRequired)
-                    {
-                        target.Invoke(d, new object[] { this, new PropertyChangedEventArgs(info) });
-                    }
-                    else
-                    {
-                        d.DynamicInvoke(new PropertyChangedEventArgs(info));
-                    }
-                }
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
         
