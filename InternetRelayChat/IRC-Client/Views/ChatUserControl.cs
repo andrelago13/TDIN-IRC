@@ -25,6 +25,8 @@ namespace IRC_Client.Views
         public ChatUserControl(IClient user, PeerCommunicator pc)
         {
             InitializeComponent();
+            Dock = DockStyle.Fill;
+
             this.user = user;
             this.pc = pc;
             AddCenterText("====> Chatting with " + user.RealName + " [", neutralColor);
@@ -78,7 +80,6 @@ namespace IRC_Client.Views
 
         private void AddText(string text, Color color, HorizontalAlignment alignment)
         {
-            // http://stackoverflow.com/questions/1926264/color-different-parts-of-a-richtextbox-string
             chatText.SelectionStart = chatText.TextLength;
             chatText.SelectionLength = 0;
 

@@ -26,7 +26,7 @@ namespace IRC_Client.Views
 
         private void Initialize()
         {
-            control = new ChatUserControl(user, pc) { Dock = DockStyle.Fill };
+            control = new ChatUserControl(user, pc);
             Controls.Add(control);
             Text = user?.RealName;
         }
