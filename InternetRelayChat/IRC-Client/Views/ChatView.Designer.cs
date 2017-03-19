@@ -89,6 +89,7 @@
             // 
             // ChatView
             // 
+            this.AcceptButton = this.SendButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 434);
@@ -96,6 +97,7 @@
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.MessageInput);
             this.Name = "ChatView";
+            this.Sizable = false;
             this.Text = "Active Chats";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatView_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.ChatViewModelBindingSource)).EndInit();

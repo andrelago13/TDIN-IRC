@@ -42,6 +42,11 @@ namespace IRC_Client.Views
             if(sender.Nickname != user.Nickname)
                 return false;
 
+            if(message == null || message.Length == 0)
+            {
+                this.Dispose();
+            }
+
             control.ReceiveMessage(message);
 
             return true;

@@ -106,11 +106,7 @@ namespace IRC_Client.Views
 
         private void MessageInput_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                ChatViewModel.Instance.SendMessage();
-            }
-            else
+            if (e.KeyCode != Keys.Enter)
             {
                 ChatViewModel.Instance.MessageText = MessageInput.Text;
             }
