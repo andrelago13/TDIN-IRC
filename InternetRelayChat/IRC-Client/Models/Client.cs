@@ -87,7 +87,7 @@ namespace IRC_Client.Models
             if (client == null)
                 return false;
 
-            PeerCommunicator pc = GetClientCommunicator(client.Address, client.Port);
+            PeerCommunicator pc = Utils.GetClientCommunicator(client);
             bool result = pc.RequestChat(this);
             if(result)
             {
@@ -104,7 +104,7 @@ namespace IRC_Client.Models
                                      MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                peers.Add(requestingClient.Nickname, GetClientCommunicator(requestingClient));
+                peers.Add(requestingClient.Nickname, Utils.GetClientCommunicator(requestingClient));
                 NewChatEvent?.Invoke(requestingClient);
                 return true;
             }
@@ -123,36 +123,6 @@ namespace IRC_Client.Models
             PeerCommunicatorContainer.Communicator = this.Communicator;
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(PeerCommunicatorContainer),
                 "IRC-Client/PeerCommunicator", WellKnownObjectMode.Singleton);
-        }
-
-        private bool SendMessage(string nickname, string message)
-        {
-            PeerCommunicator comm = null;
-            if (!peers.TryGetValue(nickname, out comm))
-                return false;
-
-            try
-            {
-                comm.SendMessage(this, message);
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-
-            return true;
-        }
-
-        public PeerCommunicator GetClientCommunicator(IClient client)
-        {
-            return GetClientCommunicator(client.Address, client.Port);
-        }
-
-        private PeerCommunicator GetClientCommunicator(string address, int port)
-        {
-            PeerCommunicatorContainer container = (PeerCommunicatorContainer)Activator.GetObject(
-                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicator");
-            return container.GetCommunicator();
         }
 
         public void EndCommunication(string nickname)

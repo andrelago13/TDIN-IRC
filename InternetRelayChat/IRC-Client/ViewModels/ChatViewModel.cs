@@ -92,7 +92,7 @@ namespace IRC_Client.ViewModels
             {
                 View = ChatView.Instance;
             }
-            PeerCommunicator pc = Client.Instance.GetClientCommunicator(client);
+            PeerCommunicator pc = Utils.GetClientCommunicator(client);
             View.AddChat(client, pc);
             View.ShowChatView();
         }

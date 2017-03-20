@@ -19,26 +19,7 @@ namespace IRC_Client.Views
 {
     public partial class UsersView : MaterialForm
     {
-        private static UsersView instance;
-        public static UsersView Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new UsersView();
-                return instance;
-            }
-        }
-
-        public static bool Exists
-        {
-            get
-            {
-                return instance != null;
-            }
-        }
-
-        private UsersView()
+        public UsersView()
         {
             this.InitializeComponent();
             UsersViewModel.Instance.Controller = this;

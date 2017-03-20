@@ -154,10 +154,7 @@ namespace IRC_Client.ViewModels
 
         public void HandleChat(IClient sender)
         {
-            UsersView.Instance.Invoke(new MethodInvoker(delegate ()
-            {
-                ChatViewModel.Instance.StartChat(sender);
-            }));
+            Utils.ControlInvoke(this.Controller, () => ChatViewModel.Instance.StartChat(sender));
         }
 
         #endregion

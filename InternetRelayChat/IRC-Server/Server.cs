@@ -1,5 +1,6 @@
 ﻿using IRC_Common;
 using IRC_Common.Models;
+using IRC_Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -124,7 +125,10 @@ namespace IRC_Server
 
         public override string CreateChatRoom(IClient sender, List<IClient> users)
         {
-            return "";
+            ChatRoom chatRoom = new ChatRoom(sender, users);
+            chatRoom.InviteAllUsers();
+
+            return chatRoom.Hash;
         }
 
         #endregion
