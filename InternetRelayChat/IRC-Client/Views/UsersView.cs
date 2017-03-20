@@ -93,8 +93,14 @@ namespace IRC_Client.Views
             if (UserList.SelectedIndices.Count == 0)
                 return;
 
-            int val = UserList.SelectedIndices[0];
-            UsersViewModel.Instance.InviteClient(UsersViewModel.Instance.LoggedUsers[val]);
+            if(UserList.SelectedIndices.Count > 1)
+            {
+
+            } else
+            {
+                int selectedUser = UserList.SelectedIndices[0];
+                UsersViewModel.Instance.InviteClient(UsersViewModel.Instance.LoggedUsers[selectedUser]);
+            }
         }
 
         private void RefreshUsers()
