@@ -96,11 +96,11 @@
             this.UserList.FullRowSelect = true;
             this.UserList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.UserList.HideSelection = false;
+            this.UserList.ImeMode = System.Windows.Forms.ImeMode.On;
             this.UserList.LabelWrap = false;
             this.UserList.Location = new System.Drawing.Point(6, 111);
             this.UserList.MouseLocation = new System.Drawing.Point(-1, -1);
             this.UserList.MouseState = MaterialSkin.MouseState.OUT;
-            this.UserList.MultiSelect = false;
             this.UserList.Name = "UserList";
             this.UserList.OwnerDraw = true;
             this.UserList.Size = new System.Drawing.Size(261, 485);

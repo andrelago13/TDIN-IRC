@@ -66,12 +66,10 @@ namespace IRC_Client.Views
             }
             if (info.IsLogged)
             {
-                MessagingViewModel.Instance.LoggedUsers.Add(new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port));
+                LoggedClient client = new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port);
+                MessagingViewModel.Instance.LoggedUsers.Add(client);
+                if (ControlInvokeRequired(UserList, () => UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]")))) return;
             }
-            //TODO user the user list existing in the view model
-            /*List<string> values = new List<string>();
-            values.Add(info.Username + " [" + "+" + "]");
-            userList.DataSource = values;*/
         }
 
         private void MessagingViewClosing(object sender, FormClosingEventArgs e)
@@ -114,6 +112,22 @@ namespace IRC_Client.Views
                 ListViewItem item = new ListViewItem(client.RealName + " [" + client.Nickname + "]");
                 UserList.Items.Add(item);
             }
+            UserList.Items.Add(new ListViewItem("Random [cenas]"));
+            UserList.Items.Add(new ListViewItem("Bla [oi]"));
+        }
+
+        public bool ControlInvokeRequired(Control c, Action a)
+        {
+            if (c.InvokeRequired)
+            {
+                c.Invoke(new MethodInvoker(delegate { a(); }));
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
