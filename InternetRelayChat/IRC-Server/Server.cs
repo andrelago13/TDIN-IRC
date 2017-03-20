@@ -29,16 +29,19 @@ namespace IRC_Server
             }
         }
 
+        private List<ChatRoom> ChatRooms;
+
         public Server()
         {
-            conn = InitializeDatabase("data", "database.sqlite");
+            this.conn = InitializeDatabase("data", "database.sqlite");
+            this.ChatRooms = new List<ChatRoom>();
         }
 
         ///////////////////////////////////////////////////////////////////////
         ///////////////////////// PUBLIC/API METHODS //////////////////////////
         ///////////////////////////////////////////////////////////////////////
 
-        #region api
+        #region Login / Register
 
         /*
          * Returns 0 upon success
@@ -123,17 +126,38 @@ namespace IRC_Server
             return DBController.GetUserRealName(conn, nickname);
         }
 
+        #endregion
+
+        #region ChatRoom
         public override string CreateChatRoom(IClient sender, List<IClient> users)
         {
             ChatRoom chatRoom = new ChatRoom(sender, users);
             chatRoom.InviteAllUsers();
 
+            this.ChatRooms.Add(chatRoom);
+
             return chatRoom.Hash;
         }
 
+        public override void SendMessageChatRoom(IClient sender, string hash, string message)
+        {
+            ChatRoom chatRoom = null;
+            foreach(ChatRoom currentRoom in this.ChatRooms)
+            {
+                if (!currentRoom.Hash.Equals(hash))
+                    continue;
+                chatRoom = currentRoom;
+                break;
+            }
+
+            if (chatRoom == null)
+                return;
+
+            chatRoom.SendMessage(sender, message);
+        }
         #endregion
 
-        #region database
+        #region Database
 
         private SQLiteConnection InitializeDatabase(string dbDir, string dbFile)
         {

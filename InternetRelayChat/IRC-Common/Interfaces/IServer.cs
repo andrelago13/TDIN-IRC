@@ -24,5 +24,7 @@ namespace IRC_Common
         public abstract string GetUserRealName(string nickname);
 
         public abstract string CreateChatRoom(IClient client, List<IClient> users);
+
+        public abstract void SendMessageChatRoom(IClient sender, string hash, string message);
     }
 }

@@ -23,6 +23,7 @@ namespace IRC_Server.Models
             this.Owner = owner;
             this.Users = users;
             this.Peers = new Dictionary<string, PeerCommunicator>();
+
             // Generate random hash
             string guidString = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             guidString = guidString.Replace("=", "");
@@ -30,32 +31,44 @@ namespace IRC_Server.Models
             this.Hash = guidString;
         }
 
-        public void InviteAllUsers()
+        #region Invites
+        public async void InviteAllUsers()
         {
+            bool result;
             foreach(IClient client in Users)
             {
-                InviteUser(client);
+                result = await Task.Run<bool>(() => InviteUser(client));
+                Console.WriteLine("Client: " + client.Nickname + " answered " + result);
             }
         }
 
-        private void InviteUser(IClient client)
+        private bool InviteUser(IClient client)
         {
             if (client == null)
-                return;
+                return false;
 
-            PeerCommunicator pc = GetClientCommunicator(client.Address, client.Port);
-            bool result = pc.RequestChat(Owner);
+            PeerCommunicator communicator = Utils.GetClientCommunicator(client);
+            bool result = communicator.RequestChat(Owner);
             if (result)
             {
-                this.Peers.Add(client.Nickname, pc);
-                NewChatEvent?.Invoke(client);
+                this.Peers.Add(client.Nickname, communicator);
             }
-            return;
+            return result;
         }
+        #endregion
 
-        public void SendMessage(IClient client, string message)
+        #region Messages
+        public void SendMessage(IClient sender, string message)
         {
-            
+            PeerCommunicator communicator;
+            foreach(IClient client in Users)
+            {
+                if (!Peers.TryGetValue(client.Nickname, out communicator))
+                    return;
+
+                communicator.SendMessage(sender, message);
+            }
         }
+        #endregion
     }
 }
