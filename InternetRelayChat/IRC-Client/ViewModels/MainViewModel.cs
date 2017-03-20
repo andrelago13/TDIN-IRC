@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client.ViewModels
 {
     class MainViewModel : INotifyPropertyChanged
     {
         #region Singleton
-
         private static MainViewModel instance;
 
         public static MainViewModel Instance
@@ -39,6 +39,7 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Accessors
+        public Control Controller { get; set; }
 
         public string Nickname
         {
@@ -52,7 +53,8 @@ namespace IRC_Client.ViewModels
                 if(this.Client.Nickname != value)
                 {
                     this.Client.Nickname = value;
-                    this.NotifyPropertyChanged(nameof(Nickname));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Nickname)));
+                    
                 }
             }
         }
@@ -69,7 +71,7 @@ namespace IRC_Client.ViewModels
                 if (this.Client.Password != value)
                 {
                     this.Client.Password = value;
-                    this.NotifyPropertyChanged(nameof(Password));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Password)));
                 }
             }
         }
@@ -86,7 +88,7 @@ namespace IRC_Client.ViewModels
                 if (this.Client.RealName != value)
                 {
                     this.Client.RealName = value;
-                    this.NotifyPropertyChanged(nameof(RealName));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(RealName)));
                 }
             }
         }
@@ -103,7 +105,7 @@ namespace IRC_Client.ViewModels
                 if (this.ServerConnection.Address != value)
                 {
                     this.ServerConnection.Address = value;
-                    this.NotifyPropertyChanged(nameof(ServerAddress));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(ServerAddress)));
                 }
             }
         }
@@ -120,7 +122,7 @@ namespace IRC_Client.ViewModels
                 if (this.ServerConnection.Port != value)
                 {
                     this.ServerConnection.Port = value;
-                    this.NotifyPropertyChanged(nameof(ServerPort));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(ServerPort)));
                 }
             }
         }
@@ -137,7 +139,7 @@ namespace IRC_Client.ViewModels
                 if (this.ServerConnection.Status != value)
                 {
                     this.ServerConnection.Status = value;
-                    this.NotifyPropertyChanged(nameof(Status));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Status)));
                 }
             }
         }

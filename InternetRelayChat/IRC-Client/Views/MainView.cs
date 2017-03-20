@@ -20,6 +20,7 @@ namespace IRC_Client.Views
         public MainView()
         {
             this.InitializeComponent();
+            MainViewModel.Instance.Controller = this;
             this.MainViewBindingSource.Add(MainViewModel.Instance);
 
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;

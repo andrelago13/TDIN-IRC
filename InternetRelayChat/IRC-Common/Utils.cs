@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Common
 {
@@ -45,6 +46,18 @@ namespace IRC_Common
             sock.Close();
             
             return port;
+        }
+
+        public static void ControlInvoke(Control c, Action a)
+        {
+            if (c.InvokeRequired)
+            {
+                c.Invoke(new MethodInvoker(delegate { a(); }));
+            }
+            else
+            {
+                a();
+            }
         }
     }
 }

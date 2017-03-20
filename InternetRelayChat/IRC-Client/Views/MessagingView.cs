@@ -68,7 +68,7 @@ namespace IRC_Client.Views
             {
                 LoggedClient client = new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port);
                 MessagingViewModel.Instance.LoggedUsers.Add(client);
-                if (ControlInvokeRequired(UserList, () => UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]")))) return;
+                Utils.ControlInvoke(this, () => UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]")));
             }
         }
 
@@ -114,20 +114,6 @@ namespace IRC_Client.Views
             }
             UserList.Items.Add(new ListViewItem("Random [cenas]"));
             UserList.Items.Add(new ListViewItem("Bla [oi]"));
-        }
-
-        public bool ControlInvokeRequired(Control c, Action a)
-        {
-            if (c.InvokeRequired)
-            {
-                c.Invoke(new MethodInvoker(delegate { a(); }));
-            }
-            else
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
