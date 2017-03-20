@@ -18,13 +18,13 @@ namespace IRC_Server
             add
             {
                 Console.WriteLine("SessionUpdateEvent subscriber added");
-                MyHandler = value;
+                MyHandler += value;
             }
 
             remove
             {
                 Console.WriteLine("SessionUpdateEvent subscriber removed");
-                MyHandler = value;
+                MyHandler -= value;
             }
         }
 
@@ -92,7 +92,7 @@ namespace IRC_Server
             if (sessionCreated)
             {
                 //TODO: start heartbeat connection with client
-                MyHandler?.Invoke(new LoggedClient(nickname, "", ip, port));
+                MyHandler?.Invoke(new LoggedClient(nickname, DBController.GetUserRealName(conn, nickname), ip, port));
             }
             return sessionCreated;
         }
