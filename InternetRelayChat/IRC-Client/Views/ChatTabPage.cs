@@ -1,7 +1,6 @@
 ﻿using IRC_Client.Comunication;
 using IRC_Client.Models;
 using IRC_Common;
-using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +36,7 @@ namespace IRC_Client.Views
             control.SendMessage(message);
         }
 
-        public bool HandleMessage(Client sender, string message)
+        public bool HandleMessage(IClient sender, string message)
         {
             if(sender.Nickname != user.Nickname)
                 return false;

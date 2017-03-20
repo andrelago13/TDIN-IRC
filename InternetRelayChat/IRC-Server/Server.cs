@@ -1,5 +1,6 @@
 ﻿using IRC_Common;
 using IRC_Common.Models;
+using IRC_Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -112,7 +113,7 @@ namespace IRC_Server
             return sessionEnded;
         }
 
-        public override List<LoggedClient> LoggedUsers(string nickname)
+        public override List<IClient> LoggedUsers(string nickname)
         {
             return DBController.LoggedUsers(conn, nickname);
         }
@@ -120,6 +121,14 @@ namespace IRC_Server
         public override string GetUserRealName(string nickname)
         {
             return DBController.GetUserRealName(conn, nickname);
+        }
+
+        public override string CreateChatRoom(IClient sender, List<IClient> users)
+        {
+            ChatRoom chatRoom = new ChatRoom(sender, users);
+            chatRoom.InviteAllUsers();
+
+            return chatRoom.Hash;
         }
 
         #endregion

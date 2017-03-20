@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IRC_Client.Comunication;
+using IRC_Common.Communication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -59,6 +61,18 @@ namespace IRC_Common
             {
                 a();
             }
+        }
+
+        public static PeerCommunicator GetClientCommunicator(IClient client)
+        {
+            return GetClientCommunicator(client.Address, client.Port);
+        }
+
+        private static PeerCommunicator GetClientCommunicator(string address, int port)
+        {
+            PeerCommunicatorContainer container = (PeerCommunicatorContainer)Activator.GetObject(
+                typeof(PeerCommunicatorContainer), "tcp://" + address + ":" + port + "/IRC-Client/PeerCommunicator");
+            return container.GetCommunicator();
         }
     }
 }

@@ -32,5 +32,9 @@ namespace IRC_Common
         }
 
         public IClient(string nickname) : this(nickname, null, null, 0) { }
+
+        public abstract bool HandleInvite(IClient requestingClient);
+
+        public abstract void ReceiveMessage(IClient sender, string message);
     }
 }

@@ -19,26 +19,7 @@ namespace IRC_Client.Views
 {
     public partial class UsersView : MaterialForm
     {
-        private static UsersView instance;
-        public static UsersView Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new UsersView();
-                return instance;
-            }
-        }
-
-        public static bool Exists
-        {
-            get
-            {
-                return instance != null;
-            }
-        }
-
-        private UsersView()
+        public UsersView()
         {
             this.InitializeComponent();
             UsersViewModel.Instance.Controller = this;
@@ -56,7 +37,7 @@ namespace IRC_Client.Views
             Client.Instance.SessionsEvent += new SessionUpdateHandler(HandleSession);
         }
 
-        private void HandleSession(LoggedClient info)
+        private void HandleSession(IClient info)
         {
             if (this.InvokeRequired)
             {
@@ -65,7 +46,7 @@ namespace IRC_Client.Views
             }
             if (info.IsLogged)
             {
-                LoggedClient client = new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port);
+                IClient client = new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port);
                 UsersViewModel.Instance.LoggedUsers.Add(client);
                 UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]"));
             }
@@ -107,7 +88,7 @@ namespace IRC_Client.Views
         {
             UsersViewModel.Instance.UpdateOnlineUsers();
             UserList.Items.Clear();
-            foreach (LoggedClient client in UsersViewModel.Instance.LoggedUsers)
+            foreach (IClient client in UsersViewModel.Instance.LoggedUsers)
             {
                 ListViewItem item = new ListViewItem(client.RealName + " [" + client.Nickname + "]");
                 UserList.Items.Add(item);

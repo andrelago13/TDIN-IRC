@@ -115,9 +115,9 @@ namespace IRC_Server
             return result > 0;
         }
 
-        public static List<LoggedClient> LoggedUsers(SQLiteConnection conn, string askingNickname)
+        public static List<IClient> LoggedUsers(SQLiteConnection conn, string askingNickname)
         {
-            List<LoggedClient> result = new List<LoggedClient>();
+            List<IClient> result = new List<IClient>();
 
             SQLiteCommand command = new SQLiteCommand(null, conn);
             command.CommandText = "SELECT sessions.nickname, users.realname, sessions.ip, sessions.port " +

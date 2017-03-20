@@ -1,5 +1,4 @@
-﻿using IRC_Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 namespace IRC_Common
 {
     [Serializable]
-    public delegate void SessionUpdateHandler(LoggedClient info);
+    public delegate void SessionUpdateHandler(IClient info);
 
     public abstract class IServer : MarshalByRefObject
     {
@@ -20,8 +19,10 @@ namespace IRC_Common
 
         public abstract bool Logout(string nickname, string password);
 
-        public abstract List<LoggedClient> LoggedUsers(string nickname);
+        public abstract List<IClient> LoggedUsers(string nickname);
 
         public abstract string GetUserRealName(string nickname);
+
+        public abstract string CreateChatRoom(IClient client, List<IClient> users);
     }
 }

@@ -1,5 +1,4 @@
-﻿using IRC_Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +9,11 @@ namespace IRC_Common
     [Serializable]
     public abstract class ISessionSubscriber : MarshalByRefObject
     {
-        public void Handle(LoggedClient info)
+        public void Handle(IClient info)
         {
             InternalHandler(info);
         }
 
-        protected abstract void InternalHandler(LoggedClient info);
+        protected abstract void InternalHandler(IClient info);
     }
 }

@@ -37,7 +37,7 @@ namespace IRC_Client.Views
             if(validLogin)
             {
                 Hide();
-                UsersView.Instance.ShowDialog();
+                new UsersView().ShowDialog();
                 Show();
             }
             LoginButton.Enabled = true;
