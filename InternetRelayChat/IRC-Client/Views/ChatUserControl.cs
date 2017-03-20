@@ -36,31 +36,12 @@ namespace IRC_Client.Views
 
         public void SendMessage(string message)
         {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate ()
-                {
-                    SendMessage(message);
-                }));
-            }
-            else
-            {
-                AddRightText(message + System.Environment.NewLine, myUserColor);
-            }
+            Utils.ControlInvoke(this, () => AddRightText(message + System.Environment.NewLine, myUserColor));
         }
 
         public void ReceiveMessage(string message)
         {
-            if(InvokeRequired)
-            {
-                Invoke(new MethodInvoker(delegate ()
-                {
-                    ReceiveMessage(message);
-                }));
-            } else
-            {
-                AddLeftText("[" + user.Nickname + "] => " + message + System.Environment.NewLine, peerColor);
-            }
+            Utils.ControlInvoke(this, () => AddLeftText("[" + user.Nickname + "] => " + message + System.Environment.NewLine, peerColor));
         }
 
         private void AddCenterText(string text, Color color)

@@ -17,15 +17,15 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    public partial class MessagingView : MaterialForm
+    public partial class UsersView : MaterialForm
     {
-        private static MessagingView instance;
-        public static MessagingView Instance
+        private static UsersView instance;
+        public static UsersView Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new MessagingView();
+                    instance = new UsersView();
                 return instance;
             }
         }
@@ -38,10 +38,11 @@ namespace IRC_Client.Views
             }
         }
 
-        private MessagingView()
+        private UsersView()
         {
             this.InitializeComponent();
-            this.MessagingViewBindingSource.Add(MessagingViewModel.Instance);
+            UsersViewModel.Instance.Controller = this;
+            this.MessagingViewBindingSource.Add(UsersViewModel.Instance);
 
             MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -59,16 +60,14 @@ namespace IRC_Client.Views
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((MethodInvoker)delegate
-                {
-                    HandleSession(info);
-                });
+                Utils.ControlInvoke(this, () => HandleSession(info));
+                return;
             }
             if (info.IsLogged)
             {
                 LoggedClient client = new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port);
-                MessagingViewModel.Instance.LoggedUsers.Add(client);
-                Utils.ControlInvoke(this, () => UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]")));
+                UsersViewModel.Instance.LoggedUsers.Add(client);
+                UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]"));
             }
         }
 
@@ -95,25 +94,18 @@ namespace IRC_Client.Views
                 return;
 
             int val = UserList.SelectedIndices[0];
-            MessagingViewModel.Instance.InviteClient(MessagingViewModel.Instance.LoggedUsers[val]);
-        }
-
-        private void RefreshButtonClick(object sender, EventArgs e)
-        {
-            RefreshUsers();
+            UsersViewModel.Instance.InviteClient(UsersViewModel.Instance.LoggedUsers[val]);
         }
 
         private void RefreshUsers()
         {
-            MessagingViewModel.Instance.UpdateOnlineUsers();
+            UsersViewModel.Instance.UpdateOnlineUsers();
             UserList.Items.Clear();
-            foreach (LoggedClient client in MessagingViewModel.Instance.LoggedUsers)
+            foreach (LoggedClient client in UsersViewModel.Instance.LoggedUsers)
             {
                 ListViewItem item = new ListViewItem(client.RealName + " [" + client.Nickname + "]");
                 UserList.Items.Add(item);
             }
-            UserList.Items.Add(new ListViewItem("Random [cenas]"));
-            UserList.Items.Add(new ListViewItem("Bla [oi]"));
         }
     }
 }

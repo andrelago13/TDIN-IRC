@@ -31,6 +31,7 @@ namespace IRC_Client.Views
                 {
                     instance = new ChatView();
                 }
+
                 return instance;
             }
             set
@@ -39,9 +40,10 @@ namespace IRC_Client.Views
             }
         }
 
-        private ChatView()
+        public ChatView()
         {
             InitializeComponent();
+            ChatViewModel.Instance.Controller = this;
             ChatViewModelBindingSource.Add(ChatViewModel.Instance);
             ChatViewModel.Instance.View = this;
             ChatViewModel.Instance.Pages = ChatTabsControl.TabPages;
@@ -66,12 +68,10 @@ namespace IRC_Client.Views
             }
         }
 
-        public static void StartChatView()
+        public void ShowChatView()
         {
-            if (instance == null)
-                instance = new ChatView();
-
-            instance.Show();
+            if(!instance.Visible)
+                instance.Show();
         }
 
         public void AddChat(IClient client, PeerCommunicator pc)

@@ -1,6 +1,6 @@
 ﻿namespace IRC_Client.Views
 {
-    partial class MessagingView
+    partial class UsersView
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.InviteButton = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.RefreshButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.WelcomeLabel = new MaterialSkin.Controls.MaterialLabel();
             this.UserList = new MaterialSkin.Controls.MaterialListView();
             this.OnlineHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,7 +43,7 @@
             this.InviteButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.InviteButton.Depth = 0;
             this.InviteButton.Icon = null;
-            this.InviteButton.Location = new System.Drawing.Point(6, 602);
+            this.InviteButton.Location = new System.Drawing.Point(74, 602);
             this.InviteButton.MouseState = MaterialSkin.MouseState.HOVER;
             this.InviteButton.Name = "InviteButton";
             this.InviteButton.Primary = true;
@@ -53,22 +52,6 @@
             this.InviteButton.Text = "Invite to Chat";
             this.InviteButton.UseVisualStyleBackColor = true;
             this.InviteButton.MouseCaptureChanged += new System.EventHandler(this.InviteButtonClick);
-            // 
-            // RefreshButton
-            // 
-            this.RefreshButton.AutoSize = true;
-            this.RefreshButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.RefreshButton.Depth = 0;
-            this.RefreshButton.Icon = null;
-            this.RefreshButton.Location = new System.Drawing.Point(156, 602);
-            this.RefreshButton.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RefreshButton.Name = "RefreshButton";
-            this.RefreshButton.Primary = true;
-            this.RefreshButton.Size = new System.Drawing.Size(111, 36);
-            this.RefreshButton.TabIndex = 5;
-            this.RefreshButton.Text = "Refresh List";
-            this.RefreshButton.UseVisualStyleBackColor = true;
-            this.RefreshButton.MouseCaptureChanged += new System.EventHandler(this.RefreshButtonClick);
             // 
             // WelcomeLabel
             // 
@@ -95,8 +78,6 @@
             this.UserList.Font = new System.Drawing.Font("Roboto", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
             this.UserList.FullRowSelect = true;
             this.UserList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.UserList.HideSelection = false;
-            this.UserList.ImeMode = System.Windows.Forms.ImeMode.On;
             this.UserList.LabelWrap = false;
             this.UserList.Location = new System.Drawing.Point(6, 111);
             this.UserList.MouseLocation = new System.Drawing.Point(-1, -1);
@@ -116,18 +97,17 @@
             // 
             // MessagingViewBindingSource
             // 
-            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.MessagingViewModel);
+            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.UsersViewModel);
             // 
-            // MessagingView
+            // UsersView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(273, 656);
             this.Controls.Add(this.UserList);
             this.Controls.Add(this.WelcomeLabel);
-            this.Controls.Add(this.RefreshButton);
             this.Controls.Add(this.InviteButton);
-            this.Name = "MessagingView";
+            this.Name = "UsersView";
             this.Text = "Relay Chat";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MessagingViewClosing);
             this.Load += new System.EventHandler(this.MessagingViewLoad);
@@ -140,7 +120,6 @@
         #endregion
         private System.Windows.Forms.BindingSource MessagingViewBindingSource;
         private MaterialSkin.Controls.MaterialRaisedButton InviteButton;
-        private MaterialSkin.Controls.MaterialRaisedButton RefreshButton;
         private MaterialSkin.Controls.MaterialLabel WelcomeLabel;
         private MaterialSkin.Controls.MaterialListView UserList;
         private System.Windows.Forms.ColumnHeader OnlineHeader;

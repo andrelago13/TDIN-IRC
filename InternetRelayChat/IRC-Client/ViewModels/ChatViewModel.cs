@@ -30,9 +30,6 @@ namespace IRC_Client.ViewModels
                 return instance;
             }
         }
-        
-        public ChatView View { get; set; }
-        public TabPageCollection Pages { get; set; }
 
         private ChatViewModel()
         {
@@ -42,6 +39,9 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Accessors
+        public Control Controller { get; set; }
+        public ChatView View { get; set; }
+        public TabPageCollection Pages { get; set; }
 
         private string messageText;
 
@@ -57,7 +57,7 @@ namespace IRC_Client.ViewModels
                 if (messageText != value)
                 {
                     messageText = value;
-                    this.NotifyPropertyChanged(nameof(MessageText));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(MessageText)));
                 }
             }
         }
@@ -89,13 +89,13 @@ namespace IRC_Client.ViewModels
 
         public void StartChat(IClient client)
         {
-            if(View == null)
+            if (View == null)
             {
                 View = ChatView.Instance;
             }
             PeerCommunicator pc = Client.Instance.GetClientCommunicator(client);
-            View?.AddChat(client, pc);
-            View?.Show();
+            View.AddChat(client, pc);
+            View.ShowChatView();
         }
 
         public void SendMessage()

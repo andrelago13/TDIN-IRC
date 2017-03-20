@@ -53,8 +53,7 @@ namespace IRC_Client.ViewModels
                 if(this.Client.Nickname != value)
                 {
                     this.Client.Nickname = value;
-                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Nickname)));
-                    
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Nickname)));   
                 }
             }
         }

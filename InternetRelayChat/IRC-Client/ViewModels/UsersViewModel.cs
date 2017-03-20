@@ -13,25 +13,25 @@ using System.Windows.Forms;
 
 namespace IRC_Client.ViewModels
 {
-    class MessagingViewModel : INotifyPropertyChanged
+    class UsersViewModel : INotifyPropertyChanged
     {
         #region Singleton
 
-        private static MessagingViewModel instance;
+        private static UsersViewModel instance;
 
-        public static MessagingViewModel Instance
+        public static UsersViewModel Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new MessagingViewModel();
+                    instance = new UsersViewModel();
                 return instance;
             }
         }
 
         private Client Client;
 
-        private MessagingViewModel()
+        private UsersViewModel()
         {
             this.Client = Client.Instance;
             this.Client.NewChatEvent += HandleChat;
@@ -40,6 +40,7 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Accessors
+        public Control Controller { get; set; }
 
         public string WelcomeText
         {
@@ -61,8 +62,8 @@ namespace IRC_Client.ViewModels
                 if (this.Client.Nickname != value)
                 {
                     this.Client.Nickname = value;
-                    this.NotifyPropertyChanged(nameof(Nickname));
-                    this.NotifyPropertyChanged(nameof(WelcomeText));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Nickname)));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(WelcomeText)));
                 }
             }
         }
@@ -79,7 +80,7 @@ namespace IRC_Client.ViewModels
                 if (this.Client.Password != value)
                 {
                     this.Client.Password = value;
-                    this.NotifyPropertyChanged(nameof(Password));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(Password)));
                 }
             }
         }
@@ -96,7 +97,7 @@ namespace IRC_Client.ViewModels
                 if (this.Client.RealName != value)
                 {
                     this.Client.RealName = value;
-                    this.NotifyPropertyChanged(nameof(RealName));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(RealName)));
                 }
             }
         }
@@ -115,7 +116,7 @@ namespace IRC_Client.ViewModels
                 if (this.loggedUsers != value)
                 {
                     this.loggedUsers = value;
-                    this.NotifyPropertyChanged(nameof(LoggedUsers));
+                    Utils.ControlInvoke(this.Controller, () => this.NotifyPropertyChanged(nameof(LoggedUsers)));
                 }
             }
         }
@@ -154,7 +155,7 @@ namespace IRC_Client.ViewModels
 
         public void HandleChat(IClient sender)
         {
-            MessagingView.Instance.Invoke(new MethodInvoker(delegate ()
+            UsersView.Instance.Invoke(new MethodInvoker(delegate ()
             {
                 ChatViewModel.Instance.StartChat(sender);
             }));

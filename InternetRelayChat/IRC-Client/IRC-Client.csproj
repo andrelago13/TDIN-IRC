@@ -51,7 +51,7 @@
     <Compile Include="Models\ServerConnection.cs" />
     <Compile Include="Models\SessionSubscriber.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
-    <Compile Include="ViewModels\MessagingViewModel.cs" />
+    <Compile Include="ViewModels\UsersViewModel.cs" />
     <Compile Include="Views\ChatTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -73,11 +73,11 @@
     <Compile Include="Views\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MessagingView.cs">
+    <Compile Include="Views\UsersView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MessagingView.Designer.cs">
-      <DependentUpon>MessagingView.cs</DependentUpon>
+    <Compile Include="Views\UsersView.Designer.cs">
+      <DependentUpon>UsersView.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -111,8 +111,8 @@
     <EmbeddedResource Include="Views\MainView.resx">
       <DependentUpon>MainView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\MessagingView.resx">
-      <DependentUpon>MessagingView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\UsersView.resx">
+      <DependentUpon>UsersView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

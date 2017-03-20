@@ -37,15 +37,17 @@ namespace IRC_Client.Views
             if(validLogin)
             {
                 Hide();
-                MessagingView.Instance.ShowDialog();
+                UsersView.Instance.ShowDialog();
                 Show();
             }
+            LoginButton.Enabled = true;
         }
 
         private async void RegisterButtonClick(object sender, EventArgs e)
         {
             RegisterButton.Enabled = false;
             await Task.Run<bool>(() => MainViewModel.Instance.Register());
+            RegisterButton.Enabled = true;
         }
     }
 }
