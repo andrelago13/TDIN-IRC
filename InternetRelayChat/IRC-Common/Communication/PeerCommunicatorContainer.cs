@@ -1,6 +1,11 @@
-﻿using System;
+﻿using IRC_Client.Comunication;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace IRC_Client.Comunication
+namespace IRC_Common.Communication
 {
     public class PeerCommunicatorContainer : MarshalByRefObject
     {

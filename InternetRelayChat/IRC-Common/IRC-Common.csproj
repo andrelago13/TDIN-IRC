@@ -40,6 +40,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\Connection.cs" />
+    <Compile Include="Communication\PeerCommunicator.cs" />
+    <Compile Include="Communication\PeerCommunicatorContainer.cs" />
     <Compile Include="Interfaces\IClient.cs" />
     <Compile Include="Interfaces\IServer.cs" />
     <Compile Include="Interfaces\ISessionSubscriber.cs" />

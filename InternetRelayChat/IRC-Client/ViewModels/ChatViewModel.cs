@@ -2,7 +2,6 @@
 using IRC_Client.Models;
 using IRC_Client.Views;
 using IRC_Common;
-using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -78,7 +77,7 @@ namespace IRC_Client.ViewModels
             Client.Instance.MessageEvent -= HandleMessage;
         }
 
-        public void HandleMessage(Client sender, string message)
+        public void HandleMessage(IClient sender, string message)
         {
             foreach (TabPage page in Pages)
             {

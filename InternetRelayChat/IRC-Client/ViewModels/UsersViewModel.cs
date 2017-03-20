@@ -1,7 +1,6 @@
 ﻿using IRC_Client.Models;
 using IRC_Client.Views;
 using IRC_Common;
-using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,9 +101,9 @@ namespace IRC_Client.ViewModels
             }
         }
 
-        private List<LoggedClient> loggedUsers = new List<LoggedClient>();
+        private List<IClient> loggedUsers = new List<IClient>();
 
-        public List<LoggedClient> LoggedUsers
+        public List<IClient> LoggedUsers
         {
             get
             {
@@ -130,7 +129,7 @@ namespace IRC_Client.ViewModels
             this.LoggedUsers = this.Client.ServerConnection.Connection.LoggedUsers(this.Nickname);
         }
 
-        public async void InviteClient(LoggedClient client)
+        public async void InviteClient(IClient client)
         {
             bool res = await Task.Run(() => Client.Instance.InviteClient(client));
         }

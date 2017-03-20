@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace IRC_Common.Models
 {
-    [Serializable]
     public class LoggedClient : IClient
     {
-        public LoggedClient(string nickname) : base(nickname) { }
+        public LoggedClient(string nickname, string name, string address, int port) : base(nickname, name, address, port)
+        {
+        }
 
-        public LoggedClient(string nickname, string realname, string address, int port)
-            : base(nickname, realname, address, port) { }
+        public override bool HandleInvite(IClient requestingClient)
+        {
+            return false;
+        }
+
+        public override void ReceiveMessage(IClient sender, string message)
+        {
+        }
     }
 }

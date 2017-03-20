@@ -45,9 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientLauncher.cs" />
-    <Compile Include="Models\Connection.cs" />
-    <Compile Include="Communication\PeerCommunicator.cs" />
-    <Compile Include="Communication\PeerCommunicatorContainer.cs" />
     <Compile Include="Models\ServerConnection.cs" />
     <Compile Include="Models\SessionSubscriber.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />

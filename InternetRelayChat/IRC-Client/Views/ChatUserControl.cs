@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IRC_Common.Models;
 using IRC_Common;
 using IRC_Client.Comunication;
 
