@@ -35,6 +35,11 @@ namespace IRC_Server.Models
         #region Invites
         public async void InviteAllUsers()
         {
+            // Add owner communicator
+            PeerCommunicator communicator = Utils.GetClientCommunicator(this.Owner);
+            this.Peers.Add(this.Owner.Nickname, communicator);
+
+            // Invite other users
             bool result;
             foreach(IClient client in Users)
             {
@@ -51,7 +56,7 @@ namespace IRC_Server.Models
                 return false;
 
             PeerCommunicator communicator = Utils.GetClientCommunicator(client);
-            bool result = communicator.RequestChat(Owner);
+            bool result = communicator.RequestGroupChat(Owner, this.Hash);
             if (result)
             {
                 this.Peers.Add(client.Nickname, communicator);
@@ -64,12 +69,12 @@ namespace IRC_Server.Models
         public void SendMessage(IClient sender, string message)
         {
             PeerCommunicator communicator;
-            foreach(IClient client in Users)
+            foreach(IClient client in this.Users)
             {
-                if (client.Equals(sender))
+                if (client.Nickname.Equals(sender.Nickname))
                     continue;
 
-                if (!Peers.TryGetValue(client.Nickname, out communicator))
+                if (!this.Peers.TryGetValue(client.Nickname, out communicator))
                     return;
 
                 communicator.SendGroupMessage(sender, this.Hash, message);

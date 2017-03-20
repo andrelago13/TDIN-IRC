@@ -46,11 +46,11 @@ namespace IRC_Client.Views
             Controls.Add(control);
         }
 
-        public void SendMessage(string message)
+        public async void SendMessage(string message)
         {
             if(GroupHash == null)
             {
-                pc.SendMessage(Client.Instance, message);
+                await Task.Run(() => pc.SendMessage(Client.Instance, message));
             }
             else
             {
@@ -62,7 +62,7 @@ namespace IRC_Client.Views
                 if (server == null)
                     return;
 
-                server.SendMessageChatRoom(Client.Instance, GroupHash, message);
+                await Task.Run(() => server.SendMessageChatRoom(Client.Instance, GroupHash, message));
             }
 
             control.SendMessage(message);
@@ -85,7 +85,7 @@ namespace IRC_Client.Views
 
         public bool HandleGroupMessage(IClient sender, string hash, string message)
         {
-            if (hash.Equals(this.GroupHash))
+            if (!hash.Equals(this.GroupHash))
                 return false;
 
             if (message == null || message.Length == 0)
