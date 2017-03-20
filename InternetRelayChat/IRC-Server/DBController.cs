@@ -144,6 +144,32 @@ namespace IRC_Server
             return result;
         }
 
+        public static string GetUserRealName(SQLiteConnection conn, string nickname)
+        {
+            SQLiteCommand command = new SQLiteCommand(null, conn);
+            command.CommandText = "SELECT realname FROM users WHERE nickname = @nick";
+
+            SQLiteParameter nickParam = new SQLiteParameter("@nick", DbType.String);
+            nickParam.Value = nickname;
+
+            command.Parameters.Add(nickParam);
+
+            string result = null;
+            command.Prepare();
+            conn.Open();
+            using (SQLiteDataReader r = command.ExecuteReader())
+            {
+                if (r.Read())
+                {
+                    result = r.GetString(0);
+                }
+                r.Close();
+            }
+            conn.Close();
+
+            return result;
+        }
+
         public static void TruncateSessions(SQLiteConnection conn)
         {
             SQLiteCommand command1 = new SQLiteCommand(null, conn);

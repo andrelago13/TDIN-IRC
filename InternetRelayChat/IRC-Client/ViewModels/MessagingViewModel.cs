@@ -1,4 +1,6 @@
 ﻿using IRC_Client.Models;
+using IRC_Client.Views;
+using IRC_Common;
 using IRC_Common.Models;
 using System;
 using System.Collections.Generic;
@@ -7,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace IRC_Client.ViewModels
 {
     class MessagingViewModel : INotifyPropertyChanged
     {
         #region Singleton
+
         private static MessagingViewModel instance;
 
         public static MessagingViewModel Instance
@@ -24,16 +28,19 @@ namespace IRC_Client.ViewModels
                 return instance;
             }
         }
-        #endregion
 
         private Client Client;
 
         private MessagingViewModel()
         {
             this.Client = Client.Instance;
+            this.Client.NewChatEvent += HandleChat;
         }
 
+        #endregion
+
         #region Accessors
+
         public string WelcomeText
         {
             get
@@ -51,7 +58,7 @@ namespace IRC_Client.ViewModels
 
             set
             {
-                if(this.Client.Nickname != value)
+                if (this.Client.Nickname != value)
                 {
                     this.Client.Nickname = value;
                     this.NotifyPropertyChanged(nameof(Nickname));
@@ -96,7 +103,8 @@ namespace IRC_Client.ViewModels
 
         private List<LoggedClient> loggedUsers = new List<LoggedClient>();
 
-        public List<LoggedClient> LoggedUsers {
+        public List<LoggedClient> LoggedUsers
+        {
             get
             {
                 return this.loggedUsers;
@@ -115,6 +123,7 @@ namespace IRC_Client.ViewModels
         #endregion
 
         #region Public Methods
+
         public void UpdateOnlineUsers()
         {
             this.LoggedUsers = this.Client.ServerConnection.Connection.LoggedUsers(this.Nickname);
@@ -122,11 +131,13 @@ namespace IRC_Client.ViewModels
 
         public async void InviteClient(LoggedClient client)
         {
-            bool res = await Task.Run(() => Client.Instance.InviteClient(client.Address, client.Port));
+            bool res = await Task.Run(() => Client.Instance.InviteClient(client));
         }
+
         #endregion
 
         #region Property Change
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(String info)
@@ -136,6 +147,19 @@ namespace IRC_Client.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        #endregion
+
+        #region Peer to Peer
+
+        public void HandleChat(IClient sender)
+        {
+            MessagingView.Instance.Invoke(new MethodInvoker(delegate ()
+            {
+                ChatViewModel.Instance.StartChat(sender);
+            }));
+        }
+
         #endregion
     }
 }

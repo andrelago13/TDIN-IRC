@@ -14,6 +14,7 @@ namespace IRC_Client.ViewModels
     class MainViewModel : INotifyPropertyChanged
     {
         #region Singleton
+
         private static MainViewModel instance;
 
         public static MainViewModel Instance
@@ -26,15 +27,16 @@ namespace IRC_Client.ViewModels
             }
         }
 
+        private Client Client;
+        private Connection ServerConnection;
+
         private MainViewModel()
         {
             this.Client = Client.Instance;
             this.ServerConnection = this.Client.ServerConnection;
         }
-        #endregion
 
-        private Client Client;
-        private Connection ServerConnection;
+        #endregion
 
         #region Accessors
 

@@ -19,7 +19,26 @@ namespace IRC_Client.Views
 {
     public partial class MessagingView : MaterialForm
     {
-        public MessagingView()
+        private static MessagingView instance;
+        public static MessagingView Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new MessagingView();
+                return instance;
+            }
+        }
+
+        public static bool Exists
+        {
+            get
+            {
+                return instance != null;
+            }
+        }
+
+        private MessagingView()
         {
             this.InitializeComponent();
             this.MessagingViewBindingSource.Add(MessagingViewModel.Instance);
@@ -40,11 +59,12 @@ namespace IRC_Client.Views
         {
             if (this.InvokeRequired)
             {
-                this.Invoke((MethodInvoker)delegate {
+                this.Invoke((MethodInvoker)delegate
+                {
                     HandleSession(info);
                 });
             }
-            if(info.IsLogged)
+            if (info.IsLogged)
             {
                 MessagingViewModel.Instance.LoggedUsers.Add(new LoggedClient(info.Nickname, info.RealName, info.Address, info.Port));
             }
@@ -56,6 +76,11 @@ namespace IRC_Client.Views
 
         private void MessagingViewClosing(object sender, FormClosingEventArgs e)
         {
+            if(ChatView.Exists)
+            {
+                ChatView.Instance.Terminate();
+            }
+
             try
             {
                 Client.Instance.MaybeLogout();
