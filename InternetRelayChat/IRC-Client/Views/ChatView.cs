@@ -80,6 +80,12 @@ namespace IRC_Client.Views
             ChatTabsControl.TabPages.Add(t);
         }
 
+        public void AddGroupChat(string hash)
+        {
+            ChatTabPage t = new ChatTabPage(hash);
+            ChatTabsControl.TabPages.Add(t);
+        }
+
         public void Terminate()
         {
             Dispose();

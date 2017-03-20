@@ -17,8 +17,18 @@ namespace IRC_Common.Models
             return false;
         }
 
+        public override bool HandleGroupInvite(IClient requestingClient, string hash)
+        {
+            return false;
+        }
+
         public override void ReceiveMessage(IClient sender, string message)
         {
         }
+
+        public override void ReceiveGroupMessage(IClient sender, string hash, string message)
+        {
+        }
+
     }
 }

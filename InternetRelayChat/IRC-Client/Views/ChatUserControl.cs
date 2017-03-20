@@ -33,6 +33,16 @@ namespace IRC_Client.Views
             AddCenterText("] <====" + System.Environment.NewLine, neutralColor);
         }
 
+        public ChatUserControl(string hash)
+        {
+            InitializeComponent();
+            Dock = DockStyle.Fill;
+
+            AddCenterText("====> Group chat [", neutralColor);
+            AddCenterText(hash, peerColor);
+            AddCenterText("] <====" + System.Environment.NewLine, neutralColor);
+        }
+
         public void SendMessage(string message)
         {
             Utils.ControlInvoke(this, () => AddRightText(message + System.Environment.NewLine, myUserColor));
@@ -41,6 +51,11 @@ namespace IRC_Client.Views
         public void ReceiveMessage(string message)
         {
             Utils.ControlInvoke(this, () => AddLeftText("[" + user.Nickname + "] => " + message + System.Environment.NewLine, peerColor));
+        }
+
+        public void ReceiveGroupMessage(IClient client, string message)
+        {
+            Utils.ControlInvoke(this, () => AddLeftText("[" + client.Nickname + "] => " + message + System.Environment.NewLine, peerColor));
         }
 
         private void AddCenterText(string text, Color color)

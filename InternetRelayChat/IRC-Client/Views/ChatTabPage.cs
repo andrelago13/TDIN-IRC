@@ -13,6 +13,7 @@ namespace IRC_Client.Views
     class ChatTabPage : TabPage
     {
         private IClient user;
+        private string GroupHash;
         private PeerCommunicator pc;
         private ChatUserControl control;
 
@@ -23,16 +24,47 @@ namespace IRC_Client.Views
             Initialize();
         }
 
+        public ChatTabPage(string group)
+        {
+            this.GroupHash = group;
+            Initialize();
+        }
+
         private void Initialize()
         {
-            control = new ChatUserControl(user, pc);
+            if (this.GroupHash == null)
+            {
+                control = new ChatUserControl(user, pc);
+                Text = user?.RealName;
+            }
+            else
+            {
+                control = new ChatUserControl(this.GroupHash);
+                Text = this.GroupHash;
+            }
+
             Controls.Add(control);
-            Text = user?.RealName;
         }
 
         public void SendMessage(string message)
         {
-            pc.SendMessage(Client.Instance, message);
+            if(GroupHash == null)
+            {
+                pc.SendMessage(Client.Instance, message);
+            }
+            else
+            {
+                ServerConnection serverConnection = Client.Instance.ServerConnection;
+                if (serverConnection == null)
+                    return;
+
+                IServer server = serverConnection.Connection;
+                if (server == null)
+                    return;
+
+                server.SendMessageChatRoom(Client.Instance, GroupHash, message);
+            }
+
             control.SendMessage(message);
         }
 
@@ -47,6 +79,21 @@ namespace IRC_Client.Views
             }
 
             control.ReceiveMessage(message);
+
+            return true;
+        }
+
+        public bool HandleGroupMessage(IClient sender, string hash, string message)
+        {
+            if (hash.Equals(this.GroupHash))
+                return false;
+
+            if (message == null || message.Length == 0)
+            {
+                this.Dispose();
+            }
+
+            control.ReceiveGroupMessage(sender, message);
 
             return true;
         }

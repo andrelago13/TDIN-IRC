@@ -34,6 +34,7 @@ namespace IRC_Client.ViewModels
         {
             this.Client = Client.Instance;
             this.Client.NewChatEvent += HandleChat;
+            this.Client.NewGroupChatEvent += HandleGroupChat;
         }
 
         #endregion
@@ -134,6 +135,11 @@ namespace IRC_Client.ViewModels
             bool res = await Task.Run(() => Client.Instance.InviteClient(client));
         }
 
+        public async void InviteClients(List<IClient> clients)
+        {
+            bool res = await Task.Run(() => Client.Instance.InviteClients(clients));
+        }
+
         #endregion
 
         #region Property Change
@@ -155,6 +161,11 @@ namespace IRC_Client.ViewModels
         public void HandleChat(IClient sender)
         {
             Utils.ControlInvoke(this.Controller, () => ChatViewModel.Instance.StartChat(sender));
+        }
+
+        public void HandleGroupChat(string hash)
+        {
+            Utils.ControlInvoke(this.Controller, () => ChatViewModel.Instance.StartGroupChat(hash));
         }
 
         #endregion

@@ -76,7 +76,13 @@ namespace IRC_Client.Views
 
             if(UserList.SelectedIndices.Count > 1)
             {
+                List<IClient> users = new List<IClient>();
+                foreach(int index in UserList.SelectedIndices)
+                {
+                    users.Add(UsersViewModel.Instance.LoggedUsers[index]);
+                }
 
+                UsersViewModel.Instance.InviteClients(users);
             } else
             {
                 int selectedUser = UserList.SelectedIndices[0];

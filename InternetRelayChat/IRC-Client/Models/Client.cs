@@ -79,7 +79,9 @@ namespace IRC_Client.Models
         #region PeerToPeer
         private PeerCommunicator Communicator { get; set; }
         public event HandleMessage MessageEvent;
+        public event HandleGroupMessage MessageGroupEvent;
         public event HandleChat NewChatEvent;
+        public event HandleGroupChat NewGroupChatEvent;
         private Dictionary<string, PeerCommunicator> peers = new Dictionary<string, PeerCommunicator>();
 
         public bool InviteClient(IClient client)
@@ -97,6 +99,24 @@ namespace IRC_Client.Models
             return result;
         }
 
+        public bool InviteClients(List<IClient> clients)
+        {
+            ServerConnection serverConnection = Client.Instance.ServerConnection;
+            if (serverConnection == null)
+                return false;
+
+            IServer server = serverConnection.Connection;
+            if (server == null)
+                return false;
+
+            string chatRoomHash = server.CreateChatRoom(Client.Instance, clients);
+            if (chatRoomHash != "")
+            {
+                NewGroupChatEvent?.Invoke(chatRoomHash);
+            }
+            return chatRoomHash != "";
+        }
+
         public override bool HandleInvite(IClient requestingClient)
         {
             var confirmResult = MessageBox.Show(requestingClient.RealName + " [" + requestingClient.Nickname +
@@ -112,9 +132,28 @@ namespace IRC_Client.Models
             return false;
         }
 
+        public override bool HandleGroupInvite(IClient requestingClient, string hash)
+        {
+            var confirmResult = MessageBox.Show(requestingClient.RealName + " [" + requestingClient.Nickname +
+    "] invited you to group chat (" + hash + ") . Do you want accept his invite?", "Chat invite",
+                         MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                NewGroupChatEvent?.Invoke(hash);
+                return true;
+            }
+
+            return false;
+        }
+
         public override void ReceiveMessage(IClient sender, string message)
         {
             MessageEvent?.Invoke(sender, message);
+        }
+
+        public override void ReceiveGroupMessage(IClient sender, string hash, string message)
+        {
+            MessageGroupEvent?.Invoke(sender, hash, message);
         }
 
         private void SetupPeerCommunicator()

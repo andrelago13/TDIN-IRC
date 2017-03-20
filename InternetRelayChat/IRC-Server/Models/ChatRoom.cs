@@ -22,6 +22,7 @@ namespace IRC_Server.Models
         {
             this.Owner = owner;
             this.Users = users;
+            this.Users.Add(owner);
             this.Peers = new Dictionary<string, PeerCommunicator>();
 
             // Generate random hash
@@ -37,6 +38,8 @@ namespace IRC_Server.Models
             bool result;
             foreach(IClient client in Users)
             {
+                if (client.Equals(this.Owner))
+                    continue;
                 result = await Task.Run<bool>(() => InviteUser(client));
                 Console.WriteLine("Client: " + client.Nickname + " answered " + result);
             }
@@ -63,10 +66,13 @@ namespace IRC_Server.Models
             PeerCommunicator communicator;
             foreach(IClient client in Users)
             {
+                if (client.Equals(sender))
+                    continue;
+
                 if (!Peers.TryGetValue(client.Nickname, out communicator))
                     return;
 
-                communicator.SendMessage(sender, message);
+                communicator.SendGroupMessage(sender, this.Hash, message);
             }
         }
         #endregion

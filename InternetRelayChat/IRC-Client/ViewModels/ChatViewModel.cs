@@ -70,11 +70,13 @@ namespace IRC_Client.ViewModels
         public void Start()
         {
             Client.Instance.MessageEvent += HandleMessage;
+            Client.Instance.MessageGroupEvent += HandleGroupMessage;
         }
 
         public void Finish()
         {
             Client.Instance.MessageEvent -= HandleMessage;
+            Client.Instance.MessageGroupEvent -= HandleGroupMessage;
         }
 
         public void HandleMessage(IClient sender, string message)
@@ -82,6 +84,15 @@ namespace IRC_Client.ViewModels
             foreach (TabPage page in Pages)
             {
                 if (((ChatTabPage)page).HandleMessage(sender, message))
+                    return;
+            }
+        }
+
+        public void HandleGroupMessage(IClient sender, string hash, string message)
+        {
+            foreach (TabPage page in Pages)
+            {
+                if (((ChatTabPage)page).HandleGroupMessage(sender, hash, message))
                     return;
             }
         }
@@ -94,6 +105,16 @@ namespace IRC_Client.ViewModels
             }
             PeerCommunicator pc = Utils.GetClientCommunicator(client);
             View.AddChat(client, pc);
+            View.ShowChatView();
+        }
+
+        public void StartGroupChat(string hash)
+        {
+            if (View == null)
+            {
+                View = ChatView.Instance;
+            }
+            View.AddGroupChat(hash);
             View.ShowChatView();
         }
 
