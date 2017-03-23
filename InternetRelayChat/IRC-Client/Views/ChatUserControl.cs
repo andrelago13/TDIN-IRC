@@ -28,6 +28,7 @@ namespace IRC_Client.Views
 
             this.user = user;
             this.pc = pc;
+            Enabled = false;
             AddCenterText("====> Chatting with " + user.RealName + " [", neutralColor);
             AddCenterText(user.Nickname, peerColor);
             AddCenterText("] <====" + System.Environment.NewLine, neutralColor);
@@ -37,7 +38,7 @@ namespace IRC_Client.Views
         {
             InitializeComponent();
             Dock = DockStyle.Fill;
-
+            Enabled = false;
             AddCenterText("====> Group chat [", neutralColor);
             AddCenterText(hash, peerColor);
             AddCenterText("] <====" + System.Environment.NewLine, neutralColor);
