@@ -30,5 +30,8 @@ namespace IRC_Common.Models
         {
         }
 
+        public override void EndCommunication(IClient sender)
+        {
+        }
     }
 }

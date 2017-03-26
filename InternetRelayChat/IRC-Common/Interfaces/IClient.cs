@@ -40,5 +40,7 @@ namespace IRC_Common
         public abstract void ReceiveMessage(IClient sender, string message);
 
         public abstract void ReceiveGroupMessage(IClient sender, string hash, string message);
+
+        public abstract void EndCommunication(IClient sender);
     }
 }

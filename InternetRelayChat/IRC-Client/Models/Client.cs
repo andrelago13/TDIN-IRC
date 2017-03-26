@@ -82,6 +82,7 @@ namespace IRC_Client.Models
         public event HandleGroupMessage MessageGroupEvent;
         public event HandleChat NewChatEvent;
         public event HandleGroupChat NewGroupChatEvent;
+        public event HandleEndCommunication EndCommunicationEvent;
         private Dictionary<string, PeerCommunicator> peers = new Dictionary<string, PeerCommunicator>();
 
         public bool InviteClient(IClient client)
@@ -164,9 +165,10 @@ namespace IRC_Client.Models
                 "IRC-Client/PeerCommunicator", WellKnownObjectMode.Singleton);
         }
 
-        public void EndCommunication(string nickname)
+        public override void EndCommunication(IClient sender)
         {
-            peers.Remove(nickname);
+            EndCommunicationEvent?.Invoke(sender);
+            peers.Remove(sender.Nickname);
         }
 
         #endregion

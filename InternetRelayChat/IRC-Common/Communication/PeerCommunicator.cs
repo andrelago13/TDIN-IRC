@@ -7,6 +7,7 @@ namespace IRC_Client.Comunication
     public delegate void HandleGroupMessage(IClient sender, string hash, string message);
     public delegate void HandleChat(IClient sender);
     public delegate void HandleGroupChat(string hash);
+    public delegate void HandleEndCommunication(IClient sender);
 
     public class PeerCommunicator : MarshalByRefObject
     {
@@ -35,6 +36,11 @@ namespace IRC_Client.Comunication
         public void SendGroupMessage(IClient sender, string hash, string message)
         {
             MyClient.ReceiveGroupMessage(sender, hash, message);
+        }
+
+        public void CloseChat(IClient sender)
+        {
+            MyClient.EndCommunication(sender);
         }
     }
 }

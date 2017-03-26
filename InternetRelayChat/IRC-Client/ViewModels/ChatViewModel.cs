@@ -71,12 +71,18 @@ namespace IRC_Client.ViewModels
         {
             Client.Instance.MessageEvent += HandleMessage;
             Client.Instance.MessageGroupEvent += HandleGroupMessage;
+            Client.Instance.EndCommunicationEvent += HandleEndCommunication;
         }
 
         public void Finish()
         {
             Client.Instance.MessageEvent -= HandleMessage;
             Client.Instance.MessageGroupEvent -= HandleGroupMessage;
+            Client.Instance.EndCommunicationEvent -= HandleEndCommunication;
+            foreach (TabPage page in Pages)
+            {
+                ((ChatTabPage)page).EndCommunication();
+            }
         }
 
         public void HandleMessage(IClient sender, string message)
@@ -94,6 +100,14 @@ namespace IRC_Client.ViewModels
             {
                 if (((ChatTabPage)page).HandleGroupMessage(sender, hash, message))
                     return;
+            }
+        }
+
+        public void HandleEndCommunication(IClient sender)
+        {
+            foreach (TabPage page in Pages)
+            {
+                ((ChatTabPage)page).HandleEndCommunication(sender);
             }
         }
 

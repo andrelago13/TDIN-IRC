@@ -97,5 +97,21 @@ namespace IRC_Client.Views
 
             return true;
         }
+
+        public bool HandleEndCommunication(IClient sender)
+        {
+            if (sender.Nickname != user.Nickname)
+                return false;
+
+            this.Dispose();
+
+            return true;
+        }
+
+        public void EndCommunication()
+        {
+            // TODO end group chat messages
+            //pc.CloseChat(Client.Instance);
+        }
     }
 }

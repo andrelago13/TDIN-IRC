@@ -167,7 +167,7 @@ namespace IRC_Client.ViewModels
         {
             Utils.ControlInvoke(this.Controller, () => ChatViewModel.Instance.StartGroupChat(hash));
         }
-
+        
         #endregion
     }
 }
