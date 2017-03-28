@@ -90,7 +90,16 @@ namespace IRC_Client.Models
             if (client == null)
                 return false;
 
-            PeerCommunicator pc = Utils.GetClientCommunicator(client);
+            PeerCommunicator pc;
+            if (peers.TryGetValue(client.Nickname, out pc))
+            {
+                MessageBox.Show(client.RealName + " [" + client.Nickname +
+                "] is already chatting with you!", "Invitation Not Allowed",
+                                     MessageBoxButtons.OK);
+                return false;
+            }
+
+            pc = Utils.GetClientCommunicator(client);
             bool result = pc.RequestChat(this);
             if(result)
             {
