@@ -49,5 +49,10 @@ namespace IRC_Client.Views
             await Task.Run<bool>(() => MainViewModel.Instance.Register());
             RegisterButton.Enabled = true;
         }
+
+        private void MainView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

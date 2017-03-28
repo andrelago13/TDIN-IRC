@@ -70,6 +70,9 @@ namespace IRC_Client.Views
 
         public bool HandleMessage(IClient sender, string message)
         {
+            if (user == null)
+                return false;
+
             if(sender.Nickname != user.Nickname)
                 return false;
 
@@ -85,6 +88,9 @@ namespace IRC_Client.Views
 
         public bool HandleGroupMessage(IClient sender, string hash, string message)
         {
+            if (this.GroupHash == null)
+                return false;
+
             if (!hash.Equals(this.GroupHash))
                 return false;
 

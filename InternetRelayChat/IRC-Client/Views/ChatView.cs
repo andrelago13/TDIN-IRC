@@ -70,7 +70,10 @@ namespace IRC_Client.Views
 
         public void ShowChatView()
         {
-            if(!instance.Visible)
+            if (instance.IsDisposed)
+                instance = new ChatView();
+
+            if (!instance.Visible)
                 instance.Show();
         }
 

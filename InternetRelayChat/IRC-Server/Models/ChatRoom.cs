@@ -75,7 +75,7 @@ namespace IRC_Server.Models
                     continue;
 
                 if (!this.Peers.TryGetValue(client.Nickname, out communicator))
-                    return;
+                    continue;
 
                 communicator.SendGroupMessage(sender, this.Hash, message);
             }
