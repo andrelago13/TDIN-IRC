@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.InviteButton = new MaterialSkin.Controls.MaterialRaisedButton();
             this.WelcomeLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.UserList = new MaterialSkin.Controls.MaterialListView();
             this.OnlineHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.MessagingViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.MessagingViewBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,6 +67,10 @@
             this.WelcomeLabel.TabIndex = 6;
             this.WelcomeLabel.Text = "Welcome";
             // 
+            // MessagingViewBindingSource
+            // 
+            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.UsersViewModel);
+            // 
             // UserList
             // 
             this.UserList.Activation = System.Windows.Forms.ItemActivation.OneClick;
@@ -84,7 +88,7 @@
             this.UserList.MouseState = MaterialSkin.MouseState.OUT;
             this.UserList.Name = "UserList";
             this.UserList.OwnerDraw = true;
-            this.UserList.Size = new System.Drawing.Size(261, 485);
+            this.UserList.Size = new System.Drawing.Size(255, 485);
             this.UserList.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.UserList.TabIndex = 9;
             this.UserList.UseCompatibleStateImageBehavior = false;
@@ -93,11 +97,7 @@
             // OnlineHeader
             // 
             this.OnlineHeader.Text = "Online Users";
-            this.OnlineHeader.Width = 251;
-            // 
-            // MessagingViewBindingSource
-            // 
-            this.MessagingViewBindingSource.DataSource = typeof(IRC_Client.ViewModels.UsersViewModel);
+            this.OnlineHeader.Width = 258;
             // 
             // UsersView
             // 
