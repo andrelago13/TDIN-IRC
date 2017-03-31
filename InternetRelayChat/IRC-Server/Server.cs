@@ -95,7 +95,6 @@ namespace IRC_Server
             bool sessionCreated = DBController.CreateUpdateSession(conn, nickname, ip, port);
             if (sessionCreated)
             {
-                //TODO: start heartbeat connection with client
                 MyHandler?.Invoke(new LoggedClient(nickname, DBController.GetUserRealName(conn, nickname), ip, port));
             }
             return sessionCreated;
@@ -111,8 +110,9 @@ namespace IRC_Server
                 return false;
             }
 
+            IClient client = new LoggedClient(nickname, DBController.GetUserRealName(conn, nickname), null, 0);
+            MyHandler?.Invoke(client);
             bool sessionEnded = DBController.EndSession(conn, nickname);
-            //TODO: terminate heartbeat connection with client
             return sessionEnded;
         }
 

@@ -79,14 +79,19 @@ namespace IRC_Client.Views
 
         public void AddChat(IClient client, PeerCommunicator pc)
         {
-            ChatTabPage t = new ChatTabPage(client, pc);
+            ChatTabPage t = new ChatTabPage(client, pc, this);
             ChatTabsControl.TabPages.Add(t);
         }
 
         public void AddGroupChat(string hash)
         {
-            ChatTabPage t = new ChatTabPage(hash);
+            ChatTabPage t = new ChatTabPage(hash, this);
             ChatTabsControl.TabPages.Add(t);
+        }
+
+        public void RemoveTab(ChatTabPage tab)
+        {
+            ChatTabsControl.TabPages.Remove(tab);
         }
 
         public void Terminate()

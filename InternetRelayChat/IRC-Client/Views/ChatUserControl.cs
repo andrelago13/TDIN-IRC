@@ -46,16 +46,22 @@ namespace IRC_Client.Views
 
         public void SendMessage(string message)
         {
+            if (message == null)
+                return;
             Utils.ControlInvoke(this, () => AddRightText(message + System.Environment.NewLine, myUserColor));
         }
 
         public void ReceiveMessage(string message)
         {
+            if (message == null)
+                return;
             Utils.ControlInvoke(this, () => AddLeftText("[" + user.Nickname + "] => " + message + System.Environment.NewLine, peerColor));
         }
 
         public void ReceiveGroupMessage(IClient client, string message)
         {
+            if (message == null)
+                return;
             Utils.ControlInvoke(this, () => AddLeftText("[" + client.Nickname + "] => " + message + System.Environment.NewLine, peerColor));
         }
 

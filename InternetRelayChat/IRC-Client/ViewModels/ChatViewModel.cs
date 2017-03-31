@@ -82,6 +82,8 @@ namespace IRC_Client.ViewModels
             foreach (TabPage page in Pages)
             {
                 ((ChatTabPage)page).EndCommunication();
+                page.Dispose();
+                Pages.Remove(page);
             }
         }
 

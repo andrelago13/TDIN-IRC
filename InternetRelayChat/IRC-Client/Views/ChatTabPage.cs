@@ -10,23 +10,26 @@ using System.Windows.Forms;
 
 namespace IRC_Client.Views
 {
-    class ChatTabPage : TabPage
+    public class ChatTabPage : TabPage
     {
         private IClient user;
         private string GroupHash;
         private PeerCommunicator pc;
         private ChatUserControl control;
+        private ChatView view;
 
-        public ChatTabPage(IClient user, PeerCommunicator pc)
+        public ChatTabPage(IClient user, PeerCommunicator pc, ChatView view)
         {
             this.user = user;
             this.pc = pc;
+            this.view = view;
             Initialize();
         }
 
-        public ChatTabPage(string group)
+        public ChatTabPage(string group, ChatView view)
         {
             this.GroupHash = group;
+            this.view = view;
             Initialize();
         }
 
@@ -78,7 +81,8 @@ namespace IRC_Client.Views
 
             if(message == null || message.Length == 0)
             {
-                this.Dispose();
+                MessageBox.Show(sender.RealName + " has left the conversation.", "User disconnected", MessageBoxButtons.OK);
+                Terminate();
             }
 
             control.ReceiveMessage(message);
@@ -96,7 +100,8 @@ namespace IRC_Client.Views
 
             if (message == null || message.Length == 0)
             {
-                this.Dispose();
+                MessageBox.Show(sender.RealName + " has left the conversation.", "User disconnected", MessageBoxButtons.OK);
+                Terminate();
             }
 
             control.ReceiveGroupMessage(sender, message);
@@ -109,15 +114,40 @@ namespace IRC_Client.Views
             if (sender.Nickname != user.Nickname)
                 return false;
 
-            this.Dispose();
+            Terminate();
 
             return true;
         }
 
-        public void EndCommunication()
+        public void Terminate()
         {
-            // TODO end group chat messages
-            //pc.CloseChat(Client.Instance);
+            Utils.ControlInvoke(this, () =>
+            {
+                view.RemoveTab(this);
+                this.Dispose();
+            });
+        }
+
+        public async void EndCommunication()
+        {
+            if (GroupHash == null)
+            {
+                await Task.Run(() => pc.SendMessage(Client.Instance, null));
+            }
+            else
+            {
+                ServerConnection serverConnection = Client.Instance.ServerConnection;
+                if (serverConnection == null)
+                    return;
+
+                IServer server = serverConnection.Connection;
+                if (server == null)
+                    return;
+
+                await Task.Run(() => server.SendMessageChatRoom(Client.Instance, GroupHash, null));
+            }
+
+            control.SendMessage(null);
         }
     }
 }

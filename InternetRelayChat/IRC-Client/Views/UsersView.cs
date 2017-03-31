@@ -50,11 +50,22 @@ namespace IRC_Client.Views
                 UsersViewModel.Instance.LoggedUsers.Add(client);
                 UserList.Items.Add(new ListViewItem(client.RealName + " [" + client.Nickname + "]"));
             }
+            else
+            {
+                foreach (ListViewItem item in UserList.Items)
+                {
+                    if(item.Text.StartsWith(info.RealName))
+                    {
+                        UserList.Items.Remove(item);
+                        break;
+                    }
+                }
+            }
         }
 
         private void MessagingViewClosing(object sender, FormClosingEventArgs e)
         {
-            if(ChatView.Exists)
+            if (ChatView.Exists)
             {
                 ChatView.Instance.Terminate();
             }
@@ -74,16 +85,17 @@ namespace IRC_Client.Views
             if (UserList.SelectedIndices.Count == 0)
                 return;
 
-            if(UserList.SelectedIndices.Count > 1)
+            if (UserList.SelectedIndices.Count > 1)
             {
                 List<IClient> users = new List<IClient>();
-                foreach(int index in UserList.SelectedIndices)
+                foreach (int index in UserList.SelectedIndices)
                 {
                     users.Add(UsersViewModel.Instance.LoggedUsers[index]);
                 }
 
                 UsersViewModel.Instance.InviteClients(users);
-            } else
+            }
+            else
             {
                 int selectedUser = UserList.SelectedIndices[0];
                 UsersViewModel.Instance.InviteClient(UsersViewModel.Instance.LoggedUsers[selectedUser]);
