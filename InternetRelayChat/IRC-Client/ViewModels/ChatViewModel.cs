@@ -85,6 +85,7 @@ namespace IRC_Client.ViewModels
                 page.Dispose();
                 Pages.Remove(page);
             }
+            instance = null;
         }
 
         public void HandleMessage(IClient sender, string message)

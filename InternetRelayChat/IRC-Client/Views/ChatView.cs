@@ -97,6 +97,7 @@ namespace IRC_Client.Views
         public void Terminate()
         {
             Dispose();
+            instance = null;
         }
 
         #endregion
@@ -111,6 +112,7 @@ namespace IRC_Client.Views
         private void ChatView_FormClosing(object sender, FormClosingEventArgs e)
         {
             ChatViewModel.Instance.Finish();
+            Terminate();
         }
 
         private void ChatTabsControl_SelectedIndexChanged(object sender, EventArgs e)
